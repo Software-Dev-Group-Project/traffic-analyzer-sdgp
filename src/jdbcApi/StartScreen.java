@@ -49,7 +49,7 @@ public class StartScreen extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Version Number 1.03");
+        jLabel2.setText("Version Number 1.04");
 
         jButton1.setBackground(new java.awt.Color(51, 204, 0));
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N

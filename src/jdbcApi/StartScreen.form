@@ -127,7 +127,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Version Number 1.03"/>
+                <Property name="text" type="java.lang.String" value="Version Number 1.04"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton1">
