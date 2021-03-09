@@ -1,5 +1,5 @@
 
-package jdbcApi;
+package jdbcApi.trafficDataLogic;
 
 import java.sql.Connection;
 import java.sql.Driver;
