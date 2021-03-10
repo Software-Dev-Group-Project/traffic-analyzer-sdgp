@@ -56,7 +56,6 @@ public class SignUp extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(820, 570));
         setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(11, 58, 83));
@@ -91,6 +90,7 @@ public class SignUp extends javax.swing.JFrame {
         btnSignUp.setForeground(new java.awt.Color(255, 255, 255));
         btnSignUp.setText("Confirm");
         btnSignUp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSignUp.setOpaque(true);
         btnSignUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSignUpActionPerformed(evt);
@@ -102,6 +102,7 @@ public class SignUp extends javax.swing.JFrame {
         btnBackSignUp.setForeground(new java.awt.Color(255, 255, 255));
         btnBackSignUp.setText("Back");
         btnBackSignUp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnBackSignUp.setOpaque(true);
         btnBackSignUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackSignUpActionPerformed(evt);
@@ -189,7 +190,7 @@ public class SignUp extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
