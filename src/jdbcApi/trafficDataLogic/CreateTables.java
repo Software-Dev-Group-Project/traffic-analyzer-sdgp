@@ -11,6 +11,7 @@ public class CreateTables {
         Statement statement = null;
         String sqlQuery;
         
+        // Query for all tables as in the Logical ERD
         sqlQuery = "DROP TABLE IF EXISTS Region;\n" +
                     "DROP TABLE IF EXISTS LocalAuthority;\n" +
                     "DROP TABLE IF EXISTS Road;\n" +
@@ -81,12 +82,14 @@ public class CreateTables {
                     ");";
         
         try {
+            // Execute the SQL query
             statement = conn.createStatement();
             statement.executeUpdate(sqlQuery);
             conn.commit();
         } catch (SQLException ex) {
             System.err.println("SQLException: " + ex.getMessage());
         } finally {
+            // Close execution and connection
             if (statement != null) {
                 try {
                     statement.close();
