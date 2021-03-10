@@ -44,8 +44,6 @@ public class StartScreen extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(11, 58, 83));
         jPanel2.setForeground(new java.awt.Color(14, 56, 84));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\gerva\\Documents\\NetBeansProjects\\LATA\\images\\LOGO_Navy.png")); // NOI18N
-
         jLabel2.setFont(new java.awt.Font("Calibri Light", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -57,8 +55,8 @@ public class StartScreen extends javax.swing.JFrame {
         jButton1.setText("START");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.setFocusPainted(false);
+        jButton1.setOpaque(true);
         jButton1.setRequestFocusEnabled(false);
-        jButton1.setRolloverEnabled(false);
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jButton1MouseEntered(evt);
