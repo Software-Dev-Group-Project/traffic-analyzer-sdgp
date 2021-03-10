@@ -34,7 +34,7 @@ public class CreateTables {
                     "\n" +
                     "CREATE TABLE Road\n" +
                     "(\n" +
-                    "	road_id INTEGER PRIMARY_KEY AUTO_INCREMENT,\n" +
+                    "	road_id INTEGER PRIMARY KEY,\n" +
                     "	road_name varchar(30) not null,\n" +
                     "	road_type varchar(30) not null,\n" +
                     "	local_authority_id int(3),\n" +
@@ -59,7 +59,7 @@ public class CreateTables {
                     "\n" +
                     "CREATE TABLE CountEntry\n" +
                     "(\n" +
-                    "count_entry_id INTEGER PRIMARY_KEY AUTO_INCREMENT,\n" +
+                    "count_entry_id INTEGER PRIMARY KEY,\n" +
                     "entry_year int(4) not null,\n" +
                     "count_date DATE not null,\n" +
                     "entry_hour int(2) not null,\n" +
