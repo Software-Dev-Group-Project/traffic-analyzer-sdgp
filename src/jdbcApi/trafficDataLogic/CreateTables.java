@@ -33,11 +33,10 @@ public class CreateTables {
                     "\n" +
                     "CREATE TABLE Road\n" +
                     "(\n" +
-                    "	road_id int(2) auto_increment,\n" +
+                    "	road_id INTEGER PRIMARY_KEY AUTO_INCREMENT,\n" +
                     "	road_name varchar(30) not null,\n" +
                     "	road_type varchar(30) not null,\n" +
                     "	local_authority_id int(3),\n" +
-                    "	constraint r_rid_pk primary key (road_id),\n" +
                     "	constraint r_laid_fk foreign key (local_authority_id) references LocalAuthority(local_authority_id)\n" +
                     ");\n" +
                     "\n" +
@@ -59,7 +58,7 @@ public class CreateTables {
                     "\n" +
                     "CREATE TABLE CountEntry\n" +
                     "(\n" +
-                    "count_entry_id int(4) auto_increment,\n" +
+                    "count_entry_id INTEGER PRIMARY_KEY AUTO_INCREMENT,\n" +
                     "entry_year int(4) not null,\n" +
                     "count_date DATE not null,\n" +
                     "entry_hour int(2) not null,\n" +
@@ -78,7 +77,6 @@ public class CreateTables {
                     "all_hgvs int(5) not null,\n" +
                     "all_motor_vehicles int(5) not null,\n" +
                     "count_point_id int(6),\n" +
-                    "constraint ce_ceid_pk primary key (count_entry_id),\n" +
                     "constraint ce_cpid_fk foreign key (count_point_id) references CountPoint(count_point_id)\n" +
                     ");";
         
