@@ -6,6 +6,7 @@
 package jdbcApi;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
@@ -61,6 +62,11 @@ public class Login extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(11, 58, 83));
         jPanel3.setPreferredSize(new java.awt.Dimension(820, 570));
+        jPanel3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jPanel3KeyTyped(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -85,13 +91,17 @@ public class Login extends javax.swing.JFrame {
                 txtFieldPasswordActionPerformed(evt);
             }
         });
+        txtFieldPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFieldPasswordKeyPressed(evt);
+            }
+        });
 
         btnExit.setBackground(new java.awt.Color(255, 0, 0));
         btnExit.setForeground(new java.awt.Color(255, 255, 255));
         btnExit.setText("EXIT");
         btnExit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnExit.setFocusPainted(false);
-        btnExit.setOpaque(true);
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
@@ -103,7 +113,6 @@ public class Login extends javax.swing.JFrame {
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("LOGIN");
         btnLogin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnLogin.setOpaque(true);
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnLoginMouseEntered(evt);
@@ -122,7 +131,6 @@ public class Login extends javax.swing.JFrame {
         btnSignUp.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnSignUp.setText("SIGN UP");
         btnSignUp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnSignUp.setOpaque(true);
         btnSignUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSignUpActionPerformed(evt);
@@ -306,6 +314,51 @@ public class Login extends javax.swing.JFrame {
     private void btnLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseExited
         btnLogin.setBackground(new Color(51,204,0));
     }//GEN-LAST:event_btnLoginMouseExited
+
+    private void txtFieldPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldPasswordKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        // pressing the Log in button upon clicking enter , Just for fun
+        
+   }
+    }//GEN-LAST:event_txtFieldPasswordKeyPressed
+
+    private void jPanel3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel3KeyTyped
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        String username = txtFieldUsername.getText();
+        //String empty = " ";
+        //System.out.println("Username: "+username);
+        if(txtFieldUsername.getText().equals("")|txtFieldPassword.getText().equals("")){
+        
+            JOptionPane.showMessageDialog(null, "Please sign in correctly! ");
+            System.out.println("Details have not been given, try again! ");
+        }else{
+            String sql = "SELECT * from Accounts WHERE Username LIKE ? AND Password LIKE ?; ";
+            try{
+                ps = con.prepareStatement(sql);
+                //Getting user input for GUI
+                ps.setString(1, txtFieldUsername.getText());
+                ps.setString(2, txtFieldPassword.getText());
+                //Executing the two statements
+                rs = ps.executeQuery();
+                
+
+                if(rs.next()){
+                    JOptionPane.showMessageDialog(null, "Username: "+username+ ", Login has been successful!");
+                    System.out.println("Username: "+ username + " has loged in");
+                    setVisible(false);
+                    new HomeScreen().setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Username: "+username+ ", has not been found \nor password is not correct, please sign up!");
+                    System.out.println("Username: "+ username + " has not been found, Sign up! ");
+                }
+            }
+            catch(Exception e){
+                System.out.println("User was not found");
+            }
+        }
+        
+   }
+    }//GEN-LAST:event_jPanel3KeyTyped
 
     /**
      * @param args the command line arguments
