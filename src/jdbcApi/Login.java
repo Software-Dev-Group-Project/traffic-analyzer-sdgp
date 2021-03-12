@@ -6,6 +6,7 @@
 package jdbcApi;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import javax.swing.JOptionPane;
 
@@ -85,13 +86,17 @@ public class Login extends javax.swing.JFrame {
                 txtFieldPasswordActionPerformed(evt);
             }
         });
+        txtFieldPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtFieldPasswordKeyPressed(evt);
+            }
+        });
 
         btnExit.setBackground(new java.awt.Color(255, 0, 0));
         btnExit.setForeground(new java.awt.Color(255, 255, 255));
         btnExit.setText("EXIT");
         btnExit.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnExit.setFocusPainted(false);
-        btnExit.setOpaque(true);
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExitActionPerformed(evt);
@@ -103,7 +108,6 @@ public class Login extends javax.swing.JFrame {
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("LOGIN");
         btnLogin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnLogin.setOpaque(true);
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnLoginMouseEntered(evt);
@@ -122,7 +126,6 @@ public class Login extends javax.swing.JFrame {
         btnSignUp.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btnSignUp.setText("SIGN UP");
         btnSignUp.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnSignUp.setOpaque(true);
         btnSignUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSignUpActionPerformed(evt);
@@ -306,6 +309,13 @@ public class Login extends javax.swing.JFrame {
     private void btnLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseExited
         btnLogin.setBackground(new Color(51,204,0));
     }//GEN-LAST:event_btnLoginMouseExited
+
+    private void txtFieldPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldPasswordKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        // pressing the Log in button upon clicking enter , Just for fun
+        
+   }
+    }//GEN-LAST:event_txtFieldPasswordKeyPressed
 
     /**
      * @param args the command line arguments
