@@ -62,11 +62,6 @@ public class Login extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(11, 58, 83));
         jPanel3.setPreferredSize(new java.awt.Dimension(820, 570));
-        jPanel3.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jPanel3KeyTyped(evt);
-            }
-        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -321,44 +316,6 @@ public class Login extends javax.swing.JFrame {
         
    }
     }//GEN-LAST:event_txtFieldPasswordKeyPressed
-
-    private void jPanel3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel3KeyTyped
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
-        String username = txtFieldUsername.getText();
-        //String empty = " ";
-        //System.out.println("Username: "+username);
-        if(txtFieldUsername.getText().equals("")|txtFieldPassword.getText().equals("")){
-        
-            JOptionPane.showMessageDialog(null, "Please sign in correctly! ");
-            System.out.println("Details have not been given, try again! ");
-        }else{
-            String sql = "SELECT * from Accounts WHERE Username LIKE ? AND Password LIKE ?; ";
-            try{
-                ps = con.prepareStatement(sql);
-                //Getting user input for GUI
-                ps.setString(1, txtFieldUsername.getText());
-                ps.setString(2, txtFieldPassword.getText());
-                //Executing the two statements
-                rs = ps.executeQuery();
-                
-
-                if(rs.next()){
-                    JOptionPane.showMessageDialog(null, "Username: "+username+ ", Login has been successful!");
-                    System.out.println("Username: "+ username + " has loged in");
-                    setVisible(false);
-                    new HomeScreen().setVisible(true);
-                }else{
-                    JOptionPane.showMessageDialog(null, "Username: "+username+ ", has not been found \nor password is not correct, please sign up!");
-                    System.out.println("Username: "+ username + " has not been found, Sign up! ");
-                }
-            }
-            catch(Exception e){
-                System.out.println("User was not found");
-            }
-        }
-        
-   }
-    }//GEN-LAST:event_jPanel3KeyTyped
 
     /**
      * @param args the command line arguments
