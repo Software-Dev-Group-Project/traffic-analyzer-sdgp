@@ -225,6 +225,11 @@ public class HomeScreen extends javax.swing.JFrame {
                 adminButtonMouseClicked(evt);
             }
         });
+        adminButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminButtonActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -356,7 +361,7 @@ public class HomeScreen extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
         );
 
         pack();
@@ -373,8 +378,8 @@ public class HomeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void adminButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminButtonMouseClicked
-        new UserActivity().setVisible(true);
-        this.setVisible(false);
+        //new UserActivity().setVisible(true);
+        //this.setVisible(false);
     }//GEN-LAST:event_adminButtonMouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
@@ -401,6 +406,15 @@ public class HomeScreen extends javax.swing.JFrame {
         new Panel4().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_panel4bttnMouseClicked
+
+    private void adminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminButtonActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AdminVerification().setVisible(true);
+                setVisible(false);
+            }
+        });
+    }//GEN-LAST:event_adminButtonActionPerformed
 //WHATEVER BRO 
     /**
      * @param args the command line arguments
