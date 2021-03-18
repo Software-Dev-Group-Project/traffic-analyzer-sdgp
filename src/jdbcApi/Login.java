@@ -258,7 +258,7 @@ public class Login extends javax.swing.JFrame {
 
         if (txtFieldUsername.getText().equals("") | txtFieldPassword.getText().equals("")) {
 
-            JOptionPane.showMessageDialog(null, "Please sign in correctly! ");
+            JOptionPane.showMessageDialog(null, "One or more fields are empty, try again!");
             System.out.println("Details have not been given, try again! ");
         } else {
 
@@ -269,7 +269,7 @@ public class Login extends javax.swing.JFrame {
                 rs = ps.executeQuery();
 
                 if (!rs.next()) {
-                    JOptionPane.showMessageDialog(null, "Please sign in correctly!");
+                    JOptionPane.showMessageDialog(null, "Account has not been found \nor password is not correct, Try again!");
                 } else {
                     do {
                         String Salt = rs.getString("Salt");

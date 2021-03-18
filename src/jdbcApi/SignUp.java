@@ -340,29 +340,10 @@ public class SignUp extends javax.swing.JFrame {
                     System.out.println("Registration has failed: Username is not avaliable! ");
                 }
                 
-                /*try{
-                    String sql = "INSERT INTO Accounts VALUES (?,?);";
-                    ps = con.prepareStatement(sql);
-                    ps.setString(1, txtFieldUsernameSignUp.getText());
-                    ps.setString(2, txtFieldPasswordSignUp.getText());
-                    ps.execute();
-                    System.out.println("User: "+ txtFieldUsernameSignUp.getText()+" has been registered successfully");
-                    JOptionPane.showMessageDialog(null, " Username: "+username+" has been registered successfully! ");
-                    
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                        new Login().setVisible(true);
-                        setVisible(false);
-                    }
-                });
-                }
-                catch(Exception e){
-                    JOptionPane.showMessageDialog(null, " Username: "+username+" is not available! ");
-                    System.out.println("Registration has failed: Username is not avaliable! ");
-                }*/
             
             }else{
                 System.out.println("Password Validation NOT Successful!, Try Again! ");
+                JOptionPane.showMessageDialog(null, " Password does not match, try again ");
             }
             
         }
