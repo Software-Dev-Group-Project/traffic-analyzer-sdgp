@@ -262,8 +262,8 @@ public class AdminVerification extends javax.swing.JFrame {
                         String Hash = rs.getString("Hash");
 
                         if (PasswordUtills.verifyUserPassword(txtFieldPasswordAV.getText(), Hash, Salt)) {
-                            JOptionPane.showMessageDialog(null, "Username: "+username+ ", Login has been successful!");
-                            System.out.println("Username: "+ username + " has loged in");
+                            JOptionPane.showMessageDialog(null, "Username: "+username+ ", has been authorised!");
+                            System.out.println("Username: "+ username + " has been authorised!");
                             
                             //Takes user to admin screen
                             java.awt.EventQueue.invokeLater(() -> {
