@@ -7,6 +7,7 @@ package jdbcApi;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -14,6 +15,7 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.jdbc.JDBCCategoryDataset;
 
 /**
  *
@@ -41,15 +43,25 @@ public class Panel1 extends javax.swing.JFrame {
     }
     
     private CategoryDataset createDataset() {
-        DefaultCategoryDataset data = new DefaultCategoryDataset();
         
-        data.setValue(200, "West", "Something");
-        data.setValue(100, "East", "Something");
-        data.setValue(250, "West", "Som3452ng");
-        data.setValue(260, "North", "2352ng");
-        data.setValue(300, "South", "5325Some");
+        try {
+            String sqlQuery = "SELECT entry_year, SUM(all_motor_vehicles) from CountEntry GROUP BY entry_year";
+            JDBCCategoryDataset jdbc = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
+            return jdbc;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return null;
         
-        return data;
+//        DefaultCategoryDataset data = new DefaultCategoryDataset();
+//        
+//        data.setValue(200, "West", "Something");
+//        data.setValue(100, "East", "Something");
+//        data.setValue(250, "West", "Som3452ng");
+//        data.setValue(260, "North", "2352ng");
+//        data.setValue(300, "South", "5325Some");
+//        
+//        return data;
     }
     
     private JFreeChart createChart(CategoryDataset dataset) {
