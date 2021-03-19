@@ -12,6 +12,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
@@ -27,25 +28,43 @@ public class Panel1 extends javax.swing.JFrame {
     
     public Panel1() {
         initComponents();
-        DefaultCategoryDataset barChartData = new DefaultCategoryDataset();
-        barChartData.setValue(200, "Vehicle per day", "Something");
-        barChartData.setValue(100, "Vehicle per day", "Song");
-        barChartData.setValue(250, "Vehicle per day", "Som3452ng");
-        barChartData.setValue(260, "Vehicle per day", "2352ng");
-        barChartData.setValue(300, "Vehicle per day", "5325Some");
         
-        JFreeChart chartData = ChartFactory.createBarChart("Chart Title", "Monthly", "Amount", barChartData, PlotOrientation.HORIZONTAL, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled);
-        CategoryPlot chart = chartData.getCategoryPlot();
-        chart.setRangeGridlinePaint(Color.blue);
+        CategoryDataset dataset = createDataset();
+        JFreeChart chart = createChart(dataset);
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.setRangeGridlinePaint(Color.yellow);
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setSize(900, 400);
         
-        ChartPanel chartPanel = new ChartPanel(chartData);
-        chartPanel.setSize(1233, 549);
-        
-//        content.removeAll();
-//        content.setPreferredSize(new java.awt.Dimension(800, 600));
-        content.add(chartPanel, BorderLayout.CENTER);
+        content.add(chartPanel, BorderLayout.SOUTH);
         content.validate();
     }
+    
+    private CategoryDataset createDataset() {
+        DefaultCategoryDataset data = new DefaultCategoryDataset();
+        
+        data.setValue(200, "West", "Something");
+        data.setValue(100, "East", "Something");
+        data.setValue(250, "West", "Som3452ng");
+        data.setValue(260, "North", "2352ng");
+        data.setValue(300, "South", "5325Some");
+        
+        return data;
+    }
+    
+    private JFreeChart createChart(CategoryDataset dataset) {
+        JFreeChart chart = ChartFactory.createBarChart(
+                "",
+                "Road name", 
+                "Avg per day", 
+                dataset, 
+                PlotOrientation.HORIZONTAL, 
+                rootPaneCheckingEnabled, 
+                rootPaneCheckingEnabled, 
+                rootPaneCheckingEnabled);
+        return chart;
+    }
+    
     
     /**
      * @param args the command line arguments
@@ -334,7 +353,7 @@ public class Panel1 extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Avg number of Vehicles/day in Bracknell Forest by Road and Direction");
+        jLabel2.setText("Traffic Volume in Bracknell Forest by Road and Direction");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
