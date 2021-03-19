@@ -52,16 +52,6 @@ public class Panel1 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         return null;
-        
-//        DefaultCategoryDataset data = new DefaultCategoryDataset();
-//        
-//        data.setValue(200, "West", "Something");
-//        data.setValue(100, "East", "Something");
-//        data.setValue(250, "West", "Som3452ng");
-//        data.setValue(260, "North", "2352ng");
-//        data.setValue(300, "South", "5325Some");
-//        
-//        return data;
     }
     
     private JFreeChart createChart(CategoryDataset dataset) {
