@@ -5,7 +5,14 @@
  */
 package jdbcApi;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -20,6 +27,24 @@ public class Panel1 extends javax.swing.JFrame {
     
     public Panel1() {
         initComponents();
+        DefaultCategoryDataset barChartData = new DefaultCategoryDataset();
+        barChartData.setValue(200, "Vehicle per day", "Something");
+        barChartData.setValue(100, "Vehicle per day", "Song");
+        barChartData.setValue(250, "Vehicle per day", "Som3452ng");
+        barChartData.setValue(260, "Vehicle per day", "2352ng");
+        barChartData.setValue(300, "Vehicle per day", "5325Some");
+        
+        JFreeChart chartData = ChartFactory.createBarChart("Chart Title", "Monthly", "Amount", barChartData, PlotOrientation.HORIZONTAL, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled);
+        CategoryPlot chart = chartData.getCategoryPlot();
+        chart.setRangeGridlinePaint(Color.blue);
+        
+        ChartPanel chartPanel = new ChartPanel(chartData);
+        chartPanel.setSize(1233, 549);
+        
+//        content.removeAll();
+//        content.setPreferredSize(new java.awt.Dimension(800, 600));
+        content.add(chartPanel, BorderLayout.CENTER);
+        content.validate();
     }
     
     /**
@@ -274,7 +299,8 @@ public class Panel1 extends javax.swing.JFrame {
 
         Main.setBackground(new java.awt.Color(11, 58, 83));
 
-        content.setBackground(new java.awt.Color(204, 255, 204));
+        content.setBackground(new java.awt.Color(255, 255, 255));
+        content.setSize(new java.awt.Dimension(1233, 549));
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
