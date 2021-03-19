@@ -78,8 +78,9 @@ public class Panel1 extends javax.swing.JFrame {
         settings = new javax.swing.JPanel();
         bl5 = new javax.swing.JLabel();
         Main = new javax.swing.JPanel();
-        pan1 = new javax.swing.JPanel();
+        content = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -273,16 +274,16 @@ public class Panel1 extends javax.swing.JFrame {
 
         Main.setBackground(new java.awt.Color(11, 58, 83));
 
-        pan1.setBackground(new java.awt.Color(204, 255, 204));
+        content.setBackground(new java.awt.Color(204, 255, 204));
 
-        javax.swing.GroupLayout pan1Layout = new javax.swing.GroupLayout(pan1);
-        pan1.setLayout(pan1Layout);
-        pan1Layout.setHorizontalGroup(
-            pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1221, Short.MAX_VALUE)
+        javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
+        content.setLayout(contentLayout);
+        contentLayout.setHorizontalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1233, Short.MAX_VALUE)
         );
-        pan1Layout.setVerticalGroup(
-            pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        contentLayout.setVerticalGroup(
+            contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 549, Short.MAX_VALUE)
         );
 
@@ -292,18 +293,22 @@ public class Panel1 extends javax.swing.JFrame {
             MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pan1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         MainLayout.setVerticalGroup(
             MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pan1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jdbcApi/LATA_LOGO_XS.png"))); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Avg number of Vehicles/day in Bracknell Forest by Road and Direction");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -316,6 +321,8 @@ public class Panel1 extends javax.swing.JFrame {
                     .addComponent(Main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(logo)
+                        .addGap(80, 80, 80)
+                        .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -324,7 +331,9 @@ public class Panel1 extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(logo)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(logo)
+                    .addComponent(jLabel2))
                 .addGap(13, 13, 13)
                 .addComponent(Main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -410,9 +419,10 @@ public class Panel1 extends javax.swing.JFrame {
     private javax.swing.JLabel bl3;
     private javax.swing.JLabel bl4;
     private javax.swing.JLabel bl5;
+    private javax.swing.JPanel content;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel logo;
-    private javax.swing.JPanel pan1;
     private javax.swing.JPanel settings;
     // End of variables declaration//GEN-END:variables
 }
