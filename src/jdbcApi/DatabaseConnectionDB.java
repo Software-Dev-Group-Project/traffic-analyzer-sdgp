@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 /*
  * @author gervais
  */
-public class createDB {
+public class DatabaseConnectionDB {
 
     /*
      * @param args the command line arguments
@@ -20,7 +20,7 @@ public class createDB {
         try{
             //Attempting to establish a connection to database
             Class.forName("org.sqlite.JDBC");
-            Connection con = DriverManager.getConnection("jdbc:sqlite:LATALoginAccountDB.db");
+            Connection con = DriverManager.getConnection("jdbc:sqlite:LATAAccountDB.db");
             System.out.println("Connection has been successful");
             return con;
         }catch(Exception e){

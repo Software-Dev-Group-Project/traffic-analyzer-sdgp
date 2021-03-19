@@ -6,9 +6,16 @@
 package jdbcApi;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.sql.*;
+import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,19 +26,17 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    
     //Used for SQL
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        
-        
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
     public Login() {
         initComponents();
         //When the components of the login form are initialized, we establised the connection
-        
+
         //Calling method within the following class "create DB class"
-        con = createDB.ConnectionDB();
+        con = DatabaseConnectionDB.ConnectionDB();
     }
 
     /**
@@ -183,7 +188,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -191,7 +196,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                .addGap(48, 48, 48)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel4))
@@ -199,7 +204,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(75, 75, 75))
+                .addGap(45, 45, 45))
         );
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jdbcApi/LOGO_Navy_Small.png"))); // NOI18N
@@ -213,9 +218,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(173, Short.MAX_VALUE)
+                .addContainerGap(105, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(169, 169, 169))
+                .addGap(101, 101, 101))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,19 +228,19 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
         );
 
         pack();
@@ -247,7 +252,51 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFieldPasswordActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
+        String username = txtFieldUsername.getText();
+
+        String sql = "SELECT * From Accounts WHERE Username = ?;";
+
+        if (txtFieldUsername.getText().equals("") | txtFieldPassword.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(null, "One or more fields are empty, try again!");
+            System.out.println("Details have not been given, try again! ");
+        } else {
+
+            // Source: https://stackoverflow.com/questions/8292256/get-number-of-rows-returned-by-resultset-in-java
+            try {
+                ps = con.prepareStatement(sql);
+                ps.setString(1, txtFieldUsername.getText());
+                rs = ps.executeQuery();
+
+                if (!rs.next()) {
+                    JOptionPane.showMessageDialog(null, "Account has not been found \nor password is not correct, Try again!");
+                } else {
+                    do {
+                        String Salt = rs.getString("Salt");
+                        String Hash = rs.getString("Hash");
+
+                        if (PasswordUtills.verifyUserPassword(txtFieldPassword.getText(), Hash, Salt)) {
+                            JOptionPane.showMessageDialog(null, "Username: "+username+ ", Login has been successful!");
+                            System.out.println("Username: "+ username + " has loged in");
+
+                            java.awt.EventQueue.invokeLater(() -> {
+                                new HomeScreen().setVisible(true);
+                                setVisible(false);
+                            });
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Username: "+username+ ", has not been found \nor password is not correct, please sign up!");
+                            System.out.println("Username: "+ username + " has not been found, Sign up! ");
+                        }
+                    } while (rs.next());
+                }
+            } catch (SQLException ex) {
+                System.out.println("User was not found");
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+// TODO add your handling code here:
+        /*
         String username = txtFieldUsername.getText();
         //String empty = " ";
         //System.out.println("Username: "+username);
@@ -279,7 +328,8 @@ public class Login extends javax.swing.JFrame {
             catch(Exception e){
                 System.out.println("User was not found");
             }
-        }
+        
+        }*/
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -303,18 +353,18 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFieldUsernameActionPerformed
 
     private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
-        btnLogin.setBackground(new Color(27,255,0));
+        btnLogin.setBackground(new Color(27, 255, 0));
     }//GEN-LAST:event_btnLoginMouseEntered
 
     private void btnLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseExited
-        btnLogin.setBackground(new Color(51,204,0));
+        btnLogin.setBackground(new Color(51, 204, 0));
     }//GEN-LAST:event_btnLoginMouseExited
 
     private void txtFieldPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFieldPasswordKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
-        // pressing the Log in button upon clicking enter , Just for fun
-        
-   }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            // pressing the Log in button upon clicking enter , Just for fun
+
+        }
     }//GEN-LAST:event_txtFieldPasswordKeyPressed
 
     /**
@@ -345,7 +395,7 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        /*java.awt.EventQueue.invokeLater(new Runnable() {
+ /*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
             }
