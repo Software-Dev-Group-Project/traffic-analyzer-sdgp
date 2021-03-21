@@ -1,8 +1,11 @@
 package jdbcApi;
 
+import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.awt.Color;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -32,17 +35,31 @@ public class Panel1 extends javax.swing.JFrame {
                     "GROUP BY r.road_name";
     
     public Panel1() {
+        // Generate the Panel components
         initComponents();        
-        // Create Panel instance with default chart
+        
+        // Set up content JPanel layout
+        setContentLayout(content);
+        
+        // Load default chart upon the Panel creation
         CategoryDataset dataset = createDataset(dbConnectionMethod, sqlQuery);
         JFreeChart chart = createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setSize(900, 400);
-        
         content.add(chartPanel);
         content.validate();
     }
     
+    /**
+     * CONTENT LAYOUT AND DESIGN SETUP METHODS
+     */
+    private void setContentLayout(JPanel content) {
+        content.setLayout(new BorderLayout(10,8));
+    }
+    
+    /**
+     * CHART AND DB RELATED METHODS
+     */
     private CategoryDataset createDataset(Connection dbConnectionMethod, String sqlQuery) {
         // Try to connect to DB and execute SQL query
         try {
@@ -295,15 +312,15 @@ public class Panel1 extends javax.swing.JFrame {
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HeaderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(b1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addComponent(b1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(b2, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addComponent(b2, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(b3, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addComponent(b3, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(b4, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addComponent(b4, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(settings, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addComponent(settings, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addGap(17, 17, 17))
         );
         HeaderLayout.setVerticalGroup(
@@ -328,7 +345,7 @@ public class Panel1 extends javax.swing.JFrame {
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1233, Short.MAX_VALUE)
+            .addGap(0, 1245, Short.MAX_VALUE)
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,7 +388,7 @@ public class Panel1 extends javax.swing.JFrame {
                         .addComponent(logo)
                         .addGap(80, 80, 80)
                         .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 354, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
