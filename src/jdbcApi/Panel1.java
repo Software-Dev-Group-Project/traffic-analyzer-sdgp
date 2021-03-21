@@ -1,5 +1,6 @@
 package jdbcApi;
 
+import java.sql.Connection;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
@@ -21,13 +22,20 @@ public class Panel1 extends javax.swing.JFrame {
      * Creates new form Panel1
      */
     
+    // Path to the DB connection method
+    Connection dbConnectionMethod = jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection();
+    // Default query showing all vehicles and bicycles by road from the whole scope
+    String sqlQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles) AS 'All Motor Vehicles and Bicycles'\n" +
+                    "FROM CountEntry ce\n" +
+                    "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
+                    "JOIN Road r ON r.road_id = cp.road_id\n" +
+                    "GROUP BY r.road_name";
+    
     public Panel1() {
         initComponents();        
         // Create Panel instance with default chart
-        CategoryDataset dataset = createDataset();
+        CategoryDataset dataset = createDataset(dbConnectionMethod, sqlQuery);
         JFreeChart chart = createChart(dataset);
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.setRangeGridlinePaint(Color.yellow);
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setSize(900, 400);
         
@@ -35,15 +43,10 @@ public class Panel1 extends javax.swing.JFrame {
         content.validate();
     }
     
-    private CategoryDataset createDataset() {
+    private CategoryDataset createDataset(Connection dbConnectionMethod, String sqlQuery) {
         // Try to connect to DB and execute SQL query
         try {
-            String sqlQuery = "select r.road_name, SUM(ce.all_motor_vehicles) AS 'All motor vehicles'\n" +
-                            "from CountEntry ce\n" +
-                            "join CountPoint cp on cp.count_point_id = ce.count_point_id\n" +
-                            "join Road r on r.road_id = cp.road_id\n" +
-                            "group by r.road_name";
-            JDBCCategoryDataset jdbc = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
+            JDBCCategoryDataset jdbc = new JDBCCategoryDataset(dbConnectionMethod, sqlQuery);
             return jdbc;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
