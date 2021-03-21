@@ -3,7 +3,9 @@ package jdbcApi;
 import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
@@ -55,6 +57,16 @@ public class Panel1 extends javax.swing.JFrame {
      */
     private void setContentLayout(JPanel content) {
         content.setLayout(new BorderLayout(10,8));
+        
+        // Top Panel
+        JPanel topPanel = new JPanel();
+        topPanel.setBackground(Color.RED);
+        topPanel.setLayout(new FlowLayout(5));
+        content.add(topPanel, BorderLayout.NORTH);
+        
+        String[] vehicleTypes = {"bike", "car", "truck"};
+        JComboBox vehicleTypeSelect = new JComboBox(vehicleTypes);
+        topPanel.add(vehicleTypeSelect);
     }
     
     /**
