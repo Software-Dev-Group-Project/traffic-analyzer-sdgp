@@ -3,6 +3,8 @@ package jdbcApi;
 import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -68,30 +70,19 @@ public class Panel1 extends javax.swing.JFrame {
         JPanel sidePanel = new JPanel();
         sidePanel.setBackground(bgColour);
         sidePanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(0, 0, 0, 27),  new EtchedBorder(EtchedBorder.LOWERED)));
-        ArrayList<String> years = new ArrayList<String>();
-        years.add("All");
-        for (int year = minYear; year <= maxYear; year++) {
-            years.add(String.valueOf(year));
-        }
+        
+        sidePanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
         // Side Panel - Create filters
-        JLabel yearLabel = new JLabel("Select year:");
-        JComboBox year = new JComboBox(years.toArray());
-        JLabel roadType = new JLabel("Choose road type:");
-        JRadioButton roadAll = new JRadioButton("All");
-        roadAll.setSelected(true);
-        JRadioButton roadMinor = new JRadioButton("Minor");
-        JRadioButton roadMajor = new JRadioButton("Major");
-        ButtonGroup bg = new ButtonGroup();
-        bg.add(roadAll);
-        bg.add(roadMinor);
-        bg.add(roadMajor);
+        JPanel yearPanel = yearFilter(bgColour);
+        JPanel roadPanel = roadFilter(bgColour);
+        
+        
         // Side Panel - Add filters to the panel
-        sidePanel.add(yearLabel);
-        sidePanel.add(year);
-        sidePanel.add(roadType);
-        sidePanel.add(roadAll);
-        sidePanel.add(roadMinor);
-        sidePanel.add(roadMajor);
+        sidePanel.add(yearPanel, gbc);
+        sidePanel.add(roadPanel, gbc);
+        
+        
         content.add(sidePanel, BorderLayout.EAST);
         
         
@@ -102,6 +93,46 @@ public class Panel1 extends javax.swing.JFrame {
         content.add(left, BorderLayout.WEST);
         JPanel bottom = marginPanel(bgColour);
         content.add(bottom, BorderLayout.SOUTH);
+    }
+    
+    // Year Filter Panel
+    JPanel yearFilter(Color bgColour) {
+        JPanel panel = new JPanel();
+        panel.setBackground(bgColour);
+        ArrayList<String> years = new ArrayList<String>();
+        years.add("All");
+        for (int year = minYear; year <= maxYear; year++) {
+            years.add(String.valueOf(year));
+        }
+        JLabel yearLabel = new JLabel("Selected Year:");
+        JComboBox year = new JComboBox(years.toArray());
+        panel.add(yearLabel);
+        panel.add(year);
+        panel.setBorder(BorderFactory.createTitledBorder("Filter results by Year"));
+        
+        return panel;
+    }
+    
+    // Road Type Filter Panel
+    JPanel roadFilter(Color bgColour) {
+        JPanel panel = new JPanel();
+        panel.setBackground(bgColour);
+        JLabel roadType = new JLabel("Selected type:");
+        JRadioButton roadAll = new JRadioButton("All");
+        roadAll.setSelected(true);
+        JRadioButton roadMinor = new JRadioButton("Minor");
+        JRadioButton roadMajor = new JRadioButton("Major");
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(roadAll);
+        bg.add(roadMinor);
+        bg.add(roadMajor);
+        panel.add(roadType);
+        panel.add(roadAll);
+        panel.add(roadMinor);
+        panel.add(roadMajor);
+        panel.setBorder(BorderFactory.createTitledBorder("Filter result by Road Type"));
+        
+        return panel;
     }
     
     // Panel as margin
