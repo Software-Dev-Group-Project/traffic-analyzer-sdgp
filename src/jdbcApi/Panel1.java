@@ -4,10 +4,7 @@ import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import javax.swing.BorderFactory;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -56,17 +53,34 @@ public class Panel1 extends javax.swing.JFrame {
      * CONTENT LAYOUT AND DESIGN SETUP METHODS
      */
     private void setContentLayout(JPanel content) {
-        content.setLayout(new BorderLayout(10,8));
-        
+        content.setLayout(new BorderLayout(20,28));
         // Top Panel
         JPanel topPanel = new JPanel();
-        topPanel.setBackground(Color.RED);
+        topPanel.setBackground(Color.LIGHT_GRAY);
         topPanel.setLayout(new FlowLayout(5));
-        content.add(topPanel, BorderLayout.NORTH);
         
         String[] vehicleTypes = {"bike", "car", "truck"};
         JComboBox vehicleTypeSelect = new JComboBox(vehicleTypes);
         topPanel.add(vehicleTypeSelect);
+        
+        content.add(topPanel, BorderLayout.NORTH);
+        
+        // Side Panel
+        JPanel sidePanel = new JPanel();
+        sidePanel.setBackground(Color.LIGHT_GRAY);
+//        sidePanel.setLayout(mgr);
+        JRadioButton option1 = new JRadioButton("All");
+        JRadioButton option2 = new JRadioButton("Minor");
+        JRadioButton option3 = new JRadioButton("Major");
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(option1);
+        bg.add(option2);
+        bg.add(option3);
+        sidePanel.add(option1);
+        sidePanel.add(option2);
+        sidePanel.add(option3);
+        
+        content.add(sidePanel, BorderLayout.EAST);
     }
     
     /**
