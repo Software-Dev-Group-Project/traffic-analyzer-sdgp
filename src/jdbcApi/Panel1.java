@@ -38,7 +38,11 @@ public class Panel1 extends javax.swing.JFrame {
     private CategoryDataset createDataset() {
         // Try to connect to DB and execute SQL query
         try {
-            String sqlQuery = "SELECT entry_year, SUM(all_motor_vehicles) from CountEntry GROUP BY entry_year";
+            String sqlQuery = "select r.road_name, SUM(ce.all_motor_vehicles) AS 'All motor vehicles'\n" +
+                            "from CountEntry ce\n" +
+                            "join CountPoint cp on cp.count_point_id = ce.count_point_id\n" +
+                            "join Road r on r.road_id = cp.road_id\n" +
+                            "group by r.road_name";
             JDBCCategoryDataset jdbc = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
             return jdbc;
         } catch (Exception e) {
