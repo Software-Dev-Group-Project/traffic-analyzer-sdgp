@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -53,22 +54,23 @@ public class Panel1 extends javax.swing.JFrame {
      * CONTENT LAYOUT AND DESIGN SETUP METHODS
      */
     private void setContentLayout(JPanel content) {
-        content.setLayout(new BorderLayout(20,28));
+        content.setLayout(new BorderLayout(20,20));
+        Color bgColour = new Color(222,222,222);
+        
         // Top Panel
         JPanel topPanel = new JPanel();
-        topPanel.setBackground(Color.LIGHT_GRAY);
-        topPanel.setLayout(new FlowLayout(5));
-        
+        topPanel.setBackground(bgColour);
+        topPanel.setLayout(new FlowLayout());
+        topPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         String[] vehicleTypes = {"bike", "car", "truck"};
         JComboBox vehicleTypeSelect = new JComboBox(vehicleTypes);
         topPanel.add(vehicleTypeSelect);
-        
         content.add(topPanel, BorderLayout.NORTH);
         
         // Side Panel
         JPanel sidePanel = new JPanel();
-        sidePanel.setBackground(Color.LIGHT_GRAY);
-//        sidePanel.setLayout(mgr);
+        sidePanel.setBackground(bgColour);
+        sidePanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
         JRadioButton option1 = new JRadioButton("All");
         JRadioButton option2 = new JRadioButton("Minor");
         JRadioButton option3 = new JRadioButton("Major");
@@ -79,8 +81,19 @@ public class Panel1 extends javax.swing.JFrame {
         sidePanel.add(option1);
         sidePanel.add(option2);
         sidePanel.add(option3);
-        
         content.add(sidePanel, BorderLayout.EAST);
+        
+        // Bottom Panel as margin
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setBackground(bgColour);
+        bottomPanel.setSize(WIDTH, 1);
+        content.add(bottomPanel, BorderLayout.SOUTH);
+        
+        // Left Panel as margin
+        JPanel leftPanel = new JPanel();
+        leftPanel.setBackground(bgColour);
+        leftPanel.setSize(1, HEIGHT);
+        content.add(leftPanel, BorderLayout.WEST);
     }
     
     /**
@@ -364,7 +377,7 @@ public class Panel1 extends javax.swing.JFrame {
 
         Main.setBackground(new java.awt.Color(11, 58, 83));
 
-        content.setBackground(new java.awt.Color(255, 255, 255));
+        content.setBackground(new java.awt.Color(222, 222, 222));
         content.setSize(new java.awt.Dimension(1233, 549));
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
