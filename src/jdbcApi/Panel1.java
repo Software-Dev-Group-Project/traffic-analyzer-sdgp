@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jdbcApi;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
@@ -14,7 +8,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.jdbc.JDBCCategoryDataset;
 
 /**
@@ -29,8 +22,8 @@ public class Panel1 extends javax.swing.JFrame {
      */
     
     public Panel1() {
-        initComponents();
-        
+        initComponents();        
+        // Create Panel instance with default chart
         CategoryDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
         CategoryPlot plot = chart.getCategoryPlot();
@@ -38,12 +31,12 @@ public class Panel1 extends javax.swing.JFrame {
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setSize(900, 400);
         
-        content.add(chartPanel, BorderLayout.SOUTH);
+        content.add(chartPanel);
         content.validate();
     }
     
     private CategoryDataset createDataset() {
-        
+        // Try to connect to DB and execute SQL query
         try {
             String sqlQuery = "SELECT entry_year, SUM(all_motor_vehicles) from CountEntry GROUP BY entry_year";
             JDBCCategoryDataset jdbc = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
@@ -54,6 +47,7 @@ public class Panel1 extends javax.swing.JFrame {
         return null;
     }
     
+    // Set up chart properties
     private JFreeChart createChart(CategoryDataset dataset) {
         JFreeChart chart = ChartFactory.createBarChart(
                 "",
