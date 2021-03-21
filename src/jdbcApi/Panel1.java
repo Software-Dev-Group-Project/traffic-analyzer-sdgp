@@ -3,13 +3,13 @@ package jdbcApi;
 import java.awt.BorderLayout;
 import java.sql.Connection;
 import java.awt.Color;
-import java.awt.FlowLayout;
+import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.jdbc.JDBCCategoryDataset;
@@ -20,20 +20,26 @@ import org.jfree.data.jdbc.JDBCCategoryDataset;
  * 
  */
 public class Panel1 extends javax.swing.JFrame {
-
+    
     /**
-     * Creates new form Panel1
+     * SQL QUERIES AND DATA SET CHARACTERISTICS
      */
+    private int minYear = 2000;
+    private int maxYear = 2019;
     
     // Path to the DB connection method
     Connection dbConnectionMethod = jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection();
+    
     // Default query showing all vehicles and bicycles by road from the whole scope
-    String sqlQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles) AS 'All Motor Vehicles and Bicycles'\n" +
+    private String sqlQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles) AS 'All Motor Vehicles and Bicycles'\n" +
                     "FROM CountEntry ce\n" +
                     "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
                     "JOIN Road r ON r.road_id = cp.road_id\n" +
                     "GROUP BY r.road_name";
     
+    /**
+     * PANEL1 CONSTRUCTOR
+     */
     public Panel1() {
         // Generate the Panel components
         initComponents();        
@@ -45,7 +51,6 @@ public class Panel1 extends javax.swing.JFrame {
         CategoryDataset dataset = createDataset(dbConnectionMethod, sqlQuery);
         JFreeChart chart = createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setSize(900, 400);
         content.add(chartPanel);
         content.validate();
     }
@@ -54,46 +59,57 @@ public class Panel1 extends javax.swing.JFrame {
      * CONTENT LAYOUT AND DESIGN SETUP METHODS
      */
     private void setContentLayout(JPanel content) {
+        // Layout settings
         content.setLayout(new BorderLayout(20,20));
         Color bgColour = new Color(222,222,222);
         
-        // Top Panel
-        JPanel topPanel = new JPanel();
-        topPanel.setBackground(bgColour);
-        topPanel.setLayout(new FlowLayout());
-        topPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-        String[] vehicleTypes = {"bike", "car", "truck"};
-        JComboBox vehicleTypeSelect = new JComboBox(vehicleTypes);
-        topPanel.add(vehicleTypeSelect);
-        content.add(topPanel, BorderLayout.NORTH);
         
         // Side Panel
         JPanel sidePanel = new JPanel();
         sidePanel.setBackground(bgColour);
-        sidePanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-        JRadioButton option1 = new JRadioButton("All");
-        JRadioButton option2 = new JRadioButton("Minor");
-        JRadioButton option3 = new JRadioButton("Major");
+        sidePanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(0, 0, 0, 27),  new EtchedBorder(EtchedBorder.LOWERED)));
+        ArrayList<String> years = new ArrayList<String>();
+        years.add("All");
+        for (int year = minYear; year <= maxYear; year++) {
+            years.add(String.valueOf(year));
+        }
+        // Side Panel - Create filters
+        JLabel yearLabel = new JLabel("Select year:");
+        JComboBox year = new JComboBox(years.toArray());
+        JLabel roadType = new JLabel("Choose road type:");
+        JRadioButton roadAll = new JRadioButton("All");
+        roadAll.setSelected(true);
+        JRadioButton roadMinor = new JRadioButton("Minor");
+        JRadioButton roadMajor = new JRadioButton("Major");
         ButtonGroup bg = new ButtonGroup();
-        bg.add(option1);
-        bg.add(option2);
-        bg.add(option3);
-        sidePanel.add(option1);
-        sidePanel.add(option2);
-        sidePanel.add(option3);
+        bg.add(roadAll);
+        bg.add(roadMinor);
+        bg.add(roadMajor);
+        // Side Panel - Add filters to the panel
+        sidePanel.add(yearLabel);
+        sidePanel.add(year);
+        sidePanel.add(roadType);
+        sidePanel.add(roadAll);
+        sidePanel.add(roadMinor);
+        sidePanel.add(roadMajor);
         content.add(sidePanel, BorderLayout.EAST);
         
-        // Bottom Panel as margin
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setBackground(bgColour);
-        bottomPanel.setSize(WIDTH, 1);
-        content.add(bottomPanel, BorderLayout.SOUTH);
         
-        // Left Panel as margin
-        JPanel leftPanel = new JPanel();
-        leftPanel.setBackground(bgColour);
-        leftPanel.setSize(1, HEIGHT);
-        content.add(leftPanel, BorderLayout.WEST);
+        // Create Margins around
+        JPanel top = marginPanel(bgColour);
+        content.add(top, BorderLayout.NORTH);
+        JPanel left = marginPanel(bgColour);
+        content.add(left, BorderLayout.WEST);
+        JPanel bottom = marginPanel(bgColour);
+        content.add(bottom, BorderLayout.SOUTH);
+    }
+    
+    // Panel as margin
+    JPanel marginPanel(Color bgColour) {
+        JPanel panel = new JPanel();
+        panel.setBackground(bgColour);
+        panel.setSize(1, 1);
+        return panel;
     }
     
     /**
