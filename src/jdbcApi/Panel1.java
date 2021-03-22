@@ -92,6 +92,8 @@ public class Panel1 extends javax.swing.JFrame {
         JPanel left = marginPanel(bgColour);
         content.add(left, BorderLayout.WEST);
         JPanel bottom = marginPanel(bgColour);
+        JLabel footer = new JLabel("* Statistics are created out of a data recorded between Years 2000 and 2019 in Bracknell Forest Local Authority in South East England");
+        bottom.add(footer);
         content.add(bottom, BorderLayout.SOUTH);
     }
     
@@ -162,7 +164,7 @@ public class Panel1 extends javax.swing.JFrame {
         JFreeChart chart = ChartFactory.createBarChart(
                 "",
                 "Road name", 
-                "Avg per day", 
+                "No of Vehicles", 
                 dataset, 
                 PlotOrientation.HORIZONTAL, 
                 rootPaneCheckingEnabled, 
