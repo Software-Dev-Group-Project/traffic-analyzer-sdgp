@@ -1,6 +1,7 @@
 package jdbcApi;
 
 import java.awt.BorderLayout;
+import java.awt.Checkbox;
 import java.sql.Connection;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -28,6 +29,7 @@ public class Panel1 extends javax.swing.JFrame {
      */
     private int minYear = 2000;
     private int maxYear = 2019;
+    private String[] vehicleTypes = {"All Vehicles","All Motor Vehicles","Bicycles","Motor Bikes","Cars and Taxis","Buses and Coaches","LGVs","HGVs"};
     
     // Path to the DB connection method
     Connection dbConnectionMethod = jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection();
@@ -86,6 +88,7 @@ public class Panel1 extends javax.swing.JFrame {
         // Side Panel - Create filters sections
         JPanel yearPanel = yearFilter(bgColour);
         JPanel roadPanel = roadFilter(bgColour);
+        JPanel vehiclePanel = vehicleFilter(bgColour);
         
         
         // Side Panel - Place filters on the panel
@@ -99,7 +102,8 @@ public class Panel1 extends javax.swing.JFrame {
         sidePanel.add(yearPanel, gbc);
         gbc.gridy = 1;
         sidePanel.add(roadPanel, gbc);
-
+        gbc.gridy = 2;
+        sidePanel.add(vehiclePanel, gbc);
         content.add(sidePanel, BorderLayout.EAST);
     }
     
@@ -116,7 +120,7 @@ public class Panel1 extends javax.swing.JFrame {
         JComboBox year = new JComboBox(years.toArray());
         panel.add(yearLabel);
         panel.add(year);
-        panel.setBorder(BorderFactory.createTitledBorder("Filter results by Year"));
+        panel.setBorder(BorderFactory.createTitledBorder("Limit results to a specific Year"));
         
         return panel;
     }
@@ -125,7 +129,7 @@ public class Panel1 extends javax.swing.JFrame {
     JPanel roadFilter(Color bgColour) {
         JPanel panel = new JPanel();
         panel.setBackground(bgColour);
-        JLabel roadType = new JLabel("Selected type:");
+        JLabel roadType = new JLabel("Selected Type:");
         JRadioButton roadAll = new JRadioButton("All");
         roadAll.setSelected(true);
         JRadioButton roadMinor = new JRadioButton("Minor");
@@ -138,7 +142,21 @@ public class Panel1 extends javax.swing.JFrame {
         panel.add(roadAll);
         panel.add(roadMinor);
         panel.add(roadMajor);
-        panel.setBorder(BorderFactory.createTitledBorder("Filter result by Road Type"));
+        panel.setBorder(BorderFactory.createTitledBorder("Choose a specific Road Type"));
+        
+        return panel;
+    }
+    
+    // Vehicle Type Filter Panel
+    JPanel vehicleFilter(Color bgColour) {
+        JPanel panel = new JPanel();
+        panel.setBackground(bgColour);
+        JLabel vehicleLabel = new JLabel("Selected Vehicles:");
+        panel.add(vehicleLabel);
+        for (String vehicleType : vehicleTypes) {
+            panel.add(new Checkbox(vehicleType));
+        }
+        panel.setBorder(BorderFactory.createTitledBorder("Choose which Vehicle Types are included"));
         
         return panel;
     }
