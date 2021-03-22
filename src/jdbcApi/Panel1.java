@@ -4,16 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Checkbox;
 import java.sql.Connection;
 import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.EtchedBorder;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -39,7 +35,7 @@ public class Panel1 extends javax.swing.JFrame {
     Connection dbConnectionMethod = jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection();
     
     // Default query showing all vehicles and bicycles by road from the whole scope
-    private String sqlQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles) AS 'All Motor Vehicles and Bicycles'\n" +
+    private String defaultQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles) AS 'All Motor Vehicles and Bicycles'\n" +
                     "FROM CountEntry ce\n" +
                     "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
                     "JOIN Road r ON r.road_id = cp.road_id\n" +
@@ -56,7 +52,7 @@ public class Panel1 extends javax.swing.JFrame {
         setContentLayout(content);
         
         // Load default chart upon the Panel creation
-        CategoryDataset dataset = createDataset(dbConnectionMethod, sqlQuery);
+        CategoryDataset dataset = createDataset(dbConnectionMethod, defaultQuery);
         JFreeChart chart = createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart);
         content.add(chartPanel);
@@ -71,7 +67,6 @@ public class Panel1 extends javax.swing.JFrame {
         content.setLayout(new BorderLayout(20,20));
         Color bgColour = new Color(222,222,222);
         
-        
         // Create Margins around
         JPanel top = marginPanel(bgColour);
         content.add(top, BorderLayout.NORTH);
@@ -81,7 +76,6 @@ public class Panel1 extends javax.swing.JFrame {
         JLabel footer = new JLabel("* Statistics are created out of a data recorded between Years 2000 and 2019 in Bracknell Forest Local Authority in South East England");
         bottom.add(footer);
         content.add(bottom, BorderLayout.SOUTH);
-        
         
         // Side Panel - Create panel
         JPanel sidePanel = new JPanel();
@@ -93,7 +87,6 @@ public class Panel1 extends javax.swing.JFrame {
         JPanel yearPanel = yearFilter(bgColour);
         JPanel roadPanel = roadFilter(bgColour);
         JPanel vehiclePanel = vehicleFilter(bgColour);
-        
         
         // Side Panel - Place filters on the panel
         sidePanel.setLayout(new GridBagLayout());
