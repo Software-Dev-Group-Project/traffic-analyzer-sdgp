@@ -6,13 +6,18 @@
 package jdbcApi;
 
 import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.StandardChartTheme;
+import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.jdbc.JDBCCategoryDataset;
 
@@ -21,18 +26,32 @@ import org.jfree.data.jdbc.JDBCCategoryDataset;
  * @author bar77
  */
 public class Panel4 extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Panel4
-     */
+    
+    
+    
     public Panel4() {
         initComponents();
+        ChartFactory.setChartTheme(StandardChartTheme.createLegacyTheme());
+        BarRenderer.setDefaultBarPainter(new StandardBarPainter());
         CategoryDataset dataset = openDataset();
-        JFreeChart panel4Chart = ChartFactory.createBarChart("Number of Cars based on direction", "Direction", "Number of Vehicles", dataset, PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart panel4Chart = ChartFactory.createBarChart("Number of Cars based on Direction", "Direction", "Number of Vehicles", dataset, PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot plot = panel4Chart.getCategoryPlot();
         plot.setRangeGridlinePaint(Color.black);
+        plot.setBackgroundPaint(new Color(42,50,46));
+        panel4Chart.setBackgroundPaint(new Color(141,128,111));
+        panel4Chart.removeLegend();
         ChartPanel chartPanel = new ChartPanel(panel4Chart);
         chartPanel.setSize(800, 527);
+        
+        BarRenderer bar = new BarRenderer();
+        bar.setSeriesPaint(0,new Color(216,203,187));
+        bar.setShadowVisible(false);
+        plot.setRenderer(bar);
+        
+        Font font = new Font("Dialog", Font.BOLD, 18);
+        plot.getDomainAxis().setLabelFont(font);
+        plot.getRangeAxis().setLabelFont(font);
+        
         
         chartPanelWindow.removeAll();
         chartPanelWindow.add(chartPanel);
@@ -268,7 +287,8 @@ public class Panel4 extends javax.swing.JFrame {
 
         Main.setBackground(new java.awt.Color(11, 58, 83));
 
-        pan1.setBackground(new java.awt.Color(204, 204, 255));
+        pan1.setBackground(new java.awt.Color(242, 235, 225));
+        pan1.setAutoscrolls(true);
 
         javax.swing.GroupLayout chartPanelWindowLayout = new javax.swing.GroupLayout(chartPanelWindow);
         chartPanelWindow.setLayout(chartPanelWindowLayout);
@@ -444,6 +464,16 @@ public class Panel4 extends javax.swing.JFrame {
         plot.setRangeGridlinePaint(Color.black);
         ChartPanel chartPanel = new ChartPanel(panel4Chart);
         chartPanel.setSize(800, 527);
+        BarRenderer bar = new BarRenderer();
+        bar.setSeriesPaint(0,new Color(216,203,187));
+        bar.setShadowVisible(false);
+        panel4Chart.setBackgroundPaint(new Color(141,128,111));
+        plot.setBackgroundPaint(new Color(42,50,46));
+        panel4Chart.removeLegend();
+        plot.setRenderer(bar);
+        Font font = new Font("Dialog", Font.BOLD, 18);
+        plot.getDomainAxis().setLabelFont(font);
+        plot.getRangeAxis().setLabelFont(font);
         
         chartPanelWindow.removeAll();
         chartPanelWindow.add(chartPanel);
@@ -500,6 +530,18 @@ public class Panel4 extends javax.swing.JFrame {
         ChartFrame chartFrm = new ChartFrame("Number of Cars based on direction", panel4Chart, true);
         chartFrm.setVisible(true);
         chartFrm.setSize(800, 600);
+        BarRenderer bar = new BarRenderer();
+        bar.setSeriesPaint(0,new Color(216,203,187));
+        bar.setShadowVisible(false);
+        CategoryPlot plot = panel4Chart.getCategoryPlot();
+        plot.setRangeGridlinePaint(Color.black);
+        panel4Chart.setBackgroundPaint(new Color(141,128,111));
+        plot.setBackgroundPaint(new Color(42,50,46));
+        panel4Chart.removeLegend();
+        plot.setRenderer(bar);
+        Font font = new Font("Dialog", Font.BOLD, 18);
+        plot.getDomainAxis().setLabelFont(font);
+        plot.getRangeAxis().setLabelFont(font);
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**
