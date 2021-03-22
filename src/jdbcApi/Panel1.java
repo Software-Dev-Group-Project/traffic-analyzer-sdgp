@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Checkbox;
 import java.sql.Connection;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -82,8 +83,7 @@ public class Panel1 extends javax.swing.JFrame {
         // Side Panel - Create panel
         JPanel sidePanel = new JPanel();
         sidePanel.setBackground(bgColour);
-        sidePanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(0, 0, 0, 27),  new EtchedBorder(EtchedBorder.LOWERED)));
-        
+        sidePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 27));
         
         // Side Panel - Create filters sections
         JPanel yearPanel = yearFilter(bgColour);
@@ -103,6 +103,7 @@ public class Panel1 extends javax.swing.JFrame {
         gbc.gridy = 1;
         sidePanel.add(roadPanel, gbc);
         gbc.gridy = 2;
+        gbc.weighty = 4;
         sidePanel.add(vehiclePanel, gbc);
         content.add(sidePanel, BorderLayout.EAST);
     }
@@ -118,8 +119,16 @@ public class Panel1 extends javax.swing.JFrame {
         }
         JLabel yearLabel = new JLabel("Selected Year:");
         JComboBox year = new JComboBox(years.toArray());
-        panel.add(yearLabel);
-        panel.add(year);
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        panel.add(yearLabel, gbc);
+        gbc.gridy = 1;
+        gbc.weighty = 0.5;
+        panel.add(year, gbc);
         panel.setBorder(BorderFactory.createTitledBorder("Limit results to a specific Year"));
         
         return panel;
@@ -129,7 +138,6 @@ public class Panel1 extends javax.swing.JFrame {
     JPanel roadFilter(Color bgColour) {
         JPanel panel = new JPanel();
         panel.setBackground(bgColour);
-        JLabel roadType = new JLabel("Selected Type:");
         JRadioButton roadAll = new JRadioButton("All");
         roadAll.setSelected(true);
         JRadioButton roadMinor = new JRadioButton("Minor");
@@ -138,10 +146,17 @@ public class Panel1 extends javax.swing.JFrame {
         bg.add(roadAll);
         bg.add(roadMinor);
         bg.add(roadMajor);
-        panel.add(roadType);
-        panel.add(roadAll);
-        panel.add(roadMinor);
-        panel.add(roadMajor);
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        panel.add(roadAll, gbc);
+        gbc.gridx = 1;
+        panel.add(roadMinor, gbc);
+        gbc.gridx = 2;
+        panel.add(roadMajor, gbc);
         panel.setBorder(BorderFactory.createTitledBorder("Choose a specific Road Type"));
         
         return panel;
@@ -151,12 +166,19 @@ public class Panel1 extends javax.swing.JFrame {
     JPanel vehicleFilter(Color bgColour) {
         JPanel panel = new JPanel();
         panel.setBackground(bgColour);
-        JLabel vehicleLabel = new JLabel("Selected Vehicles:");
-        panel.add(vehicleLabel);
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        int rowCounter = 0;
         for (String vehicleType : vehicleTypes) {
-            panel.add(new Checkbox(vehicleType));
+            gbc.gridy = rowCounter;
+            panel.add(new Checkbox(vehicleType), gbc);
+            rowCounter++;
         }
-        panel.setBorder(BorderFactory.createTitledBorder("Choose which Vehicle Types are included"));
+        panel.setBorder(BorderFactory.createTitledBorder("Choose specific Vehicle Types"));
         
         return panel;
     }
