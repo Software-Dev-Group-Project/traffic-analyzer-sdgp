@@ -66,26 +66,6 @@ public class Panel1 extends javax.swing.JFrame {
         Color bgColour = new Color(222,222,222);
         
         
-        // Side Panel
-        JPanel sidePanel = new JPanel();
-        sidePanel.setBackground(bgColour);
-        sidePanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(0, 0, 0, 27),  new EtchedBorder(EtchedBorder.LOWERED)));
-        
-        sidePanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        // Side Panel - Create filters
-        JPanel yearPanel = yearFilter(bgColour);
-        JPanel roadPanel = roadFilter(bgColour);
-        
-        
-        // Side Panel - Add filters to the panel
-        sidePanel.add(yearPanel, gbc);
-        sidePanel.add(roadPanel, gbc);
-        
-        
-        content.add(sidePanel, BorderLayout.EAST);
-        
-        
         // Create Margins around
         JPanel top = marginPanel(bgColour);
         content.add(top, BorderLayout.NORTH);
@@ -95,6 +75,32 @@ public class Panel1 extends javax.swing.JFrame {
         JLabel footer = new JLabel("* Statistics are created out of a data recorded between Years 2000 and 2019 in Bracknell Forest Local Authority in South East England");
         bottom.add(footer);
         content.add(bottom, BorderLayout.SOUTH);
+        
+        
+        // Side Panel - Create panel
+        JPanel sidePanel = new JPanel();
+        sidePanel.setBackground(bgColour);
+        sidePanel.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(0, 0, 0, 27),  new EtchedBorder(EtchedBorder.LOWERED)));
+        
+        
+        // Side Panel - Create filters sections
+        JPanel yearPanel = yearFilter(bgColour);
+        JPanel roadPanel = roadFilter(bgColour);
+        
+        
+        // Side Panel - Place filters on the panel
+        sidePanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.fill = GridBagConstraints.BOTH;
+        sidePanel.add(yearPanel, gbc);
+        gbc.gridy = 1;
+        sidePanel.add(roadPanel, gbc);
+
+        content.add(sidePanel, BorderLayout.EAST);
     }
     
     // Year Filter Panel
