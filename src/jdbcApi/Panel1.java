@@ -79,11 +79,11 @@ public class Panel1 extends javax.swing.JFrame {
             return sqlQuery;
         }
         if (yearChoice.equals("All") && !roadChoice.equals("All")) {
-            sqlQuery = sqlQuery +  "r.road_type = " + roadChoice + " GROUP BY r.road_name";
+            sqlQuery = sqlQuery +  "r.road_type = '" + roadChoice + "' GROUP BY r.road_name";
             return sqlQuery;
         }
         
-        sqlQuery = sqlQuery +  "ce.entry_year = " + yearChoice + " AND r.road_type = " + roadChoice + " GROUP BY r.road_name";
+        sqlQuery = sqlQuery +  "ce.entry_year = " + yearChoice + " AND r.road_type = '" + roadChoice + "' GROUP BY r.road_name";
         return sqlQuery;
     }
     
@@ -202,9 +202,9 @@ public class Panel1 extends javax.swing.JFrame {
             @Override
             public void itemStateChanged(ItemEvent event) {
                 if (event.getStateChange() == ItemEvent.SELECTED) {
-                    String item = event.getItem().toString();
-                    System.out.println("Year selected: " + item);
-                    yearChoice = item;
+                    String year = event.getItem().toString();
+                    System.out.println("Year selected: " + year);
+                    yearChoice = year;
                     dataset = createDataset(dbConnectionMethod, modifiedQuery());
                     content.remove(chartPanel);
                     chart = createChart(dataset);
@@ -231,10 +231,7 @@ public class Panel1 extends javax.swing.JFrame {
         JRadioButton roadAll = new JRadioButton("All");
         JRadioButton roadMinor = new JRadioButton("Minor");
         JRadioButton roadMajor = new JRadioButton("Major");
-        // Set action commands and selected one
-        roadAll.setActionCommand("All");
-        roadMinor.setActionCommand("Minor");
-        roadMajor.setActionCommand("Major");
+        // Set default selected
         roadAll.setSelected(true);
         // Create button group
         ButtonGroup bg = new ButtonGroup();
@@ -248,7 +245,16 @@ public class Panel1 extends javax.swing.JFrame {
                 @Override
                 public void itemStateChanged(ItemEvent event) {
                     if (event.getStateChange() == ItemEvent.SELECTED) {
-                        System.out.println("Road selected: " + button.getText());
+                        String road = button.getText();
+                        System.out.println("Road selected: " + road);
+                        roadChoice = road;
+                        dataset = createDataset(dbConnectionMethod, modifiedQuery());
+                        content.remove(chartPanel);
+                        chart = createChart(dataset);
+                        chartPanel = new ChartPanel(chart);
+                        content.add(chartPanel);
+                        content.revalidate();
+                        content.repaint();
                     }
                 }
             });
