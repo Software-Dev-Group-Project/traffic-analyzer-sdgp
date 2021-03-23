@@ -37,6 +37,7 @@ public class HomeScreen extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         panel3bttn = new javax.swing.JPanel();
         panel4bttn = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
         panel1bttn = new javax.swing.JPanel();
         panel2bttn = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -97,8 +98,8 @@ public class HomeScreen extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        panel4bttn.setBackground(new java.awt.Color(255, 255, 255));
-        panel4bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "PANEL 4 NAME", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 51))); // NOI18N
+        panel4bttn.setBackground(new java.awt.Color(242, 235, 225));
+        panel4bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Vehicles Per Direction", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 51))); // NOI18N
         panel4bttn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel4bttn.setMinimumSize(new java.awt.Dimension(210, 150));
         panel4bttn.setPreferredSize(new java.awt.Dimension(230, 150));
@@ -108,15 +109,19 @@ public class HomeScreen extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jdbcApi/Panel4min.png"))); // NOI18N
+
         javax.swing.GroupLayout panel4bttnLayout = new javax.swing.GroupLayout(panel4bttn);
         panel4bttn.setLayout(panel4bttnLayout);
         panel4bttnLayout.setHorizontalGroup(
             panel4bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         panel4bttnLayout.setVerticalGroup(
             panel4bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panel4bttnLayout.createSequentialGroup()
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         panel1bttn.setBackground(new java.awt.Color(255, 255, 255));
@@ -457,6 +462,7 @@ public class HomeScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
