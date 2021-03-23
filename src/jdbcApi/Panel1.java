@@ -58,7 +58,7 @@ public class Panel1 extends javax.swing.JFrame {
     }
     
     // Default query showing all vehicles and bicycles by road from the whole scope
-    private String defaultQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles) AS 'All Vehicles'\n" +
+    private String defaultQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/24) AS 'All Vehicles'\n" +
                     "FROM CountEntry ce\n" +
                     "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
                     "JOIN Road r ON r.road_id = cp.road_id\n" +
@@ -69,7 +69,7 @@ public class Panel1 extends javax.swing.JFrame {
         if (yearChoice.equals("All") && roadChoice.equals("All")) {
             return defaultQuery;
         }
-        String sqlQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles) AS 'All Vehicles'\n" +
+        String sqlQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/24) AS 'All Vehicles'\n" +
                     "FROM CountEntry ce\n" +
                     "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
                     "JOIN Road r ON r.road_id = cp.road_id\n" +
@@ -107,7 +107,7 @@ public class Panel1 extends javax.swing.JFrame {
         JFreeChart chart = ChartFactory.createBarChart(
                 "",
                 "Road name", 
-                "No of Vehicles", 
+                "No of Vehicles per Day", 
                 dataset, 
                 PlotOrientation.HORIZONTAL, 
                 rootPaneCheckingEnabled, 
