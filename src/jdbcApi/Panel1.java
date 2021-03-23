@@ -12,6 +12,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import javax.swing.*;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -226,14 +227,33 @@ public class Panel1 extends javax.swing.JFrame {
     JPanel roadFilter(Color bgColour) {
         JPanel panel = new JPanel();
         panel.setBackground(bgColour);
+        // Create radio buttons
         JRadioButton roadAll = new JRadioButton("All");
-        roadAll.setSelected(true);
         JRadioButton roadMinor = new JRadioButton("Minor");
         JRadioButton roadMajor = new JRadioButton("Major");
+        // Set action commands and selected one
+        roadAll.setActionCommand("All");
+        roadMinor.setActionCommand("Minor");
+        roadMajor.setActionCommand("Major");
+        roadAll.setSelected(true);
+        // Create button group
         ButtonGroup bg = new ButtonGroup();
         bg.add(roadAll);
         bg.add(roadMinor);
         bg.add(roadMajor);
+        // Add Action Listeners to the buttons
+        for (Enumeration<AbstractButton> buttons = bg.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+            button.addItemListener(new ItemListener(){
+                @Override
+                public void itemStateChanged(ItemEvent event) {
+                    if (event.getStateChange() == ItemEvent.SELECTED) {
+                        System.out.println("Road selected: " + button.getText());
+                    }
+                }
+            });
+        }
+        // Add butons to the panel
         panel.add(roadAll);
         panel.add(roadMinor);
         panel.add(roadMajor);
