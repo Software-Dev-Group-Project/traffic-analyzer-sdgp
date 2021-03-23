@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -134,6 +136,18 @@ public class Panel1 extends javax.swing.JFrame {
         }
         JLabel yearLabel = new JLabel("Selected Year:");
         JComboBox year = new JComboBox(years.toArray());
+        year.setSelectedItem("All");
+        // Set Action Listener
+        year.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent event) {
+                if (event.getStateChange() == ItemEvent.SELECTED) {
+                    Object item = event.getItem();
+                    System.out.println(item);
+                }
+            }
+        });
+        
         panel.add(yearLabel);
         panel.add(year);
         panel.setBorder(BorderFactory.createTitledBorder("Limit results to a specific Year"));
@@ -224,7 +238,7 @@ public class Panel1 extends javax.swing.JFrame {
                 rootPaneCheckingEnabled);
         return chart;
     }
-    
+
     
     /**
      * @param args the command line arguments
