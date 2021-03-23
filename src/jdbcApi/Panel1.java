@@ -13,6 +13,7 @@ import java.awt.event.ItemListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import javax.swing.*;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -58,11 +59,11 @@ public class Panel1 extends javax.swing.JFrame {
     }
     
     // Default query showing all vehicles and bicycles by road from the whole scope
-    private String defaultQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/24) AS 'All Vehicles'\n" +
+    private String defaultQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/24) AS 'All Vehicles', count(ce.direction_of_travel) as direction\n" +
                     "FROM CountEntry ce\n" +
                     "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
                     "JOIN Road r ON r.road_id = cp.road_id\n" +
-                    "GROUP BY r.road_name\n";
+                    "GROUP BY r.road_name";
     
     // Modify query upon user's filters selection
     private String modifiedQuery() {
@@ -104,12 +105,18 @@ public class Panel1 extends javax.swing.JFrame {
     
     // Set up chart properties
     private JFreeChart createChart(CategoryDataset dataset) {
-        JFreeChart chart = ChartFactory.createBarChart(
+        
+        List list2 = dataset.getColumnKeys();
+        System.out.println(list2.toString());
+        List list = dataset.getRowKeys();
+        System.out.println(list.toString());
+        
+        JFreeChart chart = ChartFactory.createStackedBarChart(
                 "",
                 "Road name", 
                 "No of Vehicles per Day", 
                 dataset, 
-                PlotOrientation.HORIZONTAL, 
+                PlotOrientation.VERTICAL, 
                 rootPaneCheckingEnabled, 
                 rootPaneCheckingEnabled, 
                 rootPaneCheckingEnabled);
@@ -126,7 +133,6 @@ public class Panel1 extends javax.swing.JFrame {
         
         // Create default chart upon the Panel creation
         dataset = createDataset(dbConnectionMethod, defaultQuery);
-//        closeConnection();
         
         // Set up content JPanel layout
         setContentLayout(content);
