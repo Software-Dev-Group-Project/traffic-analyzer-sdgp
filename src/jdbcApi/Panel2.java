@@ -6,6 +6,12 @@
 package jdbcApi;
 
 import java.awt.Color;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -43,6 +49,8 @@ public class Panel2 extends javax.swing.JFrame {
         bl5 = new javax.swing.JLabel();
         Main = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -217,7 +225,7 @@ public class Panel2 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(b3, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(b4, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addComponent(b4, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(settings, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                 .addGap(17, 17, 17))
@@ -239,15 +247,47 @@ public class Panel2 extends javax.swing.JFrame {
 
         pan1.setBackground(new java.awt.Color(51, 204, 255));
 
+        jButton2.setText("Show chart");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Report"));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1192, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 490, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout pan1Layout = new javax.swing.GroupLayout(pan1);
         pan1.setLayout(pan1Layout);
         pan1Layout.setHorizontalGroup(
             pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1221, Short.MAX_VALUE)
+            .addGroup(pan1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton2))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pan1Layout.setVerticalGroup(
             pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton2)
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout MainLayout = new javax.swing.GroupLayout(Main);
@@ -361,6 +401,25 @@ public class Panel2 extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_bl5MouseClicked
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      DefaultCategoryDataset dcd = new DefaultCategoryDataset();
+      dcd.setValue(78.80,"Marks", "Ganesh");
+      dcd.setValue(78.80,"kate", "smith");
+      dcd.setValue(78.80,"ali", "resol");
+      dcd.setValue(78.80,"mark", "Hamil");
+      dcd.setValue(78.80,"Marks", "Ganesh");
+      
+      JFreeChart jchart = ChartFactory.createBarChart("Student Record","Student name", "Student Marks",dcd, PlotOrientation.VERTICAL,true,true,false);
+      
+      CategoryPlot plot = jchart.getCategoryPlot();
+      plot.setRangeGridlinePaint(Color.black);
+      
+      ChartFrame cf = new ChartFrame("Student Record", jchart, true);
+      cf.setVisible(true);
+      cf.setSize(500,400);
+      
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -409,7 +468,9 @@ public class Panel2 extends javax.swing.JFrame {
     private javax.swing.JLabel bl3;
     private javax.swing.JLabel bl4;
     private javax.swing.JLabel bl5;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel settings;
