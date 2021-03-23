@@ -40,7 +40,7 @@ public class Panel4 extends javax.swing.JFrame {
         Font font2 = new Font("Dialog", Font.PLAIN, 12);
         Font font3 = new Font("Dialog", Font.BOLD, 14);
         
-        JFreeChart panel4Chart = ChartFactory.createBarChart("Vehicles Count based on Direction", "Direction", "Number of Vehicles", dataset, PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart panel4Chart = ChartFactory.createBarChart("Vehicles Count based on Direction", "Directions", "Number of Vehicles", dataset, PlotOrientation.VERTICAL, true, true, false);
         panel4Chart.setBackgroundPaint(new Color(141,128,111));
         panel4Chart.removeLegend();
         
@@ -102,6 +102,7 @@ public class Panel4 extends javax.swing.JFrame {
         chartPanelWindow = new javax.swing.JPanel();
         p4Options = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        p4Options2 = new javax.swing.JComboBox<>();
         logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -299,11 +300,13 @@ public class Panel4 extends javax.swing.JFrame {
         pan1.setBackground(new java.awt.Color(242, 235, 225));
         pan1.setAutoscrolls(true);
 
+        chartPanelWindow.setBackground(new java.awt.Color(141, 128, 111));
+
         javax.swing.GroupLayout chartPanelWindowLayout = new javax.swing.GroupLayout(chartPanelWindow);
         chartPanelWindow.setLayout(chartPanelWindowLayout);
         chartPanelWindowLayout.setHorizontalGroup(
             chartPanelWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 837, Short.MAX_VALUE)
         );
         chartPanelWindowLayout.setVerticalGroup(
             chartPanelWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,6 +331,16 @@ public class Panel4 extends javax.swing.JFrame {
             }
         });
 
+        p4Options2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        p4Options2.setMaximumRowCount(7);
+        p4Options2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All Years", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019" }));
+        p4Options2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p4Options2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                p4Options2ItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout pan1Layout = new javax.swing.GroupLayout(pan1);
         pan1.setLayout(pan1Layout);
         pan1Layout.setHorizontalGroup(
@@ -336,9 +349,11 @@ public class Panel4 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(chartPanelWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(p4Options, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(p4Options, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(p4Options2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(97, 97, 97))
         );
         pan1Layout.setVerticalGroup(
@@ -346,7 +361,9 @@ public class Panel4 extends javax.swing.JFrame {
             .addGroup(pan1Layout.createSequentialGroup()
                 .addGap(109, 109, 109)
                 .addComponent(p4Options, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
+                .addGap(64, 64, 64)
+                .addComponent(p4Options2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(109, 109, 109))
             .addGroup(pan1Layout.createSequentialGroup()
@@ -471,7 +488,7 @@ public class Panel4 extends javax.swing.JFrame {
         Font font = new Font("Dialog", Font.BOLD, 18);
         Font font2 = new Font("Dialog", Font.PLAIN, 12);
         Font font3 = new Font("Dialog", Font.BOLD, 14);
-        JFreeChart panel4Chart = ChartFactory.createBarChart("Number of Cars based on direction", "Direction", "Number of Vehicles", dataset, PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart panel4Chart = ChartFactory.createBarChart("Vehicles Count based on Direction", "Directions", "Number of Vehicles", dataset, PlotOrientation.VERTICAL, true, true, false);
         panel4Chart.setBackgroundPaint(new Color(141,128,111));
         panel4Chart.removeLegend();
         
@@ -501,11 +518,12 @@ public class Panel4 extends javax.swing.JFrame {
     private CategoryDataset createDataset(){
     
         try {
+            String sqlQuery = "";
             String vehicleType = "";
-            String optionChosen = (String) p4Options.getSelectedItem();
+            String option1Chosen = (String) p4Options.getSelectedItem();
+            String option2Chosen = (String) p4Options2.getSelectedItem();
             
-            
-            switch(optionChosen){
+            switch(option1Chosen){
             
                 case "All Vehicles":
                     vehicleType = "pedal_cycles + all_motor_vehicles";
@@ -527,13 +545,17 @@ public class Panel4 extends javax.swing.JFrame {
                     break;
                 case "Heavy Goods Vehicles":
                     vehicleType = "all_hgvs";
-                    break;
+                    break;                  
+            }
+            if(option2Chosen == "All Years"){
+                sqlQuery = "SELECT direction_of_travel, SUM(" + vehicleType + ") FROM CountEntry  GROUP BY direction_of_travel";
+            }
+            else{         
+                sqlQuery = "SELECT direction_of_travel, SUM(" + vehicleType + ") FROM CountEntry WHERE entry_year = " + option2Chosen + " GROUP BY direction_of_travel;";                   
             }
             
-            String sqlQuery = "SELECT direction_of_travel, SUM(" + vehicleType + ") FROM CountEntry GROUP BY direction_of_travel";
-            
             JDBCCategoryDataset jdbc = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
-            return jdbc;
+            return jdbc; 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -547,7 +569,7 @@ public class Panel4 extends javax.swing.JFrame {
         Font font = new Font("Dialog", Font.BOLD, 18);
         Font font2 = new Font("Dialog", Font.PLAIN, 12);
         Font font3 = new Font("Dialog", Font.BOLD, 14);
-        JFreeChart panel4Chart = ChartFactory.createBarChart("Number of Cars based on direction", "Direction", "Number of Vehicles", dataset, PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart panel4Chart = ChartFactory.createBarChart("Vehicles Count based on Direction", "Directions", "Number of Vehicles", dataset, PlotOrientation.VERTICAL, true, true, false);
         
         ChartFrame chartFrm = new ChartFrame("Number of Cars based on direction", panel4Chart, true);
         chartFrm.setVisible(true);
@@ -572,6 +594,39 @@ public class Panel4 extends javax.swing.JFrame {
         xAxis.setTickLabelFont(font3);
         yAxis.setTickLabelFont(font2);
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void p4Options2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_p4Options2ItemStateChanged
+        CategoryDataset dataset = createDataset();
+        Font font = new Font("Dialog", Font.BOLD, 18);
+        Font font2 = new Font("Dialog", Font.PLAIN, 12);
+        Font font3 = new Font("Dialog", Font.BOLD, 14);
+        JFreeChart panel4Chart = ChartFactory.createBarChart("Vehicles Count based on Direction", "Directions", "Number of Vehicles", dataset, PlotOrientation.VERTICAL, true, true, false);
+        panel4Chart.setBackgroundPaint(new Color(141,128,111));
+        panel4Chart.removeLegend();
+        
+        CategoryPlot plot = panel4Chart.getCategoryPlot();
+        plot.setRangeGridlinePaint(Color.black);
+        plot.getDomainAxis().setLabelFont(font);
+        plot.getRangeAxis().setLabelFont(font);
+        plot.setBackgroundPaint(new Color(42,50,46));
+        CategoryAxis xAxis = plot.getDomainAxis();  
+        ValueAxis yAxis = plot.getRangeAxis();
+        xAxis.setTickLabelFont(font3);
+        yAxis.setTickLabelFont(font2);
+        
+        ChartPanel chartPanel = new ChartPanel(panel4Chart);
+        chartPanel.setSize(800, 527);
+        chartPanelWindow.removeAll();
+        chartPanelWindow.add(chartPanel);
+        chartPanelWindow.updateUI();
+        
+        BarRenderer bar = new BarRenderer();
+        bar.setSeriesPaint(0,new Color(216,203,187));
+        bar.setShadowVisible(false);
+        plot.setRenderer(bar);
+             
+    
+    }//GEN-LAST:event_p4Options2ItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -626,6 +681,7 @@ public class Panel4 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel logo;
     private javax.swing.JComboBox<String> p4Options;
+    private javax.swing.JComboBox<String> p4Options2;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel settings;
     // End of variables declaration//GEN-END:variables
