@@ -44,7 +44,7 @@ public class Panel1 extends javax.swing.JFrame {
     // Close connection method
     private void closeConnection() {
         if (dbConnectionMethod != null) {
-            System.out.println(dbConnectionMethod);
+            System.out.println("Connection: " + dbConnectionMethod);
             try {
                 dbConnectionMethod.close();
                 System.out.println("DB Connection closed");
@@ -605,16 +605,19 @@ public class Panel1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bl2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bl2MouseClicked
+        closeConnection();
         new Panel2().setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_bl2MouseClicked
 
     private void bl3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bl3MouseClicked
+        closeConnection();
         new Panel3().setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_bl3MouseClicked
 
     private void bl4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bl4MouseClicked
+        closeConnection();
         new Panel4().setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_bl4MouseClicked
@@ -644,6 +647,7 @@ public class Panel1 extends javax.swing.JFrame {
     }//GEN-LAST:event_bl4MouseExited
 
     private void bl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bl5MouseClicked
+        closeConnection();
         new HomeScreen().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_bl5MouseClicked
