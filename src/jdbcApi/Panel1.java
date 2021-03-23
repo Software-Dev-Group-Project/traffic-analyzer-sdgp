@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.*;
 import org.jfree.chart.ChartFactory;
@@ -34,12 +35,25 @@ public class Panel1 extends javax.swing.JFrame {
     // Path to the DB connection method
     Connection dbConnectionMethod = jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection();
     
+    // Close connection method
+    private void closeConnection() {
+        if (dbConnectionMethod != null) {
+            System.out.println(dbConnectionMethod);
+            try {
+                dbConnectionMethod.close();
+                System.out.println("DB Connection closed");
+            } catch (SQLException e) {
+                System.err.println("SQLException: " + e.getMessage());
+            }
+        }
+    }
+    
     // Default query showing all vehicles and bicycles by road from the whole scope
-    private String defaultQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles) AS 'All Motor Vehicles and Bicycles'\n" +
+    private String defaultQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles) AS 'All Vehicles'\n" +
                     "FROM CountEntry ce\n" +
                     "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
                     "JOIN Road r ON r.road_id = cp.road_id\n" +
-                    "GROUP BY r.road_name";
+                    "GROUP BY r.road_name\n";
     
     /**
      * PANEL1 CONSTRUCTOR
@@ -53,6 +67,8 @@ public class Panel1 extends javax.swing.JFrame {
         
         // Load default chart upon the Panel creation
         CategoryDataset dataset = createDataset(dbConnectionMethod, defaultQuery);
+        closeConnection();
+        
         JFreeChart chart = createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart);
         content.add(chartPanel);
