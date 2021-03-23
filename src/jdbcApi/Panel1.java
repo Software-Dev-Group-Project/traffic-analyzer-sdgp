@@ -37,6 +37,8 @@ public class Panel1 extends javax.swing.JFrame {
     private int minYear = 2000;
     private int maxYear = 2019;
     private String[] vehicleTypes = {"All Vehicles","All Motor Vehicles","Bicycles","Motor Bikes","Cars and Taxis","Buses and Coaches","LGVs","HGVs"};
+    private String yearChoice = "All";
+    private String roadChoice = "All";
     
     // Path to the DB connection method
     Connection dbConnectionMethod = jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection();
@@ -61,6 +63,28 @@ public class Panel1 extends javax.swing.JFrame {
                     "JOIN Road r ON r.road_id = cp.road_id\n" +
                     "GROUP BY r.road_name\n";
     
+    // Modify query upon user's filters selection
+    private String modifiedQuery() {
+        if (yearChoice.equals("All") && roadChoice.equals("All")) {
+            return defaultQuery;
+        }
+        String sqlQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles) AS 'All Vehicles'\n" +
+                    "FROM CountEntry ce\n" +
+                    "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
+                    "JOIN Road r ON r.road_id = cp.road_id\n" +
+                    "WHERE ";
+        if (!yearChoice.equals("All") && roadChoice.equals("All")) {
+            sqlQuery = sqlQuery +  "ce.entry_year = " + yearChoice + " GROUP BY r.road_name";
+            return sqlQuery;
+        }
+        if (yearChoice.equals("All") && !roadChoice.equals("All")) {
+            sqlQuery = sqlQuery +  "r.road_type = " + roadChoice + " GROUP BY r.road_name";
+            return sqlQuery;
+        }
+        
+        sqlQuery = sqlQuery +  "ce.entry_year = " + yearChoice + " AND r.road_type = " + roadChoice + " GROUP BY r.road_name";
+        return sqlQuery;
+    }
     
     
     /**
@@ -89,22 +113,6 @@ public class Panel1 extends javax.swing.JFrame {
                 rootPaneCheckingEnabled, 
                 rootPaneCheckingEnabled);
         return chart;
-    }
-    
-    // Update the chart
-    private String yearUpdate(String year) {
-        String sqlQuery;
-        if (year.equals("All")) {
-            sqlQuery = defaultQuery;
-            return sqlQuery;
-        }
-        sqlQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles) AS 'All Vehicles'\n" +
-                    "FROM CountEntry ce\n" +
-                    "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
-                    "JOIN Road r ON r.road_id = cp.road_id\n" +
-                    "WHERE ce.entry_year = " + year + "\n" +
-                    "GROUP BY r.road_name\n";
-        return sqlQuery;
     }
     
     
@@ -195,7 +203,8 @@ public class Panel1 extends javax.swing.JFrame {
                 if (event.getStateChange() == ItemEvent.SELECTED) {
                     String item = event.getItem().toString();
                     System.out.println("Year selected: " + item);
-                    dataset = createDataset(dbConnectionMethod, yearUpdate(item));
+                    yearChoice = item;
+                    dataset = createDataset(dbConnectionMethod, modifiedQuery());
                     content.remove(chartPanel);
                     chart = createChart(dataset);
                     chartPanel = new ChartPanel(chart);
