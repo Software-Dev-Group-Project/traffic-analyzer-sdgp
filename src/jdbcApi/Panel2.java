@@ -8,6 +8,7 @@ package jdbcApi;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
@@ -19,9 +20,12 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.StandardBarPainter;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.jdbc.JDBCCategoryDataset;
+import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
 
 /**
  *
@@ -34,47 +38,59 @@ public class Panel2 extends javax.swing.JFrame {
      */
     public Panel2() {
         initComponents();
-        ChartFactory.setChartTheme(StandardChartTheme.createLegacyTheme());
-        BarRenderer.setDefaultBarPainter(new StandardBarPainter());
+      //  ChartFactory.setChartTheme(StandardChartTheme.createLegacyTheme());
+        ChartFactory.setChartTheme(StandardChartTheme.createJFreeTheme());
+        BarRenderer.getDefaultBarPainter();
+   
         CategoryDataset dataset = openDataset();
-        Font font = new Font("Dialog", Font.BOLD, 14);
-        Font font2 = new Font("Dialog", Font.BOLD, 12);
-        Font font3 = new Font("Dialog", Font.BOLD, 14);
-        JFreeChart panel4Chart = ChartFactory.createBarChart("Vehicle count by the hour", "Hour", "Number of Vehicles", dataset, PlotOrientation.HORIZONTAL, true, true, false);
+       
+        Font font = new Font("Dialog", Font.CENTER_BASELINE, 15);
+   //     Font font2 = new Font("Dialog", Font.TRUETYPE_FONT, 12);
+    //    Font font3 = new Font("Dialog", Font.TRUETYPE_FONT, 14);
+        JFreeChart panel2Chart = ChartFactory.createBarChart3D("Vehicle count by the hour (2000 - 2019)", "Hour", "Number of Vehicles",dataset,PlotOrientation.HORIZONTAL,true,true,false);
+       
+      //   BarRenderer renderer =null; 
+     //    CategoryPlot plot= null;
+     //    renderer = new BarRenderer();
+      //   ChartFrame frame = new ChartFrame("Query Chart",panel2Chart);
+        // frame.setVisible(true);
+        // frame.setSize(800,527);
+         
+         
+  //      JFreeChart panel4Chart = ChartFactory.createBarChart("Vehicle count by the hour (2000 - 2019)", "Hour", "Number of Vehicles", dataset, PlotOrientation.HORIZONTAL, true, true, false);
        
                 
-        panel4Chart.setBackgroundPaint(new Color(255,255,102));
+        panel2Chart.setBackgroundPaint(new Color(255,255,102));
         
-       
-       
-        panel4Chart.removeLegend();
+      
+        // panel2Chart.removeLegend();
         
-        CategoryPlot plot = panel4Chart.getCategoryPlot();
-        plot.setRangeGridlinePaint(Color.black);
-        plot.setBackgroundPaint(new Color(0,153,255));
-        plot.getDomainAxis().setLabelFont(font);
-        plot.getRangeAxis().setLabelFont(font);
-        CategoryAxis xAxis = plot.getDomainAxis();  
-        ValueAxis yAxis = plot.getRangeAxis();
-        xAxis.setTickLabelFont(font3);
-        yAxis.setTickLabelFont(font2);
-        
-        ChartPanel chartPanel = new ChartPanel(panel4Chart);
+         CategoryPlot plot = panel2Chart.getCategoryPlot();
+          plot.setRangeGridlinePaint(Color.black);
+         plot.setBackgroundPaint(new Color(11,58,83));
+          plot.getDomainAxis().setLabelFont(font);
+          plot.getRangeAxis().setLabelFont(font);
+          CategoryAxis xAxis = plot.getDomainAxis();  
+          ValueAxis yAxis = plot.getRangeAxis();
+          xAxis.setTickLabelFont(font);
+          yAxis.setTickLabelFont(font);
+          
+        ChartPanel chartPanel = new ChartPanel(panel2Chart);
         chartPanel.setSize(800, 527);
         dataDisplayPanel.removeAll();
         dataDisplayPanel.add(chartPanel);
         dataDisplayPanel.updateUI();
         
-        BarRenderer bar = new BarRenderer();
-        bar.setSeriesPaint(0,new Color(255,255,255));
-        bar.setShadowVisible(false);
-        plot.setRenderer(bar);
+//        BarRenderer p2bar = new BarRenderer();
+//        p2bar.setSeriesPaint(0,new Color(0,25,255));
+//        p2bar.setShadowVisible(false);
+//        plot.setRenderer(p2bar);
     }
     private CategoryDataset openDataset(){
     
         try {
             
-            String sqlQuery = "SELECT entry_hour, SUM(pedal_cycles + all_motor_vehicles) FROM CountEntry GROUP BY entry_hour";
+            String sqlQuery = "SELECT entry_hour, SUM(all_motor_vehicles) FROM CountEntry GROUP BY entry_hour";
             
             JDBCCategoryDataset jdbc = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
             return jdbc;
@@ -110,7 +126,12 @@ public class Panel2 extends javax.swing.JFrame {
         chartPanel = new javax.swing.JPanel();
         dataDisplayPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         P2VehicleList = new javax.swing.JComboBox<>();
+        jPanel5 = new javax.swing.JPanel();
+        P2VehicleList2 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -280,15 +301,15 @@ public class Panel2 extends javax.swing.JFrame {
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HeaderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(b1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                .addComponent(b1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(b2, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                .addComponent(b2, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(b3, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                .addComponent(b3, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(b4, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                .addComponent(b4, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(settings, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                .addComponent(settings, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                 .addGap(17, 17, 17))
         );
         HeaderLayout.setVerticalGroup(
@@ -306,7 +327,7 @@ public class Panel2 extends javax.swing.JFrame {
 
         Main.setBackground(new java.awt.Color(11, 58, 83));
 
-        chartPanel.setBackground(new java.awt.Color(51, 204, 255));
+        chartPanel.setBackground(new java.awt.Color(11, 58, 83));
 
         dataDisplayPanel.setBackground(new java.awt.Color(255, 255, 102));
         dataDisplayPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -315,38 +336,11 @@ public class Panel2 extends javax.swing.JFrame {
         dataDisplayPanel.setLayout(dataDisplayPanelLayout);
         dataDisplayPanelLayout.setHorizontalGroup(
             dataDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 829, Short.MAX_VALUE)
+            .addGap(0, 809, Short.MAX_VALUE)
         );
         dataDisplayPanelLayout.setVerticalGroup(
             dataDisplayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 102));
-
-        P2VehicleList.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        P2VehicleList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All motor Vehicles", "Heavy Goods Vehicles", "Large Goods Vehicles", "Cars and Taxis", "Buses and Coaches", "Cycles", " " }));
-        P2VehicleList.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                P2VehicleListItemStateChanged(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(257, 257, 257)
-                .addComponent(P2VehicleList, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(277, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(301, Short.MAX_VALUE)
-                .addComponent(P2VehicleList, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(184, 184, 184))
+            .addGap(0, 549, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout chartPanelLayout = new javax.swing.GroupLayout(chartPanel);
@@ -355,13 +349,116 @@ public class Panel2 extends javax.swing.JFrame {
             chartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(chartPanelLayout.createSequentialGroup()
                 .addComponent(dataDisplayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         chartPanelLayout.setVerticalGroup(
             chartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(dataDisplayPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 102));
+
+        jPanel2.setBackground(new java.awt.Color(11, 58, 83));
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        P2VehicleList.setBackground(new java.awt.Color(240, 240, 240));
+        P2VehicleList.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        P2VehicleList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All motor Vehicles", "Heavy Goods Vehicles", "Large Goods Vehicles", "Cars and Taxis", "Buses and Coaches", "Cycles", " " }));
+        P2VehicleList.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                P2VehicleListItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addComponent(P2VehicleList, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(P2VehicleList, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        jPanel5.setBackground(new java.awt.Color(11, 58, 83));
+        jPanel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        P2VehicleList2.setBackground(new java.awt.Color(240, 240, 240));
+        P2VehicleList2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        P2VehicleList2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019" }));
+        P2VehicleList2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                P2VehicleList2ItemStateChanged(evt);
+            }
+        });
+        P2VehicleList2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                P2VehicleList2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addComponent(P2VehicleList2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(P2VehicleList2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Vehicle Type");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setText("Year");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(102, 102, 102)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(jLabel2)))
+                .addContainerGap(647, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout MainLayout = new javax.swing.GroupLayout(Main);
@@ -371,13 +468,17 @@ public class Panel2 extends javax.swing.JFrame {
             .addGroup(MainLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(chartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         MainLayout.setVerticalGroup(
             MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MainLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(chartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(MainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(chartPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -391,11 +492,9 @@ public class Panel2 extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(logo)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(Main, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(logo))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,7 +511,7 @@ public class Panel2 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1610, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1773, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -476,70 +575,80 @@ public class Panel2 extends javax.swing.JFrame {
     }//GEN-LAST:event_bl5MouseClicked
 
     private void P2VehicleListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_P2VehicleListItemStateChanged
-        CategoryDataset dataset = createDataset();
-        Font font = new Font("Dialog", Font.BOLD, 18);
-        Font font2 = new Font("Dialog", Font.PLAIN, 12);
-        Font font3 = new Font("Dialog", Font.BOLD, 14);
-        JFreeChart panel4Chart = ChartFactory.createBarChart("Vehicle count by the hour", "Hour", "Number of Vehicles", dataset, PlotOrientation.HORIZONTAL, true, true, false);
-        panel4Chart.setBackgroundPaint(new Color(255,255,102));
-        panel4Chart.removeLegend();
-
-        CategoryPlot plot = panel4Chart.getCategoryPlot();
-        plot.setRangeGridlinePaint(Color.black);
-        plot.getDomainAxis().setLabelFont(font);
-        plot.getRangeAxis().setLabelFont(font);
-        plot.setBackgroundPaint(new Color(0,153,255));
-        CategoryAxis xAxis = plot.getDomainAxis();
-        ValueAxis yAxis = plot.getRangeAxis();
-        xAxis.setTickLabelFont(font3);
-        yAxis.setTickLabelFont(font2);
-
-        ChartPanel chartPanel = new ChartPanel(panel4Chart);
+        CategoryDataset dataset = HourData();
+     
+       
+       Font font = new Font("Dialog", Font.CENTER_BASELINE, 15);
+   //     Font font2 = new Font("Dialog", Font.TRUETYPE_FONT, 12);
+    //    Font font3 = new Font("Dialog", Font.TRUETYPE_FONT, 14);
+        JFreeChart panel2Chart = ChartFactory.createBarChart3D("Vehicle count by the hour (2000 - 2019)", "Hour", "Number of Vehicles",dataset,PlotOrientation.HORIZONTAL,true,true,false);
+          
+    
+       
+                
+        panel2Chart.setBackgroundPaint(new Color(255,255,102));
+      
+        // panel2Chart.removeLegend();
+        
+         CategoryPlot plot = panel2Chart.getCategoryPlot();
+          plot.setRangeGridlinePaint(Color.black);
+         plot.setBackgroundPaint(new Color(11,58,83));
+          plot.getDomainAxis().setLabelFont(font);
+          plot.getRangeAxis().setLabelFont(font);
+          CategoryAxis xAxis = plot.getDomainAxis();  
+          ValueAxis yAxis = plot.getRangeAxis();
+          xAxis.setTickLabelFont(font);
+          yAxis.setTickLabelFont(font);
+          
+        ChartPanel chartPanel = new ChartPanel(panel2Chart);
         chartPanel.setSize(800, 527);
         dataDisplayPanel.removeAll();
         dataDisplayPanel.add(chartPanel);
         dataDisplayPanel.updateUI();
 
-        BarRenderer bar = new BarRenderer();
-        bar.setSeriesPaint(0,new Color(255,255,255));
-        bar.setShadowVisible(false);
-        plot.setRenderer(bar);
-
     }//GEN-LAST:event_P2VehicleListItemStateChanged
 
-   private CategoryDataset createDataset(){
+    private void P2VehicleList2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_P2VehicleList2ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_P2VehicleList2ItemStateChanged
+
+    private void P2VehicleList2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P2VehicleList2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_P2VehicleList2ActionPerformed
+
+   private CategoryDataset HourData(){
     
         try {
-            String vehicleType = "";
-            String optionChosen = (String) P2VehicleList.getSelectedItem();
+            String P2category = "";
+            String c = (String) P2VehicleList.getSelectedItem();
             
             
-            switch(optionChosen){
+            switch(c){
             
                 case "All motor Vehicles":
-                    vehicleType = "pedal_cycles + all_motor_vehicles";
+                    P2category = "all_motor_vehicles";
                     break;
                 case "Cycles":
-                    vehicleType = "pedal_cycles";
+                    P2category = "pedal_cycles";
                     break;
                 case "Motorcycles":
-                    vehicleType = "two_wheeled_motor_vehicles";
+                    P2category = "two_wheeled_motor_vehicles";
                     break;
                 case "Cars and Taxis":
-                    vehicleType = "cars_and_taxis";
+                    P2category = "cars_and_taxis";
                     break;
                 case "Buses and Coaches":
-                    vehicleType = "buses_and_coaches";
+                    P2category = "buses_and_coaches";
                     break;
                 case "Large Goods Vehicles":
-                    vehicleType = "lgvs";
+                    P2category = "lgvs";
                     break;
                 case "Heavy Goods Vehicles":
-                    vehicleType = "all_hgvs";
+                    P2category = "all_hgvs";
                     break;
             }
             
-            String sqlQuery = "SELECT entry_hour , SUM(" + vehicleType + ") FROM CountEntry GROUP BY entry_hour";
+            String sqlQuery = "SELECT entry_hour , SUM(" + P2category + ") FROM CountEntry GROUP BY entry_hour";
             
             JDBCCategoryDataset jdbc = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
             return jdbc;
@@ -592,6 +701,7 @@ public class Panel2 extends javax.swing.JFrame {
     private javax.swing.JPanel Header;
     private javax.swing.JPanel Main;
     private javax.swing.JComboBox<String> P2VehicleList;
+    private javax.swing.JComboBox<String> P2VehicleList2;
     private javax.swing.JPanel b1;
     private javax.swing.JPanel b2;
     private javax.swing.JPanel b3;
@@ -603,8 +713,12 @@ public class Panel2 extends javax.swing.JFrame {
     private javax.swing.JLabel bl5;
     private javax.swing.JPanel chartPanel;
     private javax.swing.JPanel dataDisplayPanel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel settings;
     // End of variables declaration//GEN-END:variables
