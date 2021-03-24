@@ -25,26 +25,34 @@ import org.jfree.data.jdbc.JDBCCategoryDataset;
 
 /**
  *
- * @author piotrstanny
+ * @author Piotr Stanny
  * 
  */
 public class Panel1 extends javax.swing.JFrame {
     
-    private CategoryDataset datasetN;
-    private CategoryDataset datasetS;
-    private CategoryDataset datasetW;
-    private CategoryDataset datasetE;
-    private JFreeChart chart;
-    private ChartPanel chartPanel;
-    
     /**
-     * SQL QUERIES AND DATA SET CHARACTERISTICS
+     * DATA SET CHARACTERISTICS
      */
-    private int minYear = 2000;
-    private int maxYear = 2019;
-    private String[] vehicleTypes = {"All Vehicles","All Motor Vehicles","Bicycles","Motor Bikes","Cars and Taxis","Buses and Coaches","LGVs","HGVs"};
+    
+    // Declare datasets for each direction of travel
+    private final CategoryDataset datasetNorth;
+    private final CategoryDataset datasetSouth;
+    private final CategoryDataset datasetWest;
+    private final CategoryDataset datasetEast;
+    // Declare chart variables
+    private final JFreeChart chart;
+    private ChartPanel chartPanel;
+    // Traffic characteristics
+    private final int minYear = 2000;
+    private final int maxYear = 2019;
     private String yearChoice = "All";
     private String roadChoice = "All";
+    private String[] vehicleTypes = {"All Vehicles","All Motor Vehicles","Bicycles","Motor Bikes","Cars and Taxis","Buses and Coaches","LGVs","HGVs"};
+
+    
+    /**
+     * SQL QUERIES
+     */
     
     // Path to the DB connection method
     Connection dbConnectionMethod = jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection();
@@ -63,36 +71,20 @@ public class Panel1 extends javax.swing.JFrame {
     }
     
     // Default query showing all vehicles and bicycles by road from the whole scope
-    private String defaultQueryN = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/12) AS 'North'\n" +
-                    "FROM CountEntry ce\n" +
-                    "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
-                    "JOIN Road r ON r.road_id = cp.road_id\n" +
-                    "WHERE ce.direction_of_travel = 'N'\n" +
-                    "GROUP BY r.road_name";
-    private String defaultQueryS = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/12) AS 'South'\n" +
-                    "FROM CountEntry ce\n" +
-                    "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
-                    "JOIN Road r ON r.road_id = cp.road_id\n" +
-                    "WHERE ce.direction_of_travel = 'S'\n" +
-                    "GROUP BY r.road_name";
-    private String defaultQueryW = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/12) AS 'West'\n" +
-                    "FROM CountEntry ce\n" +
-                    "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
-                    "JOIN Road r ON r.road_id = cp.road_id\n" +
-                    "WHERE ce.direction_of_travel = 'W'\n" +
-                    "GROUP BY r.road_name";
-    private String defaultQueryE = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/12) AS 'East'\n" +
-                    "FROM CountEntry ce\n" +
-                    "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
-                    "JOIN Road r ON r.road_id = cp.road_id\n" +
-                    "WHERE ce.direction_of_travel = 'E'\n" +
-                    "GROUP BY r.road_name";
+    String defaultQuery(String letter, String direction) {
+        return "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/12) AS '" + direction + "'\n" +
+                "FROM CountEntry ce\n" +
+                "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
+                "JOIN Road r ON r.road_id = cp.road_id\n" +
+                "WHERE ce.direction_of_travel = '" + letter + "'\n" +
+                "GROUP BY r.road_name";
+    }
     
-//    private String defaultQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/24) AS 'All Vehicles', count(ce.direction_of_travel) as direction\n" +
-//                    "FROM CountEntry ce\n" +
-//                    "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
-//                    "JOIN Road r ON r.road_id = cp.road_id\n" +
-//                    "GROUP BY r.road_name";
+    private final String defaultQueryN = defaultQuery("N", "North");
+    private final String defaultQueryS = defaultQuery("S", "South");
+    private final String defaultQueryW = defaultQuery("W", "West");
+    private final String defaultQueryE = defaultQuery("E", "East");
+    
     
     // Modify query upon user's filters selection
     private String modifiedQuery() {
@@ -121,6 +113,8 @@ public class Panel1 extends javax.swing.JFrame {
     /**
      * CHART RELATED METHODS
      */
+    
+    // Create dataset from SQL response
     private CategoryDataset createDataset(Connection dbConnectionMethod, String sqlQuery) {
         // Try to connect to DB and execute SQL query
         try {
@@ -132,44 +126,38 @@ public class Panel1 extends javax.swing.JFrame {
         return null;
     }
     
-    // Set up chart properties
+    // Set up and create the chart
     private JFreeChart createChart() {
-        
         DefaultCategoryDataset dcd = new DefaultCategoryDataset();
-        System.out.println("Columns N: " + datasetN.getColumnCount());
-        System.out.println("Columns S: " + datasetS.getColumnCount());
-        System.out.println("Columns W: " + datasetW.getColumnCount());
-        System.out.println("Columns E: " + datasetE.getColumnCount());
-        
-        for (int i = 0; i < datasetN.getColumnCount(); i++) {
-            dcd.addValue(datasetN.getValue(datasetN.getRowKey(0), datasetN.getColumnKey(i)),
-                datasetN.getRowKey(0), datasetN.getColumnKey(i));
-            dcd.addValue(datasetS.getValue(datasetS.getRowKey(0), datasetS.getColumnKey(i)),
-                datasetS.getRowKey(0), datasetS.getColumnKey(i));
+        // Map all directions data into one combined dataset
+        for (int i = 0; i < datasetNorth.getColumnCount(); i++) {
+            dcd.addValue(datasetNorth.getValue(datasetNorth.getRowKey(0), datasetNorth.getColumnKey(i)),
+                datasetNorth.getRowKey(0), datasetNorth.getColumnKey(i));
+            dcd.addValue(datasetSouth.getValue(datasetSouth.getRowKey(0), datasetSouth.getColumnKey(i)),
+                datasetSouth.getRowKey(0), datasetSouth.getColumnKey(i));
         }
-        for (int i = 0; i < datasetW.getColumnCount(); i++) {
-            dcd.addValue(datasetW.getValue(datasetW.getRowKey(0), datasetW.getColumnKey(i)),
-                datasetW.getRowKey(0), datasetW.getColumnKey(i));
-            dcd.addValue(datasetE.getValue(datasetE.getRowKey(0), datasetE.getColumnKey(i)),
-                datasetE.getRowKey(0), datasetE.getColumnKey(i));
+        for (int i = 0; i < datasetWest.getColumnCount(); i++) {
+            dcd.addValue(datasetWest.getValue(datasetWest.getRowKey(0), datasetWest.getColumnKey(i)),
+                datasetWest.getRowKey(0), datasetWest.getColumnKey(i));
+            dcd.addValue(datasetEast.getValue(datasetEast.getRowKey(0), datasetEast.getColumnKey(i)),
+                datasetEast.getRowKey(0), datasetEast.getColumnKey(i));
         }
-        
-        
-        
-        List list2 = dcd.getColumnKeys();
-        System.out.println(list2.toString());
-        List list = dcd.getRowKeys();
-        System.out.println(list.toString());
-        
+        // Log into console dataset columns and series
+        // FOR TESTING PURPOSES - DELETE LATER
+        List columns = dcd.getColumnKeys();
+        System.out.println("Roads: " + columns.toString());
+        List series = dcd.getRowKeys();
+        System.out.println("Directions: " + series.toString());
+        // Create a bar chart
         JFreeChart chart = ChartFactory.createStackedBarChart(
                 "Traffic Volume in Bracknell Forest by Road",
-                "Road name", 
+                "Road name",
                 "Avg No. of Vehicles per Day", 
                 dcd, 
-                PlotOrientation.HORIZONTAL, 
-                rootPaneCheckingEnabled, 
-                rootPaneCheckingEnabled, 
-                rootPaneCheckingEnabled);
+                PlotOrientation.HORIZONTAL,
+                true, 
+                true, 
+                false);
         return chart;
     }
     
@@ -179,16 +167,15 @@ public class Panel1 extends javax.swing.JFrame {
      */
     public Panel1() {
         // Generate the Panel components
-        initComponents();        
-        
-        // Create default chart upon the Panel creation
-        datasetN = createDataset(dbConnectionMethod, defaultQueryN);
-        datasetS = createDataset(dbConnectionMethod, defaultQueryS);
-        datasetW = createDataset(dbConnectionMethod, defaultQueryW);
-        datasetE = createDataset(dbConnectionMethod, defaultQueryE);
-        
+        initComponents();   
         // Set up content JPanel layout
         setContentLayout(content);
+        
+        // Create default chart upon the Panel creation
+        datasetNorth = createDataset(dbConnectionMethod, defaultQueryN);
+        datasetSouth = createDataset(dbConnectionMethod, defaultQueryS);
+        datasetWest = createDataset(dbConnectionMethod, defaultQueryW);
+        datasetEast = createDataset(dbConnectionMethod, defaultQueryE);
         
         chart = createChart();
         chartPanel = new ChartPanel(chart);
