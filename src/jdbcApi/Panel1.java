@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
@@ -240,7 +242,7 @@ public class Panel1 extends javax.swing.JFrame {
         JPanel panel = new JPanel();
         panel.setBackground(bgColour);
         // Create list of select options
-        ArrayList<String> years = new ArrayList<String>();
+        ArrayList<String> years = new ArrayList<>();
         years.add("All");
         for (int year = minYear; year <= maxYear; year++) {
             years.add(String.valueOf(year));
@@ -250,26 +252,23 @@ public class Panel1 extends javax.swing.JFrame {
         // Set default option selected
         year.setSelectedItem("All");
         // Set Action Listener
-        year.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent event) {
-                if (event.getStateChange() == ItemEvent.SELECTED) {
-                    String year = event.getItem().toString();
-                    System.out.println("Year selected: " + year);
-                    // Update option and datasets
-                    yearChoice = year;
-                    datasetNorth = createDataset(dbConnectionMethod, modifiedQuery("N", "North"));
-                    datasetSouth = createDataset(dbConnectionMethod, modifiedQuery("S", "South"));
-                    datasetWest = createDataset(dbConnectionMethod, modifiedQuery("W", "West"));
-                    datasetEast = createDataset(dbConnectionMethod, modifiedQuery("E", "East"));
-                    // Replace chart and repaint panel
-                    content.remove(chartPanel);
-                    chart = createChart();
-                    chartPanel = new ChartPanel(chart);
-                    content.add(chartPanel);
-                    content.revalidate();
-                    content.repaint();
-                }
+        year.addItemListener((ItemEvent event) -> {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                String year1 = event.getItem().toString();
+                System.out.println("Year selected: " + year1);
+                // Update option and datasets
+                yearChoice = year1;
+                datasetNorth = createDataset(dbConnectionMethod, modifiedQuery("N", "North"));
+                datasetSouth = createDataset(dbConnectionMethod, modifiedQuery("S", "South"));
+                datasetWest = createDataset(dbConnectionMethod, modifiedQuery("W", "West"));
+                datasetEast = createDataset(dbConnectionMethod, modifiedQuery("E", "East"));
+                // Replace chart and repaint panel
+                content.remove(chartPanel);
+                chart = createChart();
+                chartPanel = new ChartPanel(chart);
+                content.add(chartPanel);
+                content.revalidate();
+                content.repaint();
             }
         });
         
@@ -298,26 +297,23 @@ public class Panel1 extends javax.swing.JFrame {
         // Add Action Listeners to the buttons
         for (Enumeration<AbstractButton> buttons = bg.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
-            button.addItemListener(new ItemListener(){
-                @Override
-                public void itemStateChanged(ItemEvent event) {
-                    if (event.getStateChange() == ItemEvent.SELECTED) {
-                        String road = button.getText();
-                        System.out.println("Road selected: " + road);
-                        // Update option and datasets
-                        roadChoice = road;
-                        datasetNorth = createDataset(dbConnectionMethod, modifiedQuery("N", "North"));
-                        datasetSouth = createDataset(dbConnectionMethod, modifiedQuery("S", "South"));
-                        datasetWest = createDataset(dbConnectionMethod, modifiedQuery("W", "West"));
-                        datasetEast = createDataset(dbConnectionMethod, modifiedQuery("E", "East"));
-                        // Replace chart and repaint panel
-                        content.remove(chartPanel);
-                        chart = createChart();
-                        chartPanel = new ChartPanel(chart);
-                        content.add(chartPanel);
-                        content.revalidate();
-                        content.repaint();
-                    }
+            button.addItemListener((ItemEvent event) -> {
+                if (event.getStateChange() == ItemEvent.SELECTED) {
+                    String road = button.getText();
+                    System.out.println("Road selected: " + road);
+                    // Update option and datasets
+                    roadChoice = road;
+                    datasetNorth = createDataset(dbConnectionMethod, modifiedQuery("N", "North"));
+                    datasetSouth = createDataset(dbConnectionMethod, modifiedQuery("S", "South"));
+                    datasetWest = createDataset(dbConnectionMethod, modifiedQuery("W", "West"));
+                    datasetEast = createDataset(dbConnectionMethod, modifiedQuery("E", "East"));
+                    // Replace chart and repaint panel
+                    content.remove(chartPanel);
+                    chart = createChart();
+                    chartPanel = new ChartPanel(chart);
+                    content.add(chartPanel);
+                    content.revalidate();
+                    content.repaint();
                 }
             });
         }
@@ -350,8 +346,6 @@ public class Panel1 extends javax.swing.JFrame {
         panel.add(btnsPanel, gbc);
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0,10,0,0);
-        // Add Action Listeners to buttons
-        
         
         // Create Checkbox logic
         int rowCounter = 1;
@@ -370,15 +364,18 @@ public class Panel1 extends javax.swing.JFrame {
                 selectedVehicles.add(item.getLabel());
             }
         });
+        printSelVeh();
         
-        selectedVehicles.forEach(name -> {
-            System.out.println(name);
+        
+        // Add Action Listeners to buttons
+        btnClear.addActionListener((ActionEvent event) -> {
+            checkboxList.forEach(item -> { 
+                item.setState(false);
+            });
+            selectedVehicles.clear();
         });
         
-        
-        
         panel.setBorder(BorderFactory.createTitledBorder("Include Vehicle Types"));
-        
         return panel;
     }
     
@@ -388,6 +385,15 @@ public class Panel1 extends javax.swing.JFrame {
         panel.setBackground(bgColour);
         panel.setSize(1, 1);
         return panel;
+    }
+    
+    // Console log selected checkbox
+    void printSelVeh() {
+        System.out.print("Selected Vehicle Types: ");
+        selectedVehicles.forEach(name -> {
+            System.out.print(name + ", ");
+        });
+        System.out.println("");
     }
     
 
