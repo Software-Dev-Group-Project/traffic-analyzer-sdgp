@@ -20,6 +20,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.jdbc.JDBCCategoryDataset;
 
 /**
@@ -29,7 +30,10 @@ import org.jfree.data.jdbc.JDBCCategoryDataset;
  */
 public class Panel1 extends javax.swing.JFrame {
     
-    private CategoryDataset dataset;
+    private CategoryDataset datasetN;
+    private CategoryDataset datasetS;
+    private CategoryDataset datasetW;
+    private CategoryDataset datasetE;
     private JFreeChart chart;
     private ChartPanel chartPanel;
     
@@ -59,16 +63,41 @@ public class Panel1 extends javax.swing.JFrame {
     }
     
     // Default query showing all vehicles and bicycles by road from the whole scope
-    private String defaultQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/24) AS 'All Vehicles', count(ce.direction_of_travel) as direction\n" +
+    private String defaultQueryN = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/12) AS 'North'\n" +
                     "FROM CountEntry ce\n" +
                     "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
                     "JOIN Road r ON r.road_id = cp.road_id\n" +
+                    "WHERE ce.direction_of_travel = 'N'\n" +
                     "GROUP BY r.road_name";
+    private String defaultQueryS = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/12) AS 'South'\n" +
+                    "FROM CountEntry ce\n" +
+                    "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
+                    "JOIN Road r ON r.road_id = cp.road_id\n" +
+                    "WHERE ce.direction_of_travel = 'S'\n" +
+                    "GROUP BY r.road_name";
+    private String defaultQueryW = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/12) AS 'West'\n" +
+                    "FROM CountEntry ce\n" +
+                    "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
+                    "JOIN Road r ON r.road_id = cp.road_id\n" +
+                    "WHERE ce.direction_of_travel = 'W'\n" +
+                    "GROUP BY r.road_name";
+    private String defaultQueryE = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/12) AS 'East'\n" +
+                    "FROM CountEntry ce\n" +
+                    "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
+                    "JOIN Road r ON r.road_id = cp.road_id\n" +
+                    "WHERE ce.direction_of_travel = 'E'\n" +
+                    "GROUP BY r.road_name";
+    
+//    private String defaultQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/24) AS 'All Vehicles', count(ce.direction_of_travel) as direction\n" +
+//                    "FROM CountEntry ce\n" +
+//                    "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
+//                    "JOIN Road r ON r.road_id = cp.road_id\n" +
+//                    "GROUP BY r.road_name";
     
     // Modify query upon user's filters selection
     private String modifiedQuery() {
         if (yearChoice.equals("All") && roadChoice.equals("All")) {
-            return defaultQuery;
+            return defaultQueryN;
         }
         String sqlQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/24) AS 'All Vehicles'\n" +
                     "FROM CountEntry ce\n" +
@@ -104,19 +133,40 @@ public class Panel1 extends javax.swing.JFrame {
     }
     
     // Set up chart properties
-    private JFreeChart createChart(CategoryDataset dataset) {
+    private JFreeChart createChart() {
         
-        List list2 = dataset.getColumnKeys();
+        DefaultCategoryDataset dcd = new DefaultCategoryDataset();
+        System.out.println("Columns N: " + datasetN.getColumnCount());
+        System.out.println("Columns S: " + datasetS.getColumnCount());
+        System.out.println("Columns W: " + datasetW.getColumnCount());
+        System.out.println("Columns E: " + datasetE.getColumnCount());
+        
+        for (int i = 0; i < datasetN.getColumnCount(); i++) {
+            dcd.addValue(datasetN.getValue(datasetN.getRowKey(0), datasetN.getColumnKey(i)),
+                datasetN.getRowKey(0), datasetN.getColumnKey(i));
+            dcd.addValue(datasetS.getValue(datasetS.getRowKey(0), datasetS.getColumnKey(i)),
+                datasetS.getRowKey(0), datasetS.getColumnKey(i));
+        }
+        for (int i = 0; i < datasetW.getColumnCount(); i++) {
+            dcd.addValue(datasetW.getValue(datasetW.getRowKey(0), datasetW.getColumnKey(i)),
+                datasetW.getRowKey(0), datasetW.getColumnKey(i));
+            dcd.addValue(datasetE.getValue(datasetE.getRowKey(0), datasetE.getColumnKey(i)),
+                datasetE.getRowKey(0), datasetE.getColumnKey(i));
+        }
+        
+        
+        
+        List list2 = dcd.getColumnKeys();
         System.out.println(list2.toString());
-        List list = dataset.getRowKeys();
+        List list = dcd.getRowKeys();
         System.out.println(list.toString());
         
         JFreeChart chart = ChartFactory.createStackedBarChart(
                 "",
                 "Road name", 
-                "No of Vehicles per Day", 
-                dataset, 
-                PlotOrientation.VERTICAL, 
+                "Avg No. of Vehicles per Day", 
+                dcd, 
+                PlotOrientation.HORIZONTAL, 
                 rootPaneCheckingEnabled, 
                 rootPaneCheckingEnabled, 
                 rootPaneCheckingEnabled);
@@ -132,12 +182,15 @@ public class Panel1 extends javax.swing.JFrame {
         initComponents();        
         
         // Create default chart upon the Panel creation
-        dataset = createDataset(dbConnectionMethod, defaultQuery);
+        datasetN = createDataset(dbConnectionMethod, defaultQueryN);
+        datasetS = createDataset(dbConnectionMethod, defaultQueryS);
+        datasetW = createDataset(dbConnectionMethod, defaultQueryW);
+        datasetE = createDataset(dbConnectionMethod, defaultQueryE);
         
         // Set up content JPanel layout
         setContentLayout(content);
         
-        chart = createChart(dataset);
+        chart = createChart();
         chartPanel = new ChartPanel(chart);
         content.add(chartPanel);
         content.validate();
@@ -211,9 +264,9 @@ public class Panel1 extends javax.swing.JFrame {
                     String year = event.getItem().toString();
                     System.out.println("Year selected: " + year);
                     yearChoice = year;
-                    dataset = createDataset(dbConnectionMethod, modifiedQuery());
-                    content.remove(chartPanel);
-                    chart = createChart(dataset);
+//                    dataset = createDataset(dbConnectionMethod, modifiedQuery());
+//                    content.remove(chartPanel);
+//                    chart = createChart(dataset);
                     chartPanel = new ChartPanel(chart);
                     content.add(chartPanel);
                     content.revalidate();
@@ -254,9 +307,9 @@ public class Panel1 extends javax.swing.JFrame {
                         String road = button.getText();
                         System.out.println("Road selected: " + road);
                         roadChoice = road;
-                        dataset = createDataset(dbConnectionMethod, modifiedQuery());
-                        content.remove(chartPanel);
-                        chart = createChart(dataset);
+//                        dataset = createDataset(dbConnectionMethod, modifiedQuery());
+//                        content.remove(chartPanel);
+//                        chart = createChart(dataset);
                         chartPanel = new ChartPanel(chart);
                         content.add(chartPanel);
                         content.revalidate();
