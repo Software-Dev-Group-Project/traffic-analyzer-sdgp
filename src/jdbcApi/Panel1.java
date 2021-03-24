@@ -270,8 +270,7 @@ public class Panel1 extends javax.swing.JFrame {
                 content.revalidate();
                 content.repaint();
             }
-        });
-        
+        });       
         panel.add(yearLabel);
         panel.add(year);
         panel.setBorder(BorderFactory.createTitledBorder("Choose a specific Year"));
@@ -317,7 +316,6 @@ public class Panel1 extends javax.swing.JFrame {
                 }
             });
         }
-        // Add butons to the panel
         panel.add(roadAll);
         panel.add(roadMinor);
         panel.add(roadMajor);
@@ -364,15 +362,42 @@ public class Panel1 extends javax.swing.JFrame {
                 selectedVehicles.add(item.getLabel());
             }
         });
-        printSelVeh();
+        printSelectedVeh();
         
         
-        // Add Action Listeners to buttons
+        // Clear Button - Add Action Listener
         btnClear.addActionListener((ActionEvent event) -> {
             checkboxList.forEach(item -> { 
                 item.setState(false);
             });
             selectedVehicles.clear();
+        });
+        // Update Button - Add Action Listener
+        btnUpdate.addActionListener((ActionEvent event) -> {
+            selectedVehicles.clear();
+                checkboxList.forEach(item -> {
+                    if (item.getState()) {
+                        selectedVehicles.add(item.getLabel());
+                    }
+                });
+                printSelectedVeh();
+            if (selectedVehicles.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Warning!\n\nSelect at least one Vehicle Type.");
+            } else {
+                
+                // Update option and datasets
+                datasetNorth = createDataset(dbConnectionMethod, modifiedQuery("N", "North"));
+                datasetSouth = createDataset(dbConnectionMethod, modifiedQuery("S", "South"));
+                datasetWest = createDataset(dbConnectionMethod, modifiedQuery("W", "West"));
+                datasetEast = createDataset(dbConnectionMethod, modifiedQuery("E", "East"));
+                // Replace chart and repaint panel
+                content.remove(chartPanel);
+                chart = createChart();
+                chartPanel = new ChartPanel(chart);
+                content.add(chartPanel);
+                content.revalidate();
+                content.repaint();
+            }
         });
         
         panel.setBorder(BorderFactory.createTitledBorder("Include Vehicle Types"));
@@ -388,7 +413,7 @@ public class Panel1 extends javax.swing.JFrame {
     }
     
     // Console log selected checkbox
-    void printSelVeh() {
+    void printSelectedVeh() {
         System.out.print("Selected Vehicle Types: ");
         selectedVehicles.forEach(name -> {
             System.out.print(name + ", ");
