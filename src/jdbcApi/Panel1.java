@@ -162,7 +162,7 @@ public class Panel1 extends javax.swing.JFrame {
         System.out.println(list.toString());
         
         JFreeChart chart = ChartFactory.createStackedBarChart(
-                "",
+                "Traffic Volume in Bracknell Forest by Road",
                 "Road name", 
                 "Avg No. of Vehicles per Day", 
                 dcd, 
@@ -423,7 +423,6 @@ public class Panel1 extends javax.swing.JFrame {
         Main = new javax.swing.JPanel();
         content = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -650,10 +649,6 @@ public class Panel1 extends javax.swing.JFrame {
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jdbcApi/LATA_LOGO_XS.png"))); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Traffic Volume in Bracknell Forest by Road and Direction");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -665,9 +660,7 @@ public class Panel1 extends javax.swing.JFrame {
                     .addComponent(Main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(logo)
-                        .addGap(80, 80, 80)
-                        .addComponent(jLabel2)
-                        .addGap(0, 354, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -675,9 +668,7 @@ public class Panel1 extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(logo)
-                    .addComponent(jLabel2))
+                .addComponent(logo)
                 .addGap(13, 13, 13)
                 .addComponent(Main, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -768,7 +759,6 @@ public class Panel1 extends javax.swing.JFrame {
     private javax.swing.JLabel bl4;
     private javax.swing.JLabel bl5;
     private javax.swing.JPanel content;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel settings;
