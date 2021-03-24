@@ -35,18 +35,18 @@ public class Panel1 extends javax.swing.JFrame {
      */
     
     // Declare datasets for each direction of travel
-    private final CategoryDataset datasetNorth;
-    private final CategoryDataset datasetSouth;
-    private final CategoryDataset datasetWest;
-    private final CategoryDataset datasetEast;
-    // Declare chart variables
-    private final JFreeChart chart;
+    private CategoryDataset datasetNorth;
+    private CategoryDataset datasetSouth;
+    private CategoryDataset datasetWest;
+    private CategoryDataset datasetEast;
+    // Declare global variables
+    private JFreeChart chart;
     private ChartPanel chartPanel;
+    private String yearChoice = "All";
+    private String roadChoice = "All";
     // Traffic characteristics
     private final int minYear = 2000;
     private final int maxYear = 2019;
-    private String yearChoice = "All";
-    private String roadChoice = "All";
     private String[] vehicleTypes = {"All Vehicles","All Motor Vehicles","Bicycles","Motor Bikes","Cars and Taxis","Buses and Coaches","LGVs","HGVs"};
 
     
@@ -85,27 +85,37 @@ public class Panel1 extends javax.swing.JFrame {
     private final String defaultQueryW = defaultQuery("W", "West");
     private final String defaultQueryE = defaultQuery("E", "East");
     
-    
     // Modify query upon user's filters selection
-    private String modifiedQuery() {
+    private String modifiedQuery(String letter, String direction) {
+        
         if (yearChoice.equals("All") && roadChoice.equals("All")) {
-            return defaultQueryN;
+            switch (letter) {
+                case "N":
+                    return defaultQueryN;
+                case "S":
+                    return defaultQueryS;
+                case "W":
+                    return defaultQueryW;
+                case "E":
+                    return defaultQueryE;
+            }
         }
-        String sqlQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/24) AS 'All Vehicles'\n" +
-                    "FROM CountEntry ce\n" +
-                    "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
-                    "JOIN Road r ON r.road_id = cp.road_id\n" +
-                    "WHERE ";
+        
+        String sqlQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/12) AS '" + direction + "'\n" +
+                        "FROM CountEntry ce\n" +
+                        "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
+                        "JOIN Road r ON r.road_id = cp.road_id\n" +
+                        "WHERE ce.direction_of_travel = '" + letter + "' ";
         if (!yearChoice.equals("All") && roadChoice.equals("All")) {
-            sqlQuery = sqlQuery +  "ce.entry_year = " + yearChoice + " GROUP BY r.road_name";
+            sqlQuery = sqlQuery +  "AND ce.entry_year = " + yearChoice + " GROUP BY r.road_name";
             return sqlQuery;
         }
         if (yearChoice.equals("All") && !roadChoice.equals("All")) {
-            sqlQuery = sqlQuery +  "r.road_type = '" + roadChoice + "' GROUP BY r.road_name";
+            sqlQuery = sqlQuery +  "AND r.road_type = '" + roadChoice + "' GROUP BY r.road_name";
             return sqlQuery;
         }
         
-        sqlQuery = sqlQuery +  "ce.entry_year = " + yearChoice + " AND r.road_type = '" + roadChoice + "' GROUP BY r.road_name";
+        sqlQuery = sqlQuery +  "AND ce.entry_year = " + yearChoice + " AND r.road_type = '" + roadChoice + "' GROUP BY r.road_name";
         return sqlQuery;
     }
     
@@ -250,10 +260,15 @@ public class Panel1 extends javax.swing.JFrame {
                 if (event.getStateChange() == ItemEvent.SELECTED) {
                     String year = event.getItem().toString();
                     System.out.println("Year selected: " + year);
+                    // Update option and datasets
                     yearChoice = year;
-//                    dataset = createDataset(dbConnectionMethod, modifiedQuery());
-//                    content.remove(chartPanel);
-//                    chart = createChart(dataset);
+                    datasetNorth = createDataset(dbConnectionMethod, modifiedQuery("N", "North"));
+                    datasetSouth = createDataset(dbConnectionMethod, modifiedQuery("S", "South"));
+                    datasetWest = createDataset(dbConnectionMethod, modifiedQuery("W", "West"));
+                    datasetEast = createDataset(dbConnectionMethod, modifiedQuery("E", "East"));
+                    // Replace chart and repaint panel
+                    content.remove(chartPanel);
+                    chart = createChart();
                     chartPanel = new ChartPanel(chart);
                     content.add(chartPanel);
                     content.revalidate();
@@ -264,7 +279,7 @@ public class Panel1 extends javax.swing.JFrame {
         
         panel.add(yearLabel);
         panel.add(year);
-        panel.setBorder(BorderFactory.createTitledBorder("Limit results to a specific Year"));
+        panel.setBorder(BorderFactory.createTitledBorder("Choose a specific Year"));
         
         return panel;
     }
@@ -309,7 +324,7 @@ public class Panel1 extends javax.swing.JFrame {
         panel.add(roadAll);
         panel.add(roadMinor);
         panel.add(roadMajor);
-        panel.setBorder(BorderFactory.createTitledBorder("Choose a specific Road Type"));
+        panel.setBorder(BorderFactory.createTitledBorder("Choose Road Type"));
         
         return panel;
     }
@@ -337,7 +352,7 @@ public class Panel1 extends javax.swing.JFrame {
             panel.add(new Checkbox(vehicleType), gbc);
             rowCounter++;
         }
-        panel.setBorder(BorderFactory.createTitledBorder("Choose specific Vehicle Types"));
+        panel.setBorder(BorderFactory.createTitledBorder("Choose Vehicle Types"));
         
         return panel;
     }
