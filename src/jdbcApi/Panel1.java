@@ -89,32 +89,37 @@ public class Panel1 extends javax.swing.JFrame {
     
     // Modify query upon user's filters selection
     private String modifiedQuery(String letter, String direction) {
+        String sqlQuery = "SELECT r.road_name, SUM(";
         
-        if (yearChoice.equals("All") && roadChoice.equals("All")) {
-            switch (letter) {
-                case "N":
-                    return defaultQueryN;
-                case "S":
-                    return defaultQueryS;
-                case "W":
-                    return defaultQueryW;
-                case "E":
-                    return defaultQueryE;
-            }
+        if (selectedVehicles.contains("All Motor Vehicles")) {
+            sqlQuery = sqlQuery + "ce.all_motor_vehicles";
         }
-        String sqlQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/12) AS '" + direction + "'\n" +
-                        "FROM CountEntry ce\n" +
-                        "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
-                        "JOIN Road r ON r.road_id = cp.road_id\n" +
-                        "WHERE ce.direction_of_travel = '" + letter + "' ";
+        // All Vehicles
+        else if (selectedVehicles.contains("All Vehicles")) {
+            sqlQuery = sqlQuery + "ce.all_motor_vehicles + ce.pedal_cycles";
+        }
+        // Add constant part of the query
+        sqlQuery = sqlQuery + ")/(COUNT(ce.count_entry_id)/12) AS '" + direction + "'\n" +
+                "FROM CountEntry ce\n" +
+                "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
+                "JOIN Road r ON r.road_id = cp.road_id\n" +
+                "WHERE ce.direction_of_travel = '" + letter + "'\n";
+        // All Years and Roads
+        if (yearChoice.equals("All") && roadChoice.equals("All")) {
+            sqlQuery = sqlQuery + "GROUP BY r.road_name";
+            return sqlQuery;
+        }
+        // Specific Year and all Roads
         if (!yearChoice.equals("All") && roadChoice.equals("All")) {
             sqlQuery = sqlQuery +  "AND ce.entry_year = " + yearChoice + " GROUP BY r.road_name";
             return sqlQuery;
         }
+        // All Years and specific Road
         if (yearChoice.equals("All") && !roadChoice.equals("All")) {
             sqlQuery = sqlQuery +  "AND r.road_type = '" + roadChoice + "' GROUP BY r.road_name";
             return sqlQuery;
         }
+        // Specific Year and specific Road
         sqlQuery = sqlQuery +  "AND ce.entry_year = " + yearChoice + " AND r.road_type = '" + roadChoice + "' GROUP BY r.road_name";
         return sqlQuery;
     }
@@ -363,7 +368,24 @@ public class Panel1 extends javax.swing.JFrame {
             }
         });
         printSelectedVeh();
-        
+        // Checkbox Listeners
+        checkboxList.get(0).addItemListener((ItemEvent event) -> {
+            if (event.getStateChange() == 1) {
+                checkboxList.get(1).setState(false);
+                for (int i = 2; i <= 7; i++) {
+                    checkboxList.get(i).setState(true);
+                }
+            }
+        });
+        checkboxList.get(1).addItemListener((ItemEvent event) -> {
+            if (event.getStateChange() == 1) {
+                checkboxList.get(0).setState(false);
+                checkboxList.get(2).setState(false);
+                for (int i = 3; i <= 7; i++) {
+                    checkboxList.get(i).setState(true);
+                }
+            }
+        });
         
         // Clear Button - Add Action Listener
         btnClear.addActionListener((ActionEvent event) -> {
@@ -384,7 +406,6 @@ public class Panel1 extends javax.swing.JFrame {
             if (selectedVehicles.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Warning!\n\nSelect at least one Vehicle Type.");
             } else {
-                
                 // Update option and datasets
                 datasetNorth = createDataset(dbConnectionMethod, modifiedQuery("N", "North"));
                 datasetSouth = createDataset(dbConnectionMethod, modifiedQuery("S", "South"));
