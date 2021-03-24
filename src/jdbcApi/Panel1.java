@@ -9,9 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -81,22 +79,44 @@ public class Panel1 extends javax.swing.JFrame {
                 "WHERE ce.direction_of_travel = '" + letter + "'\n" +
                 "GROUP BY r.road_name";
     }
-    
     private final String defaultQueryN = defaultQuery("N", "North");
     private final String defaultQueryS = defaultQuery("S", "South");
     private final String defaultQueryW = defaultQuery("W", "West");
     private final String defaultQueryE = defaultQuery("E", "East");
     
-    // Modify query upon user's filters selection
+    
+    // Build Query upon user's options selection
     private String modifiedQuery(String letter, String direction) {
         String sqlQuery = "SELECT r.road_name, SUM(";
         
+        // All Motor Vehicles without Bicycles
         if (selectedVehicles.contains("All Motor Vehicles")) {
             sqlQuery = sqlQuery + "ce.all_motor_vehicles";
         }
         // All Vehicles
         else if (selectedVehicles.contains("All Vehicles")) {
             sqlQuery = sqlQuery + "ce.all_motor_vehicles + ce.pedal_cycles";
+        }
+        // Specific Vehicles
+        else {
+            if (selectedVehicles.contains("Bicycles")) {
+                sqlQuery = sqlQuery + "ce.pedal_cycles";
+            }
+            if (selectedVehicles.contains("Motor Bikes")) {
+                sqlQuery = sqlQuery + " + ce.two_wheeled_motor_vehicles";
+            }
+            if (selectedVehicles.contains("Cars and Taxi")) {
+                sqlQuery = sqlQuery + "+ ce.cars_and_taxis";
+            }
+            if (selectedVehicles.contains("Buses and Coaches")) {
+                sqlQuery = sqlQuery + "+ ce.buses_and_coaches";
+            }
+            if (selectedVehicles.contains("LGVs")) {
+                sqlQuery = sqlQuery + "+ ce.lgvs";
+            }
+            if (selectedVehicles.contains("HGVs")) {
+                sqlQuery = sqlQuery + "+ ce.all_hgvs";
+            }
         }
         // Add constant part of the query
         sqlQuery = sqlQuery + ")/(COUNT(ce.count_entry_id)/12) AS '" + direction + "'\n" +
@@ -175,7 +195,6 @@ public class Panel1 extends javax.swing.JFrame {
                 false);
         return chart;
     }
-    
     
     /**
      * PANEL1 CONSTRUCTOR
@@ -361,7 +380,6 @@ public class Panel1 extends javax.swing.JFrame {
             rowCounter++;
         }
         checkboxList.get(1).setState(false);
-        
         checkboxList.forEach(item -> {
             if (item.getState()) {
                 selectedVehicles.add(item.getLabel());
@@ -394,6 +412,7 @@ public class Panel1 extends javax.swing.JFrame {
             });
             selectedVehicles.clear();
         });
+        
         // Update Button - Add Action Listener
         btnUpdate.addActionListener((ActionEvent event) -> {
             selectedVehicles.clear();
