@@ -44,12 +44,12 @@ public class Panel1 extends javax.swing.JFrame {
     private ChartPanel chartPanel;
     private String yearChoice = "All";
     private String roadChoice = "All";
+    ArrayList<String> selectedVehicles = new ArrayList<>();
     // Traffic characteristics
     private final int minYear = 2000;
     private final int maxYear = 2019;
-    private String[] vehicleTypes = {"All Vehicles","All Motor Vehicles","Bicycles","Motor Bikes","Cars and Taxis","Buses and Coaches","LGVs","HGVs"};
+    private final String[] vehicleTypes = {"All Vehicles","All Motor Vehicles","Bicycles","Motor Bikes","Cars and Taxis","Buses and Coaches","LGVs","HGVs"};
 
-    
     /**
      * SQL QUERIES
      */
@@ -178,13 +178,11 @@ public class Panel1 extends javax.swing.JFrame {
         initComponents();   
         // Set up content JPanel layout
         setContentLayout(content);
-        
         // Create default chart upon the Panel creation
         datasetNorth = createDataset(dbConnectionMethod, defaultQueryN);
         datasetSouth = createDataset(dbConnectionMethod, defaultQueryS);
         datasetWest = createDataset(dbConnectionMethod, defaultQueryW);
         datasetEast = createDataset(dbConnectionMethod, defaultQueryE);
-        
         chart = createChart();
         chartPanel = new ChartPanel(chart);
         content.add(chartPanel);
@@ -214,12 +212,10 @@ public class Panel1 extends javax.swing.JFrame {
         sidePanel.setBackground(bgColour);
         sidePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 27));
         sidePanel.setPreferredSize(new Dimension(250, 549));
-        
         // Side Panel - Create filters sections
         JPanel yearPanel = yearFilter(bgColour);
         JPanel roadPanel = roadFilter(bgColour);
         JPanel vehiclePanel = vehicleFilter(bgColour);
-        
         // Side Panel - Place filters on the panel
         sidePanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -243,6 +239,7 @@ public class Panel1 extends javax.swing.JFrame {
     JPanel yearFilter(Color bgColour) {
         JPanel panel = new JPanel();
         panel.setBackground(bgColour);
+        // Create list of select options
         ArrayList<String> years = new ArrayList<String>();
         years.add("All");
         for (int year = minYear; year <= maxYear; year++) {
@@ -250,6 +247,7 @@ public class Panel1 extends javax.swing.JFrame {
         }
         JLabel yearLabel = new JLabel("Selected Year:");
         JComboBox year = new JComboBox(years.toArray());
+        // Set default option selected
         year.setSelectedItem("All");
         // Set Action Listener
         year.addItemListener(new ItemListener() {
@@ -290,7 +288,7 @@ public class Panel1 extends javax.swing.JFrame {
         JRadioButton roadAll = new JRadioButton("All");
         JRadioButton roadMinor = new JRadioButton("Minor");
         JRadioButton roadMajor = new JRadioButton("Major");
-        // Set default selected
+        // Set default option selected
         roadAll.setSelected(true);
         // Create button group
         ButtonGroup bg = new ButtonGroup();
@@ -338,24 +336,48 @@ public class Panel1 extends javax.swing.JFrame {
         panel.setBackground(bgColour);
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        JPanel btnGroup = new JPanel();
-        btnGroup.setBackground(bgColour);
-        btnGroup.add(new JButton("Clear"));
-        btnGroup.add(new JButton("Update"));
+        // Create sub-panel with buttons
+        JPanel btnsPanel = new JPanel();
+        btnsPanel.setBackground(bgColour);
+        JButton btnClear = new JButton("Clear");
+        JButton btnUpdate = new JButton("Update");
+        btnsPanel.add(btnClear);
+        btnsPanel.add(btnUpdate);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1;
         gbc.weighty = 1;
-        panel.add(btnGroup, gbc);
+        panel.add(btnsPanel, gbc);
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0,10,0,0);
+        // Add Action Listeners to buttons
+        
+        
+        // Create Checkbox logic
         int rowCounter = 1;
+        ArrayList<Checkbox> checkboxList = new ArrayList<>();
         for (String vehicleType : vehicleTypes) {
             gbc.gridy = rowCounter;
-            panel.add(new Checkbox(vehicleType), gbc);
+            Checkbox item = new Checkbox(vehicleType, true);
+            panel.add(item, gbc);
+            checkboxList.add(item);
             rowCounter++;
         }
-        panel.setBorder(BorderFactory.createTitledBorder("Choose Vehicle Types"));
+        checkboxList.get(1).setState(false);
+        
+        checkboxList.forEach(item -> {
+            if (item.getState()) {
+                selectedVehicles.add(item.getLabel());
+            }
+        });
+        
+        selectedVehicles.forEach(name -> {
+            System.out.println(name);
+        });
+        
+        
+        
+        panel.setBorder(BorderFactory.createTitledBorder("Include Vehicle Types"));
         
         return panel;
     }
