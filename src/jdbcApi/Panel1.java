@@ -100,7 +100,6 @@ public class Panel1 extends javax.swing.JFrame {
                     return defaultQueryE;
             }
         }
-        
         String sqlQuery = "SELECT r.road_name, SUM(ce.all_motor_vehicles + ce.pedal_cycles)/(COUNT(ce.count_entry_id)/12) AS '" + direction + "'\n" +
                         "FROM CountEntry ce\n" +
                         "JOIN CountPoint cp ON cp.count_point_id = ce.count_point_id\n" +
@@ -114,7 +113,6 @@ public class Panel1 extends javax.swing.JFrame {
             sqlQuery = sqlQuery +  "AND r.road_type = '" + roadChoice + "' GROUP BY r.road_name";
             return sqlQuery;
         }
-        
         sqlQuery = sqlQuery +  "AND ce.entry_year = " + yearChoice + " AND r.road_type = '" + roadChoice + "' GROUP BY r.road_name";
         return sqlQuery;
     }
@@ -308,10 +306,15 @@ public class Panel1 extends javax.swing.JFrame {
                     if (event.getStateChange() == ItemEvent.SELECTED) {
                         String road = button.getText();
                         System.out.println("Road selected: " + road);
+                        // Update option and datasets
                         roadChoice = road;
-//                        dataset = createDataset(dbConnectionMethod, modifiedQuery());
-//                        content.remove(chartPanel);
-//                        chart = createChart(dataset);
+                        datasetNorth = createDataset(dbConnectionMethod, modifiedQuery("N", "North"));
+                        datasetSouth = createDataset(dbConnectionMethod, modifiedQuery("S", "South"));
+                        datasetWest = createDataset(dbConnectionMethod, modifiedQuery("W", "West"));
+                        datasetEast = createDataset(dbConnectionMethod, modifiedQuery("E", "East"));
+                        // Replace chart and repaint panel
+                        content.remove(chartPanel);
+                        chart = createChart();
                         chartPanel = new ChartPanel(chart);
                         content.add(chartPanel);
                         content.revalidate();
