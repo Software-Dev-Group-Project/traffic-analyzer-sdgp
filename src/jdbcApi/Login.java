@@ -6,9 +6,7 @@
 package jdbcApi;
 
 import java.awt.Color;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -253,9 +251,12 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String username = txtFieldUsername.getText();
-
+        //SQL statement to find user
         String sql = "SELECT * From Accounts WHERE Username = ?;";
+        //SQL statement to find user that is an admin
+        String sqlAdmin = "SELECT * From Accounts WHERE Username = ? AND Admin = 1;";
 
+        //Check if fields are empty
         if (txtFieldUsername.getText().equals("") | txtFieldPassword.getText().equals("")) {
 
             JOptionPane.showMessageDialog(null, "One or more fields are empty, try again!");
@@ -264,6 +265,7 @@ public class Login extends javax.swing.JFrame {
 
             // Source: https://stackoverflow.com/questions/8292256/get-number-of-rows-returned-by-resultset-in-java
             try {
+                //Preparing statement to find user in database
                 ps = con.prepareStatement(sql);
                 ps.setString(1, txtFieldUsername.getText());
                 rs = ps.executeQuery();
@@ -274,18 +276,43 @@ public class Login extends javax.swing.JFrame {
                     do {
                         String Salt = rs.getString("Salt");
                         String Hash = rs.getString("Hash");
-
+                        //Checking if password is correct
                         if (PasswordUtills.verifyUserPassword(txtFieldPassword.getText(), Hash, Salt)) {
-                            JOptionPane.showMessageDialog(null, "Username: "+username+ ", Login has been successful!");
-                            System.out.println("Username: "+ username + " has loged in");
+                            JOptionPane.showMessageDialog(null, "Username: " + username + ", Login has been successful!");
+                            System.out.println("Username: " + username + " has loged in");
 
-                            java.awt.EventQueue.invokeLater(() -> {
-                                new HomeScreen().setVisible(true);
-                                setVisible(false);
+                            /////////////////////////////////////////////////////////////////////////////////////////////
+                            try {
+                                //Preparing statement to check if user is an admin
+                                ps = con.prepareStatement(sqlAdmin);
+                                ps.setString(1, txtFieldUsername.getText());
+                                rs = ps.executeQuery();
+
+                                if (!rs.next()) {
+                                    //If user is admin the admin button will appear on screen
+                                    System.out.println("Stage 1: User is an admin");    
+                                    java.awt.EventQueue.invokeLater(() -> {
+                                    new HomeScreen(true).setVisible(true);
+                                    setVisible(false);
                             });
+                                } else {
+                                    //If user is NOT admin the admin button will not appear on screen
+                                    System.out.println("Stage 1: User is not an admin");
+                                    java.awt.EventQueue.invokeLater(() -> {
+                                    new HomeScreen().setVisible(true);
+                                    setVisible(false);
+                            });
+                                    
+                                    
+                                }
+                            } catch (SQLException ex) {
+                                System.out.println("An Error has been found");
+                            }
+                            
+
                         } else {
-                            JOptionPane.showMessageDialog(null, "Username: "+username+ ", has not been found \nor password is not correct, please sign up!");
-                            System.out.println("Username: "+ username + " has not been found, Sign up! ");
+                            JOptionPane.showMessageDialog(null, "Username: " + username + ", has not been found \nor password is not correct, please sign up!");
+                            System.out.println("Username: " + username + " has not been found, Sign up! ");
                         }
                     } while (rs.next());
                 }
@@ -295,41 +322,7 @@ public class Login extends javax.swing.JFrame {
             }
         }
 
-// TODO add your handling code here:
-        /*
-        String username = txtFieldUsername.getText();
-        //String empty = " ";
-        //System.out.println("Username: "+username);
-        if(txtFieldUsername.getText().equals("")|txtFieldPassword.getText().equals("")){
-        
-            JOptionPane.showMessageDialog(null, "Please sign in correctly! ");
-            System.out.println("Details have not been given, try again! ");
-        }else{
-            String sql = "SELECT * from Accounts WHERE Username LIKE ? AND Password LIKE ?; ";
-            try{
-                ps = con.prepareStatement(sql);
-                //Getting user input for GUI
-                ps.setString(1, txtFieldUsername.getText());
-                ps.setString(2, txtFieldPassword.getText());
-                //Executing the two statements
-                rs = ps.executeQuery();
-                
 
-                if(rs.next()){
-                    JOptionPane.showMessageDialog(null, "Username: "+username+ ", Login has been successful!");
-                    System.out.println("Username: "+ username + " has loged in");
-                    setVisible(false);
-                    new HomeScreen().setVisible(true);
-                }else{
-                    JOptionPane.showMessageDialog(null, "Username: "+username+ ", has not been found \nor password is not correct, please sign up!");
-                    System.out.println("Username: "+ username + " has not been found, Sign up! ");
-                }
-            }
-            catch(Exception e){
-                System.out.println("User was not found");
-            }
-        
-        }*/
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -394,12 +387,6 @@ public class Login extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
- /*java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

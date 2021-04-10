@@ -13,11 +13,34 @@ import java.awt.Color;
  */
 public class HomeScreen extends javax.swing.JFrame {
 
+
+    
+
     /**
      * Creates new form HomeScreen
      */
+
+
+    
+    
+
     public HomeScreen() {
         initComponents();
+        
+
+    }
+    
+    public HomeScreen(Boolean a) {
+        initComponents();
+        if(a){
+            System.out.println("Test 2");
+            adminButtonVisibility();
+        }
+        //System.out.println("Visisbility has been set to: "+ AdminVisiblity);
+        //adminButton.setEnabled(true);
+        //Admin(AdminVisiblity);
+        //adminButton.setVisible(AdminVisiblity);
+        //System.out.println("101: "+AdminVisiblity);
     }
 
     /**
@@ -407,15 +430,16 @@ public class HomeScreen extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_panel4bttnMouseClicked
 
+    
     private void adminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminButtonActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminVerification().setVisible(true);
+                new UserActivity().setVisible(true);
                 setVisible(false);
-            }
+        }
         });
     }//GEN-LAST:event_adminButtonActionPerformed
-//WHATEVER BRO 
+
     /**
      * @param args the command line arguments
      */
@@ -447,12 +471,13 @@ public class HomeScreen extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new HomeScreen().setVisible(true);
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton adminButton;
+    public javax.swing.JButton adminButton;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -476,4 +501,12 @@ public class HomeScreen extends javax.swing.JFrame {
     private javax.swing.JPanel panel3bttn;
     private javax.swing.JPanel panel4bttn;
     // End of variables declaration//GEN-END:variables
+
+    void adminButtonVisibility() {
+        System.out.println("test");
+        adminButton.setVisible(false);
+    }
+    
+
+    
 }
