@@ -5,13 +5,13 @@
  */
 package jdbcApi;
 
-import java.awt.Color;
-
 /**
  *
  * @author gerva
  */
 public class HomeScreen extends javax.swing.JFrame {
+
+    private static String User;
 
 
     
@@ -20,28 +20,30 @@ public class HomeScreen extends javax.swing.JFrame {
      * Creates new form HomeScreen
      */
 
-
-    
-    
-
     public HomeScreen() {
-        initComponents();
+       
+        Login CurrentUsername = new Login();
+        int lastUser = CurrentUsername.UserArray.size()-1;
+        User = CurrentUsername.UserArray.get(lastUser);
+        System.out.println("Current user: "+User);
         
-
+        initComponents();
     }
     
     public HomeScreen(Boolean a) {
+        Login CurrentUsername = new Login();
+        int lastUser = CurrentUsername.UserArray.size()-1;
+        User = CurrentUsername.UserArray.get(lastUser);
+        System.out.println("Current user: "+User);
+        
         initComponents();
         if(a){
             System.out.println("Test 2");
             adminButtonVisibility();
         }
-        //System.out.println("Visisbility has been set to: "+ AdminVisiblity);
-        //adminButton.setEnabled(true);
-        //Admin(AdminVisiblity);
-        //adminButton.setVisible(AdminVisiblity);
-        //System.out.println("101: "+AdminVisiblity);
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -256,7 +258,7 @@ public class HomeScreen extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Welcome to LATA! ");
+        jLabel2.setText("Welcome "+User+" to LATA! ");
 
         jLabel5.setBackground(new java.awt.Color(11, 58, 83));
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -482,7 +484,7 @@ public class HomeScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
+    public static javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -503,7 +505,7 @@ public class HomeScreen extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     void adminButtonVisibility() {
-        System.out.println("test");
+        System.out.println("Admin panel has been disable");
         adminButton.setVisible(false);
     }
     

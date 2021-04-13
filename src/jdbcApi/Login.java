@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +30,10 @@ public class Login extends javax.swing.JFrame {
     Connection con = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
+
+    public String CurrentUser;
+    //String [] UserArray; 
+    public static ArrayList<String> UserArray = new ArrayList<>();
 
     public Login() {
         initComponents();
@@ -254,8 +260,12 @@ public class Login extends javax.swing.JFrame {
         //SQL statement to find user
         String sql = "SELECT * From Accounts WHERE Username = ?;";
         //SQL statement to find user that is an admin
-        String sqlAdmin = "SELECT * From Accounts WHERE Username = ? AND Admin = 1;";
+        //String sqlAdmin = "SELECT * From Accounts WHERE Username = ? AND Admin = 1;";
 
+        //SQL statement to find user that is an admin
+        //String sqlTimeStamp = "INSERT INTO Accounts(LoggedInDate, LoggedInTime) Values (?, ?)";
+        //String sqlTimeStamp = "UPDATE Accounts SET LoggedInDate = ?, LoggedInTime = ? WHERE Username = ?";
+        //String sqlTimeStamp = "UPDATE Accounts SET LoggedInDate = '" + date + "', LoggedInTime = '" + time + "' WHERE Username = '" + username + "'";
         //Check if fields are empty
         if (txtFieldUsername.getText().equals("") | txtFieldPassword.getText().equals("")) {
 
@@ -282,33 +292,11 @@ public class Login extends javax.swing.JFrame {
                             System.out.println("Username: " + username + " has loged in");
 
                             /////////////////////////////////////////////////////////////////////////////////////////////
-                            try {
-                                //Preparing statement to check if user is an admin
-                                ps = con.prepareStatement(sqlAdmin);
-                                ps.setString(1, txtFieldUsername.getText());
-                                rs = ps.executeQuery();
-
-                                if (!rs.next()) {
-                                    //If user is admin the admin button will appear on screen
-                                    System.out.println("Stage 1: User is an admin");    
-                                    java.awt.EventQueue.invokeLater(() -> {
-                                    new HomeScreen(true).setVisible(true);
-                                    setVisible(false);
-                            });
-                                } else {
-                                    //If user is NOT admin the admin button will not appear on screen
-                                    System.out.println("Stage 1: User is not an admin");
-                                    java.awt.EventQueue.invokeLater(() -> {
-                                    new HomeScreen().setVisible(true);
-                                    setVisible(false);
-                            });
-                                    
-                                    
-                                }
-                            } catch (SQLException ex) {
-                                System.out.println("An Error has been found");
-                            }
-                            
+                            CurrentUser = username;
+                            UserArray.add(username);
+                            AdminVerification();
+                            //testSQLScript();
+                            setTimeStamp();
 
                         } else {
                             JOptionPane.showMessageDialog(null, "Username: " + username + ", has not been found \nor password is not correct, please sign up!");
@@ -319,11 +307,146 @@ public class Login extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.out.println("User was not found");
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+                    } catch (SQLException e) {
+                        /* Ignored */
+                    }
+                }
+                if (ps != null) {
+                    try {
+                        ps.close();
+                    } catch (SQLException e) {
+                        /* Ignored */
+                    }
+                }
+                if (con != null) {
+                    try {
+                        con.close();
+                    } catch (SQLException e) {
+                        /* Ignored */
+                    }
+                }
             }
         }
 
 
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    
+    public void AdminVerification() {
+        int lastUser = UserArray.size()-1;
+        System.out.println("Array size: "+ UserArray.size());
+        String CurrentUser = UserArray.get(lastUser);
+        System.out.println("User in array: " + UserArray);
+        String sqlAdmin = "SELECT * From Accounts WHERE Username = ? AND Admin = 1;";
+
+        try {
+            //Preparing statement to check if user is an admin
+            ps = con.prepareStatement(sqlAdmin);
+            System.out.println("The current user is " + CurrentUser);
+            ps.setString(1, CurrentUser);
+            rs = ps.executeQuery();
+
+            if (!rs.next()) {
+                //If user is NOT admin the admin button will not appear on screen
+                System.out.println("Stage 1: User is not an admin");
+                java.awt.EventQueue.invokeLater(() -> {
+                    new HomeScreen(true).setVisible(true);
+                    setVisible(false);
+                });
+            } else {
+                //If user is admin the admin button will appear on screen
+                System.out.println("Stage 1: User is an admin");
+                java.awt.EventQueue.invokeLater(() -> {
+                    new HomeScreen().setVisible(true);
+                    setVisible(false);
+                });
+
+            }
+        } catch (SQLException ex) {
+            System.out.println("An Error has been found");
+        }
+
+    }
+
+    public void setTimeStamp() {
+
+        int lastUser = UserArray.size()-1;
+        String username = UserArray.get(lastUser);
+
+        long millis = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(millis);
+        System.out.println(timestamp);
+        String currentTime;
+        currentTime = timestamp.toString();
+
+        String[] dateAndTime = currentTime.split(" ");
+        String date = dateAndTime[0];
+        String time = dateAndTime[1];
+
+        String sqlTimeStamp = "UPDATE Accounts SET LoggedInDate = '" + date + "', LoggedInTime = '" + time + "' WHERE Username = '" + username + "';";
+
+        System.out.println("User: " + username + " Date: " + date + " at: " + time);
+
+        try {
+
+            ps = con.prepareStatement(sqlTimeStamp);
+            ps.executeUpdate();
+            System.out.println("Time has been set for " + txtFieldUsername.getText()+"\n");
+        } catch (SQLException e) {
+            System.out.println("Time was NOT been set for " + txtFieldUsername.getText()+"\n");
+        }
+    }
+    
+    public void setLogOutTimeStamp() {
+        int lastUser = UserArray.size()-1;
+        String username = UserArray.get(lastUser);
+
+        long millis = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(millis);
+        System.out.println(timestamp);
+        String currentTime;
+        currentTime = timestamp.toString();
+
+        String[] dateAndTime = currentTime.split(" ");
+        String date = dateAndTime[0];
+        String time = dateAndTime[1];
+
+        String sqlTimeStamp = "UPDATE Accounts SET LoggedOutDate = '" + date + "', LoggedOutTime = '" + time + "' WHERE Username = '" + username + "';";
+
+        System.out.println("User: " + username + " Date: " + date + " at: " + time);
+
+        try {
+
+            ps = con.prepareStatement(sqlTimeStamp);
+            ps.executeUpdate();
+            System.out.println("Time has been set for " + username);
+        } catch (SQLException e) {
+            System.out.println("Time was NOT been set for " + username);
+        }
+    }
+
+    public void testSQLScript() {
+        String testScript = "";
+
+        try {
+            String username = "";
+            String date = "";
+            ps = con.prepareStatement(testScript);
+            ps.setString(1, username);
+            ps.setString(2, date);
+
+            ps.executeUpdate();
+            System.out.println("test script successed! ");
+        } catch (SQLException e) {
+            System.out.println("test script failed! ");
+            System.out.println(e);
+        }
+    }
+
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         System.out.println("Attempting to close the application...");
