@@ -9,8 +9,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -21,14 +26,21 @@ public class UserActivity extends javax.swing.JFrame {
     /**
      * Creates new form UserActivity
      */
+    private static String User;
+    
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection con = null;
-    
+
     public UserActivity() {
+        Login CurrentUsername = new Login();
+        int lastUser = CurrentUsername.UserArray.size()-1;
+        User = CurrentUsername.UserArray.get(lastUser);
+        System.out.println("Current user: "+User);
+        
         initComponents();
         showTableData();
-        
+
     }
 
     /**
@@ -45,14 +57,25 @@ public class UserActivity extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        UserActivityTable = new javax.swing.JTable();
+        UserActivityTable = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        deleteUserBTN = new javax.swing.JButton();
+        updateUserBTN = new javax.swing.JButton();
+        txtFirstname = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txtLastname = new javax.swing.JTextField();
+        txtAdminStatus = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtSearchRecord = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,21 +97,50 @@ public class UserActivity extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("WELCOME TO THE USER ACTIVITY SCREEN");
+        jLabel6.setText("WELCOME "+User+" TO THE USER ACTIVITY SCREEN");
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        UserActivityTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Username", "Firstname", "Lastname", "Email", "Sign In Date", "Sign In Time", "Sign Out Date", "Sign Out Time", "Admin"
+                "Username", "Firstname", "Lastname", "Email", "Sign In Date", "Sign In Time", "Sign Out Date", "Sign Out Time", "Admin"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        UserActivityTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                UserActivityTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(UserActivityTable);
+        if (UserActivityTable.getColumnModel().getColumnCount() > 0) {
+            UserActivityTable.getColumnModel().getColumn(8).setPreferredWidth(40);
+        }
+
+        UserActivityTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Username", "Firstname", "Lastname", "Email", "Sign In Date", "Sign In Time", "Sign Out Date", "Sign Out Time", "Admin"
+            }
+        ));
+        UserActivityTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                UserActivityTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(UserActivityTable);
+        if (UserActivityTable.getColumnModel().getColumnCount() > 0) {
+            UserActivityTable.getColumnModel().getColumn(8).setPreferredWidth(40);
+        }
+        if (UserActivityTable.getColumnModel().getColumnCount() > 0) {
+            UserActivityTable.getColumnModel().getColumn(8).setPreferredWidth(40);
+        }
 
         jButton5.setBackground(new java.awt.Color(237, 238, 217));
-        jButton5.setText("RETURN TO HOMESCREEN");
+        jButton5.setText("HOMESCREEN");
         jButton5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,88 +154,186 @@ public class UserActivity extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton6))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton6)))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(357, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(11, 58, 83));
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel3.setPreferredSize(new java.awt.Dimension(320, 600));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jdbcApi/LOGO_Navy_Small.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("YOU HAVE THE ABILITY TO DO THE ");
+        jLabel2.setText("Select a record to do the following:");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("FOLLOWING:");
+        jLabel3.setText("+ Update user information or admin status");
 
-        jButton1.setText("ADD USER");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        deleteUserBTN.setText("DELETE");
+        deleteUserBTN.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        deleteUserBTN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                deleteUserBTNActionPerformed(evt);
             }
         });
 
-        jButton2.setText("DELETE USER");
-        jButton2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        updateUserBTN.setText("UPDATE");
+        updateUserBTN.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        updateUserBTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateUserBTNActionPerformed(evt);
+            }
+        });
+
+        txtFirstname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFirstnameActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Firstname");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Lastname");
+
+        txtLastname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLastnameActionPerformed(evt);
+            }
+        });
+
+        txtAdminStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAdminStatusActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Admin Status");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Search for a data below:");
+
+        txtSearchRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchRecordActionPerformed(evt);
+            }
+        });
+        txtSearchRecord.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchRecordKeyReleased(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("+ Delete user information");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Update admin status to 'YES' / 'NO'");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel9))
+                                .addGap(0, 2, Short.MAX_VALUE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(deleteUserBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(updateUserBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtLastname)
+                                    .addComponent(txtFirstname)
+                                    .addComponent(txtAdminStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(27, 27, 27))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(27, 27, 27))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtSearchRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(122, 122, 122))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtSearchRecord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addGap(27, 27, 27)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addGap(44, 44, 44)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(txtFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addComponent(txtLastname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(41, 41, 41)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtAdminStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateUserBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteUserBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(270, 270, 270))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -194,17 +344,17 @@ public class UserActivity extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 726, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 819, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -223,11 +373,7 @@ public class UserActivity extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        //initComponents();
-//        Login MainUserArray = new Login();
-//        MainUserArray.setLogOutTimeStamp();
-//        System.out.println("");
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new SignOut().setVisible(true);
@@ -235,10 +381,6 @@ public class UserActivity extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -248,6 +390,50 @@ public class UserActivity extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void txtSearchRecordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchRecordKeyReleased
+
+        DefaultTableModel table = (DefaultTableModel)UserActivityTable.getModel();
+        String search = txtSearchRecord.getText();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(table);
+        UserActivityTable.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(search));
+
+    }//GEN-LAST:event_txtSearchRecordKeyReleased
+
+    private void txtSearchRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchRecordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchRecordActionPerformed
+
+    private void txtAdminStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdminStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAdminStatusActionPerformed
+
+    private void txtLastnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLastnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLastnameActionPerformed
+
+    private void txtFirstnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFirstnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFirstnameActionPerformed
+
+    private void updateUserBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateUserBTNActionPerformed
+        updateUser();
+    }//GEN-LAST:event_updateUserBTNActionPerformed
+
+    private void deleteUserBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserBTNActionPerformed
+        deleteUser();
+    }//GEN-LAST:event_deleteUserBTNActionPerformed
+
+    private void UserActivityTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UserActivityTableMouseClicked
+        DefaultTableModel RecordTable = (DefaultTableModel) UserActivityTable.getModel();
+        int SelectedRows = UserActivityTable.getSelectedRow();
+
+        txtFirstname.setText(RecordTable.getValueAt(SelectedRows, 1).toString());
+        txtLastname.setText(RecordTable.getValueAt(SelectedRows, 2).toString());
+        txtAdminStatus.setText(RecordTable.getValueAt(SelectedRows, 8).toString());
+
+    }//GEN-LAST:event_UserActivityTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -283,7 +469,7 @@ public class UserActivity extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void showTableData() {
         try {
             con = DriverManager.getConnection("jdbc:sqlite:LATAAccountDB.db");
@@ -293,7 +479,7 @@ public class UserActivity extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                String ID = String.valueOf(rs.getInt("ID"));
+                //String ID = String.valueOf(rs.getInt("ID"));
                 String Username = String.valueOf(rs.getString("Username"));
                 String Firstname = String.valueOf(rs.getString("FirstName"));
                 String Lastname = String.valueOf(rs.getString("LastName"));
@@ -304,13 +490,11 @@ public class UserActivity extends javax.swing.JFrame {
                 String LoggedOutTime = String.valueOf(rs.getString("LoggedOutTime"));
                 String Admin = String.valueOf(rs.getString("Admin"));
 
+                String tbDATA[] = {Username, Firstname, Lastname, Email, LoggedInDate, LoggedInTime, LoggedOutDate, LoggedOutTime, Admin};
 
-                String tbDATA[] = {ID, Username, Firstname, Lastname, Email, LoggedInDate,LoggedInTime ,LoggedOutDate,LoggedOutTime,Admin};
-
-                DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
+                DefaultTableModel tblModel = (DefaultTableModel) UserActivityTable.getModel();
 
                 tblModel.addRow(tbDATA);
-
 
             }
 
@@ -318,23 +502,73 @@ public class UserActivity extends javax.swing.JFrame {
 
             System.out.println("Error!");
         }
+
+    }
+
+    public void deleteUser() {
+        try {
+            con = DriverManager.getConnection("jdbc:sqlite:LATAAccountDB.db");
+            Statement st = con.createStatement();
+            int row = UserActivityTable.getSelectedRow();
+            String selectedUser = UserActivityTable.getModel().getValueAt(row, 0).toString();
+            System.out.println(selectedUser);
+            String sql = "DELETE FROM Accounts WHERE Username = '" + selectedUser+"'";
+            st.executeUpdate(sql);
+            System.out.println("User: " + selectedUser + " has been deleted!");
+            DefaultTableModel tblModel = (DefaultTableModel) UserActivityTable.getModel();
+            //Reset table
+            tblModel.setRowCount(0);
+            showTableData();
+            System.out.println("Deletion Complete! ");
+
+        } catch (Exception e) {
+            System.out.println("Deletion NOT Complete! ");
+        }
+    }
+    
+    private void updateUser() {
         
+        try {
+            int rowSelected = UserActivityTable.getSelectedRow();
+            String selectedUser = UserActivityTable.getModel().getValueAt(rowSelected, 0).toString();
+            System.out.println(selectedUser);
+            String sql = "UPDATE Accounts SET Firstname = '"+txtFirstname.getText()+"', Lastname = '"+txtLastname.getText()+"', Admin = '"+txtAdminStatus.getText()+"' WHERE Username = '" + selectedUser+"'";
+            
+            ps = con.prepareStatement(sql);
+            ps.executeUpdate();
+            System.out.println("Update Complete! ");
+            
+        } catch (SQLException ex) {
+            System.out.println("Error: "+ex);
+            Logger.getLogger(UserActivity.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JTable UserActivityTable;
+    private javax.swing.JButton deleteUserBTN;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    public static javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txtAdminStatus;
+    private javax.swing.JTextField txtFirstname;
+    private javax.swing.JTextField txtLastname;
+    private javax.swing.JTextField txtSearchRecord;
+    private javax.swing.JButton updateUserBTN;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -260,12 +260,7 @@ public class Login extends javax.swing.JFrame {
         //SQL statement to find user
         String sql = "SELECT * From Accounts WHERE Username = ?;";
         //SQL statement to find user that is an admin
-        //String sqlAdmin = "SELECT * From Accounts WHERE Username = ? AND Admin = 1;";
 
-        //SQL statement to find user that is an admin
-        //String sqlTimeStamp = "INSERT INTO Accounts(LoggedInDate, LoggedInTime) Values (?, ?)";
-        //String sqlTimeStamp = "UPDATE Accounts SET LoggedInDate = ?, LoggedInTime = ? WHERE Username = ?";
-        //String sqlTimeStamp = "UPDATE Accounts SET LoggedInDate = '" + date + "', LoggedInTime = '" + time + "' WHERE Username = '" + username + "'";
         //Check if fields are empty
         if (txtFieldUsername.getText().equals("") | txtFieldPassword.getText().equals("")) {
 
@@ -282,6 +277,7 @@ public class Login extends javax.swing.JFrame {
 
                 if (!rs.next()) {
                     JOptionPane.showMessageDialog(null, "Account has not been found \nor password is not correct, Try again!");
+   
                 } else {
                     do {
                         String Salt = rs.getString("Salt");
@@ -297,7 +293,9 @@ public class Login extends javax.swing.JFrame {
                             AdminVerification();
                             //testSQLScript();
                             setTimeStamp();
-
+                            rs.close();
+                            ps.close();
+                            con.close();
                         } else {
                             JOptionPane.showMessageDialog(null, "Username: " + username + ", has not been found \nor password is not correct, please sign up!");
                             System.out.println("Username: " + username + " has not been found, Sign up! ");
@@ -307,29 +305,8 @@ public class Login extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.out.println("User was not found");
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            } finally {
-                if (rs != null) {
-                    try {
-                        rs.close();
-                    } catch (SQLException e) {
-                        /* Ignored */
-                    }
-                }
-                if (ps != null) {
-                    try {
-                        ps.close();
-                    } catch (SQLException e) {
-                        /* Ignored */
-                    }
-                }
-                if (con != null) {
-                    try {
-                        con.close();
-                    } catch (SQLException e) {
-                        /* Ignored */
-                    }
-                }
-            }
+            } 
+
         }
 
 
@@ -341,7 +318,7 @@ public class Login extends javax.swing.JFrame {
         System.out.println("Array size: "+ UserArray.size());
         String CurrentUser = UserArray.get(lastUser);
         System.out.println("User in array: " + UserArray);
-        String sqlAdmin = "SELECT * From Accounts WHERE Username = ? AND Admin = 1;";
+        String sqlAdmin = "SELECT * From Accounts WHERE Username = ? AND Admin = 'YES';";
 
         try {
             //Preparing statement to check if user is an admin
@@ -425,7 +402,7 @@ public class Login extends javax.swing.JFrame {
             ps.executeUpdate();
             System.out.println("Time has been set for " + username);
         } catch (SQLException e) {
-            System.out.println("Time was NOT been set for " + username);
+            System.out.println("Time was NOT been set for " + username+ e);
         }
     }
 

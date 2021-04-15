@@ -8,8 +8,6 @@ package jdbcApi;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import javax.swing.JOptionPane;
 
 /**
@@ -194,8 +192,6 @@ public class SignOut extends javax.swing.JFrame {
         System.out.println("Attempting to close the application...");
         JOptionPane.showMessageDialog(null, "Thank you for using LATA! ");
         System.out.println("Application Closed.");
-//        Login MainUserArray = new Login();
-//        MainUserArray.setLogOutTimeStamp();
         System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
     

@@ -403,8 +403,7 @@ public class HomeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void adminButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminButtonMouseClicked
-        //new UserActivity().setVisible(true);
-        //this.setVisible(false);
+    
     }//GEN-LAST:event_adminButtonMouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
