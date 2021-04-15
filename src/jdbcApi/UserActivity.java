@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -27,17 +28,17 @@ public class UserActivity extends javax.swing.JFrame {
      * Creates new form UserActivity
      */
     private static String User;
-    
+
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection con = null;
 
     public UserActivity() {
         Login CurrentUsername = new Login();
-        int lastUser = CurrentUsername.UserArray.size()-1;
+        int lastUser = CurrentUsername.UserArray.size() - 1;
         User = CurrentUsername.UserArray.get(lastUser);
-        System.out.println("Current user: "+User);
-        
+        System.out.println("Current user: " + User);
+
         initComponents();
         showTableData();
 
@@ -393,7 +394,7 @@ public class UserActivity extends javax.swing.JFrame {
 
     private void txtSearchRecordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchRecordKeyReleased
 
-        DefaultTableModel table = (DefaultTableModel)UserActivityTable.getModel();
+        DefaultTableModel table = (DefaultTableModel) UserActivityTable.getModel();
         String search = txtSearchRecord.getText();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(table);
         UserActivityTable.setRowSorter(tr);
@@ -470,6 +471,20 @@ public class UserActivity extends javax.swing.JFrame {
         });
     }
 
+    public void resetTable() {
+        DefaultTableModel tblModel = (DefaultTableModel) UserActivityTable.getModel();
+        //Reset table
+        tblModel.setRowCount(0);
+        showTableData();
+    }
+
+    public void resetField() {
+        //Setting strings to empty strings
+        txtFirstname.setText("");
+        txtLastname.setText("");
+        txtAdminStatus.setText("");
+    }
+
     public void showTableData() {
         try {
             con = DriverManager.getConnection("jdbc:sqlite:LATAAccountDB.db");
@@ -498,49 +513,57 @@ public class UserActivity extends javax.swing.JFrame {
 
             }
 
-        } catch (Exception Ex) {
+        } catch (Exception e) {
 
-            System.out.println("Error!");
+            System.out.println("Error: "+e);
         }
 
     }
 
     public void deleteUser() {
-        try {
-            con = DriverManager.getConnection("jdbc:sqlite:LATAAccountDB.db");
-            Statement st = con.createStatement();
-            int row = UserActivityTable.getSelectedRow();
-            String selectedUser = UserActivityTable.getModel().getValueAt(row, 0).toString();
-            System.out.println(selectedUser);
-            String sql = "DELETE FROM Accounts WHERE Username = '" + selectedUser+"'";
-            st.executeUpdate(sql);
-            System.out.println("User: " + selectedUser + " has been deleted!");
-            DefaultTableModel tblModel = (DefaultTableModel) UserActivityTable.getModel();
-            //Reset table
-            tblModel.setRowCount(0);
-            showTableData();
-            System.out.println("Deletion Complete! ");
+        if ("".equals(txtFirstname.getText()) || "".equals(txtLastname.getText()) || "".equals(txtAdminStatus.getText())) {
+            JOptionPane.showMessageDialog(null, "Select a user to delete");
+        } else {
+            try {
+                con = DriverManager.getConnection("jdbc:sqlite:LATAAccountDB.db");
+                Statement st = con.createStatement();
+                int row = UserActivityTable.getSelectedRow();
+                String selectedUser = UserActivityTable.getModel().getValueAt(row, 0).toString();
+                System.out.println(selectedUser);
+                String sql = "DELETE FROM Accounts WHERE Username = '" + selectedUser + "'";
+                st.executeUpdate(sql);
+                System.out.println("User: " + selectedUser + " has been deleted!");
 
-        } catch (Exception e) {
-            System.out.println("Deletion NOT Complete! ");
+                resetTable();
+                resetField();
+
+            } catch (Exception e) {
+                System.out.println("Deletion NOT Complete! ");
+            }
         }
     }
-    
+
     private void updateUser() {
-        
-        try {
-            int rowSelected = UserActivityTable.getSelectedRow();
-            String selectedUser = UserActivityTable.getModel().getValueAt(rowSelected, 0).toString();
-            System.out.println(selectedUser);
-            String sql = "UPDATE Accounts SET Firstname = '"+txtFirstname.getText()+"', Lastname = '"+txtLastname.getText()+"', Admin = '"+txtAdminStatus.getText()+"' WHERE Username = '" + selectedUser+"'";
-            
-            ps = con.prepareStatement(sql);
-            ps.executeUpdate();
-            System.out.println("Update Complete! ");
-            
-        } catch (SQLException ex) {
-            System.out.println("Error: "+ex);
-            Logger.getLogger(UserActivity.class.getName()).log(Level.SEVERE, null, ex);
+        if ("".equals(txtFirstname.getText()) || "".equals(txtLastname.getText()) || "".equals(txtAdminStatus.getText())) {
+            JOptionPane.showMessageDialog(null, "Select a user to update");
+        } else {
+            try {
+                int rowSelected = UserActivityTable.getSelectedRow();
+                String selectedUser = UserActivityTable.getModel().getValueAt(rowSelected, 0).toString();
+                System.out.println(selectedUser);
+                String sql = "UPDATE Accounts SET Firstname = '" + txtFirstname.getText() + "', Lastname = '" + txtLastname.getText() + "', Admin = '" + txtAdminStatus.getText() + "' WHERE Username = '" + selectedUser + "'";
+
+                ps = con.prepareStatement(sql);
+                ps.executeUpdate();
+
+                //Reset table
+                resetTable();
+                resetField();
+
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex);
+                Logger.getLogger(UserActivity.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

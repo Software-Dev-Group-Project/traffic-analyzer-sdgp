@@ -303,7 +303,7 @@ public class SignUp extends javax.swing.JFrame {
         String username = txtFieldUsernameSignUp.getText();
         String defaultAdminStatus = "NO";
         
-        if(txtFieldUsernameSignUp.getText().equals("")|txtFieldPasswordSignUp.getText().equals("")){
+        if(txtFieldUsernameSignUp.getText().equals("")|txtFieldPasswordSignUp.getText().equals("")|txtFieldFirstnameSignUp.getText().equals("")|txtFieldLastnameSignUp.getText().equals("")|txtFieldEmailSignUp.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Please sign up correctly! ");
             System.out.println("Details have not been given, try again! ");
             
