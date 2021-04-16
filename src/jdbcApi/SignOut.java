@@ -189,7 +189,7 @@ public class SignOut extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        System.out.println("Attempting to close the application...");
+        System.out.println("\nAttempting to close the application...");
         JOptionPane.showMessageDialog(null, "Thank you for using LATA! ");
         System.out.println("Application Closed.");
         System.exit(0);

@@ -5,6 +5,10 @@
  */
 package jdbcApi;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 /**
  *
  * @author gerva
@@ -19,6 +23,11 @@ public class HomeScreen extends javax.swing.JFrame {
     /**
      * Creates new form HomeScreen
      */
+    
+    //Used for SQL
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
 
     public HomeScreen() {
        
@@ -65,6 +74,7 @@ public class HomeScreen extends javax.swing.JFrame {
         panel1bttn = new javax.swing.JPanel();
         panel2bttn = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        btnAccount = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         adminButton = new javax.swing.JButton();
@@ -81,7 +91,6 @@ public class HomeScreen extends javax.swing.JFrame {
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(890, 640));
         setResizable(false);
         setSize(new java.awt.Dimension(890, 640));
 
@@ -119,7 +128,7 @@ public class HomeScreen extends javax.swing.JFrame {
         );
         panel3bttnLayout.setVerticalGroup(
             panel3bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 129, Short.MAX_VALUE)
         );
 
         panel4bttn.setBackground(new java.awt.Color(255, 255, 255));
@@ -192,6 +201,20 @@ public class HomeScreen extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(240, 240, 240));
         jLabel3.setText("Simply click on the desired Panel to display Windows with Statistics");
 
+        btnAccount.setBackground(new java.awt.Color(237, 238, 217));
+        btnAccount.setText("ACCOUNT");
+        btnAccount.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAccount.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAccountMouseClicked(evt);
+            }
+        });
+        btnAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAccountActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -200,6 +223,8 @@ public class HomeScreen extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton6))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +247,9 @@ public class HomeScreen extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton6)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(76, 76, 76)
                 .addComponent(jLabel3)
                 .addGap(29, 29, 29)
@@ -407,8 +434,14 @@ public class HomeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_adminButtonMouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        new TermsAndConditions().setVisible(true);
-        this.setVisible(false);
+//        new TermsAndConditions().setVisible(true);
+//        setVisible(false);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new TermsAndConditions().setVisible(true);
+                setVisible(false);
+            }
+        });
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void panel1bttnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel1bttnMouseClicked
@@ -440,6 +473,19 @@ public class HomeScreen extends javax.swing.JFrame {
         }
         });
     }//GEN-LAST:event_adminButtonActionPerformed
+
+    private void btnAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAccountMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAccountMouseClicked
+
+    private void btnAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new myAccount().setVisible(true);
+                setVisible(false);
+            }
+        });
+    }//GEN-LAST:event_btnAccountActionPerformed
 
     /**
      * @param args the command line arguments
@@ -479,6 +525,7 @@ public class HomeScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton adminButton;
+    public javax.swing.JButton btnAccount;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

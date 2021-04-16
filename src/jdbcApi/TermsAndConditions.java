@@ -49,6 +49,11 @@ public class TermsAndConditions extends javax.swing.JFrame {
                 jButton6MouseClicked(evt);
             }
         });
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton5.setBackground(new java.awt.Color(237, 238, 217));
         jButton5.setText("RETURN TO HOMESCREEN");
@@ -56,6 +61,11 @@ public class TermsAndConditions extends javax.swing.JFrame {
         jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton5MouseClicked(evt);
+            }
+        });
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
             }
         });
 
@@ -82,11 +92,11 @@ public class TermsAndConditions extends javax.swing.JFrame {
                         .addGap(71, 71, 71)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(jButton6))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addComponent(jButton6)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
@@ -111,7 +121,7 @@ public class TermsAndConditions extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(124, 124, 124)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
+                        .addGap(42, 42, 42)
                         .addComponent(jButton6)))
                 .addGap(32, 32, Short.MAX_VALUE))
         );
@@ -132,14 +142,35 @@ public class TermsAndConditions extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
-        new HomeScreen().setVisible(true);
-        this.setVisible(false);
+//        Login validate = new Login();
+//        validate.AdminVerification();
+//        setVisible(false);
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         new SignOut().setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        Login validate = new Login();
+        Boolean AdminValidation = validate.Admin;
+        if(AdminValidation){
+            java.awt.EventQueue.invokeLater(() -> {
+                    new HomeScreen().setVisible(true);
+                    setVisible(false);
+                });
+        }else{
+            java.awt.EventQueue.invokeLater(() -> {
+                    new HomeScreen(true).setVisible(true);
+                    setVisible(false);
+                });
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

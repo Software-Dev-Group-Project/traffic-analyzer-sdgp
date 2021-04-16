@@ -8,6 +8,7 @@ package jdbcApi;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
@@ -32,8 +33,8 @@ public class Login extends javax.swing.JFrame {
     ResultSet rs = null;
 
     public String CurrentUser;
-    //String [] UserArray; 
     public static ArrayList<String> UserArray = new ArrayList<>();
+    public static Boolean Admin;
 
     public Login() {
         initComponents();
@@ -330,6 +331,7 @@ public class Login extends javax.swing.JFrame {
             if (!rs.next()) {
                 //If user is NOT admin the admin button will not appear on screen
                 System.out.println("Stage 1: User is not an admin");
+                Admin = false;
                 java.awt.EventQueue.invokeLater(() -> {
                     new HomeScreen(true).setVisible(true);
                     setVisible(false);
@@ -337,6 +339,7 @@ public class Login extends javax.swing.JFrame {
             } else {
                 //If user is admin the admin button will appear on screen
                 System.out.println("Stage 1: User is an admin");
+                Admin = true;
                 java.awt.EventQueue.invokeLater(() -> {
                     new HomeScreen().setVisible(true);
                     setVisible(false);
@@ -397,7 +400,6 @@ public class Login extends javax.swing.JFrame {
         System.out.println("User: " + username + " Date: " + date + " at: " + time);
 
         try {
-
             ps = con.prepareStatement(sqlTimeStamp);
             ps.executeUpdate();
             System.out.println("Time has been set for " + username);
