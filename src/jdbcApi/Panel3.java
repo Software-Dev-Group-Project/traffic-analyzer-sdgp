@@ -6,13 +6,16 @@
 package jdbcApi;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.jdbc.JDBCCategoryDataset;
 
 /**
  *
@@ -46,6 +49,21 @@ public class Panel3 extends javax.swing.JFrame {
         
       
     }
+    
+    private CategoryDataset openDataset(){
+    
+        try {
+            
+            String sqlQuery = "SELECT SUM(pedal_cycles + all_motor_vehicles) FROM CountEntry ";
+            
+            JDBCCategoryDataset jdbc = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
+            return jdbc;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return null;
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,6 +90,7 @@ public class Panel3 extends javax.swing.JFrame {
         Main = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         chartPanelWindow = new javax.swing.JPanel();
+        p3Option = new javax.swing.JComboBox<>();
         logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -276,8 +295,25 @@ public class Panel3 extends javax.swing.JFrame {
         );
         chartPanelWindowLayout.setVerticalGroup(
             chartPanelWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 435, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        p3Option.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        p3Option.setMaximumRowCount(7);
+        p3Option.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        p3Option.setMaximumRowCount(7);
+        p3Option.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All Years", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019" }));
+        p3Option.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                p3OptionItemStateChanged(evt);
+            }
+        });
+        p3Option.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                p3OptionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pan1Layout = new javax.swing.GroupLayout(pan1);
         pan1.setLayout(pan1Layout);
@@ -286,7 +322,9 @@ public class Panel3 extends javax.swing.JFrame {
             .addGroup(pan1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(chartPanelWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(382, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                .addComponent(p3Option, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(105, 105, 105))
         );
         pan1Layout.setVerticalGroup(
             pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,6 +332,10 @@ public class Panel3 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(chartPanelWindow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(pan1Layout.createSequentialGroup()
+                .addGap(102, 102, 102)
+                .addComponent(p3Option, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(317, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout MainLayout = new javax.swing.GroupLayout(Main);
@@ -404,6 +446,39 @@ public class Panel3 extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_bl5MouseClicked
 
+    private void p3OptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p3OptionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p3OptionActionPerformed
+
+    private void p3OptionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_p3OptionItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_p3OptionItemStateChanged
+
+    
+    private CategoryDataset createDataset(){
+    
+        try {
+            String sqlQuery = "";
+            String vehicleType = "";
+            String option1Chosen = (String) p3Option.getSelectedItem();
+            
+            
+            if(option1Chosen == "All Years"){
+                sqlQuery = "SELECT SUM(" + vehicleType + ") FROM CountEntry ";
+            }
+            else{         
+                sqlQuery = "SELECT SUM(" + vehicleType + ") FROM CountEntry WHERE entry_year = " + option1Chosen + " ;";                   
+            }
+            
+            JDBCCategoryDataset jdbc = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
+            return jdbc; 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return null;
+        
+    
+    }
     /**
      * @param args the command line arguments
      */
@@ -456,6 +531,7 @@ public class Panel3 extends javax.swing.JFrame {
     private java.awt.Choice choice1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel logo;
+    private javax.swing.JComboBox<String> p3Option;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel settings;
     // End of variables declaration//GEN-END:variables

@@ -387,7 +387,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="chartPanelWindow" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="382" max="32767" attributes="0"/>
+                          <EmptySpace pref="119" max="32767" attributes="0"/>
+                          <Component id="p3Option" min="-2" pref="158" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -397,6 +399,11 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="chartPanelWindow" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
+                          <Component id="p3Option" min="-2" pref="48" max="-2" attributes="0"/>
+                          <EmptySpace pref="317" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -412,11 +419,52 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="435" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                 </Container>
+                <Component class="javax.swing.JComboBox" name="p3Option">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="18" style="0"/>
+                    </Property>
+                    <Property name="maximumRowCount" type="int" value="7"/>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="21">
+                        <StringItem index="0" value="All Years"/>
+                        <StringItem index="1" value="2000"/>
+                        <StringItem index="2" value="2001"/>
+                        <StringItem index="3" value="2002"/>
+                        <StringItem index="4" value="2003"/>
+                        <StringItem index="5" value="2004"/>
+                        <StringItem index="6" value="2005"/>
+                        <StringItem index="7" value="2006"/>
+                        <StringItem index="8" value="2007"/>
+                        <StringItem index="9" value="2008"/>
+                        <StringItem index="10" value="2009"/>
+                        <StringItem index="11" value="2010"/>
+                        <StringItem index="12" value="2011"/>
+                        <StringItem index="13" value="2012"/>
+                        <StringItem index="14" value="2013"/>
+                        <StringItem index="15" value="2014"/>
+                        <StringItem index="16" value="2015"/>
+                        <StringItem index="17" value="2016"/>
+                        <StringItem index="18" value="2017"/>
+                        <StringItem index="19" value="2018"/>
+                        <StringItem index="20" value="2019"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="p3OptionItemStateChanged"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="p3OptionActionPerformed"/>
+                  </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="p3Option.setFont(new java.awt.Font(&quot;Tahoma&quot;, 0, 18)); // NOI18N&#xa;&#xa;p3Option.setMaximumRowCount(7);"/>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
