@@ -100,9 +100,12 @@ public class Panel4 extends javax.swing.JFrame {
         Main = new javax.swing.JPanel();
         pan1 = new javax.swing.JPanel();
         chartPanelWindow = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         p4Options = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         p4Options2 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        p4Options3 = new javax.swing.JComboBox<>();
         logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -310,8 +313,11 @@ public class Panel4 extends javax.swing.JFrame {
         );
         chartPanelWindowLayout.setVerticalGroup(
             chartPanelWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 527, Short.MAX_VALUE)
         );
+
+        jPanel1.setBackground(new java.awt.Color(237, 213, 166));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 3));
 
         p4Options.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         p4Options.setMaximumRowCount(7);
@@ -323,13 +329,8 @@ public class Panel4 extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Open in a New Window");
-        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Perpetua", 1, 24)); // NOI18N
+        jLabel1.setText("Filters");
 
         p4Options2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         p4Options2.setMaximumRowCount(7);
@@ -341,6 +342,58 @@ public class Panel4 extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Open in a New Window");
+        jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
+        p4Options3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        p4Options3.setMaximumRowCount(7);
+        p4Options3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All Roads", "Minor", "Major" }));
+        p4Options3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p4Options3.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                p4Options3ItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(69, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(p4Options2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(p4Options, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(p4Options3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(63, 63, 63))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(129, 129, 129))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel1)
+                .addGap(34, 34, 34)
+                .addComponent(p4Options, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(p4Options2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(p4Options3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52))
+        );
+
         javax.swing.GroupLayout pan1Layout = new javax.swing.GroupLayout(pan1);
         pan1.setLayout(pan1Layout);
         pan1Layout.setHorizontalGroup(
@@ -348,27 +401,17 @@ public class Panel4 extends javax.swing.JFrame {
             .addGroup(pan1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(chartPanelWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(p4Options, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(p4Options2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(97, 97, 97))
+                .addGap(28, 28, 28)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pan1Layout.setVerticalGroup(
             pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pan1Layout.createSequentialGroup()
-                .addGap(109, 109, 109)
-                .addComponent(p4Options, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
-                .addComponent(p4Options2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(109, 109, 109))
-            .addGroup(pan1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(chartPanelWindow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(chartPanelWindow, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -522,6 +565,7 @@ public class Panel4 extends javax.swing.JFrame {
             String vehicleType = "";
             String option1Chosen = (String) p4Options.getSelectedItem();
             String option2Chosen = (String) p4Options2.getSelectedItem();
+            String option3Chosen = (String) p4Options3.getSelectedItem();
             
             switch(option1Chosen){
             
@@ -547,11 +591,20 @@ public class Panel4 extends javax.swing.JFrame {
                     vehicleType = "all_hgvs";
                     break;                  
             }
-            if(option2Chosen == "All Years"){
+            if(option2Chosen.equals("All Years") && option3Chosen.equals("All Roads") ){
                 sqlQuery = "SELECT direction_of_travel, SUM(" + vehicleType + ") FROM CountEntry  GROUP BY direction_of_travel";
             }
+            
+            else if(option2Chosen.equals("All Years") && option3Chosen.equals("Minor") ){
+                sqlQuery = "SELECT direction_of_travel, SUM(" + vehicleType + ") FROM CountEntry LEFT JOIN Road on road_type ='Minor' GROUP BY direction_of_travel";
+            }
+            
+            else if(option2Chosen.equals("All Years") && option3Chosen.equals("Major") ){
+                sqlQuery = "SELECT direction_of_travel, SUM(" + vehicleType + ") FROM CountEntry LEFT JOIN Road on road_type ='Major' GROUP BY direction_of_travel";
+            }
+            
             else{         
-                sqlQuery = "SELECT direction_of_travel, SUM(" + vehicleType + ") FROM CountEntry WHERE entry_year = " + option2Chosen + " GROUP BY direction_of_travel;";                   
+                sqlQuery = "SELECT direction_of_travel, SUM(" + vehicleType + ") FROM CountEntry LEFT JOIN Road on road_type = '" + option3Chosen + "' WHERE entry_year = " + option2Chosen + " GROUP BY direction_of_travel;";                   
             }
             
             JDBCCategoryDataset jdbc = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
@@ -560,7 +613,12 @@ public class Panel4 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         return null;
-        
+        // sql query
+        //SELECT direction_of_travel, SUM(pedal_cycles + all_motor_vehicles)
+        //FROM CountEntry 
+        //LEFT JOIN Road on road_type ="Major"
+        //WHERE entry_year = "2014"
+        //GROUP BY direction_of_travel;
     
     }//GEN-LAST:event_p4OptionsItemStateChanged
 
@@ -574,7 +632,7 @@ public class Panel4 extends javax.swing.JFrame {
         ChartFrame chartFrm = new ChartFrame("Number of Cars based on direction", panel4Chart, true);
         chartFrm.setVisible(true);
         chartFrm.setLocationRelativeTo(null);
-        chartFrm.setSize(800, 600);
+        chartFrm.setSize(837, 600);
         
         BarRenderer bar = new BarRenderer();
         bar.setSeriesPaint(0,new Color(216,203,187));
@@ -628,6 +686,37 @@ public class Panel4 extends javax.swing.JFrame {
     
     }//GEN-LAST:event_p4Options2ItemStateChanged
 
+    private void p4Options3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_p4Options3ItemStateChanged
+        CategoryDataset dataset = createDataset();
+        Font font = new Font("Dialog", Font.BOLD, 18);
+        Font font2 = new Font("Dialog", Font.PLAIN, 12);
+        Font font3 = new Font("Dialog", Font.BOLD, 14);
+        JFreeChart panel4Chart = ChartFactory.createBarChart("Vehicles Count based on Direction", "Directions", "Number of Vehicles", dataset, PlotOrientation.VERTICAL, true, true, false);
+        panel4Chart.setBackgroundPaint(new Color(141,128,111));
+        panel4Chart.removeLegend();
+        
+        CategoryPlot plot = panel4Chart.getCategoryPlot();
+        plot.setRangeGridlinePaint(Color.black);
+        plot.getDomainAxis().setLabelFont(font);
+        plot.getRangeAxis().setLabelFont(font);
+        plot.setBackgroundPaint(new Color(42,50,46));
+        CategoryAxis xAxis = plot.getDomainAxis();  
+        ValueAxis yAxis = plot.getRangeAxis();
+        xAxis.setTickLabelFont(font3);
+        yAxis.setTickLabelFont(font2);
+        
+        ChartPanel chartPanel = new ChartPanel(panel4Chart);
+        chartPanel.setSize(800, 527);
+        chartPanelWindow.removeAll();
+        chartPanelWindow.add(chartPanel);
+        chartPanelWindow.updateUI();
+        
+        BarRenderer bar = new BarRenderer();
+        bar.setSeriesPaint(0,new Color(216,203,187));
+        bar.setShadowVisible(false);
+        plot.setRenderer(bar);
+    }//GEN-LAST:event_p4Options3ItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -678,10 +767,13 @@ public class Panel4 extends javax.swing.JFrame {
     private javax.swing.JLabel bl5;
     private javax.swing.JPanel chartPanelWindow;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel logo;
     private javax.swing.JComboBox<String> p4Options;
     private javax.swing.JComboBox<String> p4Options2;
+    private javax.swing.JComboBox<String> p4Options3;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel settings;
     // End of variables declaration//GEN-END:variables
