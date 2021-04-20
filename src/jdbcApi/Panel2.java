@@ -92,6 +92,7 @@ public class Panel2 extends javax.swing.JFrame {
             
             String sqlQuery = "SELECT entry_hour, SUM(all_motor_vehicles) FROM CountEntry GROUP BY entry_hour";
             
+            
             JDBCCategoryDataset jdbc = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
             return jdbc;
         } catch (Exception e) {
@@ -129,7 +130,7 @@ public class Panel2 extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         P2VehicleList = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
-        P2VehicleList2 = new javax.swing.JComboBox<>();
+        P2YearList = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         logo = new javax.swing.JLabel();
@@ -363,10 +364,16 @@ public class Panel2 extends javax.swing.JFrame {
 
         P2VehicleList.setBackground(new java.awt.Color(240, 240, 240));
         P2VehicleList.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        P2VehicleList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All motor Vehicles", "Heavy Goods Vehicles", "Large Goods Vehicles", "Cars and Taxis", "Buses and Coaches", "Cycles", " " }));
+        P2VehicleList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All motor Vehicles", "Heavy Goods Vehicles", "Large Goods Vehicles", "Cars and Taxis", "Buses and Coaches", "Cycles" }));
+        P2VehicleList.setSelectedIndex(-1);
         P2VehicleList.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 P2VehicleListItemStateChanged(evt);
+            }
+        });
+        P2VehicleList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                P2VehicleListActionPerformed(evt);
             }
         });
 
@@ -390,17 +397,18 @@ public class Panel2 extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(11, 58, 83));
         jPanel5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        P2VehicleList2.setBackground(new java.awt.Color(240, 240, 240));
-        P2VehicleList2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        P2VehicleList2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019" }));
-        P2VehicleList2.addItemListener(new java.awt.event.ItemListener() {
+        P2YearList.setBackground(new java.awt.Color(240, 240, 240));
+        P2YearList.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        P2YearList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019" }));
+        P2YearList.setSelectedIndex(-1);
+        P2YearList.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                P2VehicleList2ItemStateChanged(evt);
+                P2YearListItemStateChanged(evt);
             }
         });
-        P2VehicleList2.addActionListener(new java.awt.event.ActionListener() {
+        P2YearList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                P2VehicleList2ActionPerformed(evt);
+                P2YearListActionPerformed(evt);
             }
         });
 
@@ -410,14 +418,14 @@ public class Panel2 extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(29, Short.MAX_VALUE)
-                .addComponent(P2VehicleList2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(P2YearList, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(P2VehicleList2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(P2YearList, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -608,13 +616,22 @@ public class Panel2 extends javax.swing.JFrame {
 
     }//GEN-LAST:event_P2VehicleListItemStateChanged
 
-    private void P2VehicleList2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_P2VehicleList2ItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_P2VehicleList2ItemStateChanged
+    private void P2YearListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_P2YearListItemStateChanged
+        CategoryDataset dataset = YearData();
+     
+       
+       Font font = new Font("Dialog", Font.CENTER_BASELINE, 15);
 
-    private void P2VehicleList2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P2VehicleList2ActionPerformed
+        JFreeChart panel2Chart = ChartFactory.createBarChart3D("Vehicle count by the year (2000 - 2019)", "Year", "Number of Vehicles",dataset,PlotOrientation.HORIZONTAL,true,true,false);
+    }//GEN-LAST:event_P2YearListItemStateChanged
+
+    private void P2YearListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P2YearListActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_P2VehicleList2ActionPerformed
+    }//GEN-LAST:event_P2YearListActionPerformed
+
+    private void P2VehicleListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P2VehicleListActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_P2VehicleListActionPerformed
 
    private CategoryDataset HourData(){
     
@@ -655,10 +672,37 @@ public class Panel2 extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-        return null;
-        
-    
+        return null;   
     } 
+   
+   private CategoryDataset YearData(){
+       try {
+            String P2category = "";
+            String c = (String) P2YearList.getSelectedItem();
+            
+            
+            switch(c){
+            
+                case "2019":
+                    P2category = "2019";
+                   
+              
+                    break;
+            }
+            
+            String sqlQuery2 = "SELECT entry_year , SUM(" + P2category + ") FROM CountEntry GROUP BY entry_year";
+            
+            JDBCCategoryDataset jdbc2 = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery2);
+            return jdbc2;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return null;  
+//        
+
+   }
+   
+   
    
     /**
      * 
@@ -701,7 +745,7 @@ public class Panel2 extends javax.swing.JFrame {
     private javax.swing.JPanel Header;
     private javax.swing.JPanel Main;
     private javax.swing.JComboBox<String> P2VehicleList;
-    private javax.swing.JComboBox<String> P2VehicleList2;
+    private javax.swing.JComboBox<String> P2YearList;
     private javax.swing.JPanel b1;
     private javax.swing.JPanel b2;
     private javax.swing.JPanel b3;

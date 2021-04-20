@@ -522,19 +522,20 @@
                           <Font name="Calibri" size="18" style="1"/>
                         </Property>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                          <StringArray count="7">
+                          <StringArray count="6">
                             <StringItem index="0" value="All motor Vehicles"/>
                             <StringItem index="1" value="Heavy Goods Vehicles"/>
                             <StringItem index="2" value="Large Goods Vehicles"/>
                             <StringItem index="3" value="Cars and Taxis"/>
                             <StringItem index="4" value="Buses and Coaches"/>
                             <StringItem index="5" value="Cycles"/>
-                            <StringItem index="6" value=" "/>
                           </StringArray>
                         </Property>
+                        <Property name="selectedIndex" type="int" value="-1"/>
                       </Properties>
                       <Events>
                         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="P2VehicleListItemStateChanged"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="P2VehicleListActionPerformed"/>
                       </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -559,7 +560,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace pref="29" max="32767" attributes="0"/>
-                              <Component id="P2VehicleList2" min="-2" pref="199" max="-2" attributes="0"/>
+                              <Component id="P2YearList" min="-2" pref="199" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -568,14 +569,14 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                              <Component id="P2VehicleList2" min="-2" pref="39" max="-2" attributes="0"/>
+                              <Component id="P2YearList" min="-2" pref="39" max="-2" attributes="0"/>
                               <EmptySpace pref="23" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JComboBox" name="P2VehicleList2">
+                    <Component class="javax.swing.JComboBox" name="P2YearList">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="f0" green="f0" red="f0" type="rgb"/>
@@ -607,10 +608,11 @@
                             <StringItem index="19" value="2019"/>
                           </StringArray>
                         </Property>
+                        <Property name="selectedIndex" type="int" value="-1"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="P2VehicleList2ItemStateChanged"/>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="P2VehicleList2ActionPerformed"/>
+                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="P2YearListItemStateChanged"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="P2YearListActionPerformed"/>
                       </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
