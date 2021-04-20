@@ -6,16 +6,22 @@
 package jdbcApi;
 
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.StandardChartTheme;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
 import org.jfree.data.jdbc.JDBCCategoryDataset;
+import org.jfree.data.jdbc.JDBCPieDataset;
 
 /**
  *
@@ -28,14 +34,9 @@ public class Panel3 extends javax.swing.JFrame {
      */
     public Panel3() {
         initComponents();
-        DefaultPieDataset pieDataSet = new DefaultPieDataset();
-        pieDataSet.setValue("ONE", new Integer(10));
-        pieDataSet.setValue("TWO", new Integer(30));
-        pieDataSet.setValue("THREE", new Integer(50));
-        pieDataSet.setValue("FOUR", new Integer(20));
-        
-        JFreeChart chart = ChartFactory.createPieChart("Pie Chart", pieDataSet, true, true, true);
-        chart.setBackgroundPaint(new Color(141,128,111));
+        PieDataset dataset = openDataset();
+
+        JFreeChart chart = ChartFactory.createPieChart("Pie Chart", dataset, true, true, true);
         PiePlot p = (PiePlot)chart.getPlot();
         
         
@@ -50,13 +51,13 @@ public class Panel3 extends javax.swing.JFrame {
       
     }
     
-    private CategoryDataset openDataset(){
+    private PieDataset openDataset(){
     
         try {
             
-            String sqlQuery = "SELECT SUM(pedal_cycles + all_motor_vehicles) FROM CountEntry ";
+            String sqlQuery = "Select SUM(pedal_cycles) AS Pedal_Cycles ,SUM(cars_and_taxis) AS Cars_and_Taxis  FROM CountEntry;";
             
-            JDBCCategoryDataset jdbc = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
+            JDBCPieDataset jdbc = new JDBCPieDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
             return jdbc;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -455,7 +456,7 @@ public class Panel3 extends javax.swing.JFrame {
     }//GEN-LAST:event_p3OptionItemStateChanged
 
     
-    private CategoryDataset createDataset(){
+    private PieDataset createDataset(){
     
         try {
             String sqlQuery = "";
@@ -463,14 +464,15 @@ public class Panel3 extends javax.swing.JFrame {
             String option1Chosen = (String) p3Option.getSelectedItem();
             
             
+           
             if(option1Chosen == "All Years"){
-                sqlQuery = "SELECT SUM(" + vehicleType + ") FROM CountEntry ";
+                sqlQuery = "SELECT SUM(pedal_cycles) FROM CountEntry GROUP BY entry_year";
             }
             else{         
-                sqlQuery = "SELECT SUM(" + vehicleType + ") FROM CountEntry WHERE entry_year = " + option1Chosen + " ;";                   
+                sqlQuery = "SELECT SUM(pedal_cycles) FROM CountEntry WHERE entry_year = " + option1Chosen + " GROUP BY entry_year;";                   
             }
             
-            JDBCCategoryDataset jdbc = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
+            JDBCPieDataset jdbc = new JDBCPieDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
             return jdbc; 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -478,7 +480,7 @@ public class Panel3 extends javax.swing.JFrame {
         return null;
         
     
-    }
+    } 
     /**
      * @param args the command line arguments
      */
@@ -510,7 +512,10 @@ public class Panel3 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Panel3().setVisible(true);
+                
+                    new Panel3().setVisible(true);
+                
+                    
             }
         });
     }
