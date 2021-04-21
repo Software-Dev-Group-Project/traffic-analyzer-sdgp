@@ -6,7 +6,11 @@
 package jdbcApi;
 
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -32,22 +36,56 @@ public class Panel3 extends javax.swing.JFrame {
     /**
      * Creates new form Panel3
      */
+    
+    private Connection connect(){
+        String url = "jdbc:sqlite:trafficData.db";
+        Connection conn = null;
+        
+        try{
+            conn = DriverManager.getConnection(url);
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return conn;
+    }
     public Panel3() {
         initComponents();
-        PieDataset dataset = openDataset();
-
-        JFreeChart chart = ChartFactory.createPieChart("Pie Chart", dataset, true, true, true);
-        PiePlot p = (PiePlot)chart.getPlot();
+        String sql = "Select SUM(all_motor_vehicles) AS Motor_Vehicles, SUM(pedal_cycles) AS Pedal_Cycles, SUM(lgvs) AS LGVS, SUM(two_wheeled_motor_vehicles) AS Two_Wheel_Motor, SUM(cars_and_taxis) AS Cars_And_Taxis, SUM(buses_and_coaches) AS Buses_And_Coaches, SUM(all_hgvs) AS HGVS  FROM CountEntry";
         
-        
-        
-        
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setSize(835, 435);
-        chartPanelWindow.removeAll();
-        chartPanelWindow.add(chartPanel);
-        chartPanelWindow.updateUI();
-        
+        try(Connection conn = this.connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)){
+            
+            while(rs.next()){
+                int motor_vehicles = rs.getInt("Motor_Vehicles");
+                int pedal_cycles = rs.getInt("Pedal_Cycles");
+                int lgvs = rs.getInt("LGVS");
+                int twmv = rs.getInt("Two_Wheel_Motor");
+                int car_taxi = rs.getInt("Cars_And_Taxis");
+                int bus_coach = rs.getInt("Buses_And_Coaches");
+                int hgvs = rs.getInt("HGVS");
+                System.out.println(motor_vehicles);
+                DefaultPieDataset dataset = new DefaultPieDataset();
+                dataset.setValue("Motor Vehicles", motor_vehicles);
+                dataset.setValue("Buses and Coaches", bus_coach);
+                dataset.setValue("Heavy Goods Vehicles", hgvs);
+                dataset.setValue("Pedal Cycles", pedal_cycles);
+                dataset.setValue("Cars and Taxis", car_taxi);
+                dataset.setValue("Large Goods Vehicles", lgvs);
+                dataset.setValue("Two Wheeled Motor Vehicles", twmv);
+                
+                JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                PiePlot p = (PiePlot)chart.getPlot();
+                
+                ChartPanel chartPanel = new ChartPanel(chart);
+                chartPanel.setSize(835, 435);
+                 chartPanelWindow.removeAll();
+                chartPanelWindow.add(chartPanel);
+                chartPanelWindow.updateUI();
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
       
     }
     
@@ -55,7 +93,7 @@ public class Panel3 extends javax.swing.JFrame {
     
         try {
             
-            String sqlQuery = "Select direction_of_travel, SUM(pedal_cycles + all_motor_vehicles) FROM CountEntry GROUP BY direction_of_travel";
+            String sqlQuery = "Select SUM(all_motor_vehicles) AS Motor, SUM(pedal_cycles) AS PEdal, SUM(lgvs) AS Lgvs FROM CountEntry";
             
             JDBCPieDataset jdbc = new JDBCPieDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
             return jdbc;
