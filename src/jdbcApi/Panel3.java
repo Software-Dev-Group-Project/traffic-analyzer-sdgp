@@ -66,7 +66,7 @@ public class Panel3 extends javax.swing.JFrame {
                 int hgvs = rs.getInt("HGVS");
                 System.out.println(motor_vehicles);
                 DefaultPieDataset dataset = new DefaultPieDataset();
-                dataset.setValue("Motor Vehicles", motor_vehicles);
+                
                 dataset.setValue("Buses and Coaches", bus_coach);
                 dataset.setValue("Heavy Goods Vehicles", hgvs);
                 dataset.setValue("Pedal Cycles", pedal_cycles);
@@ -130,7 +130,6 @@ public class Panel3 extends javax.swing.JFrame {
         pan1 = new javax.swing.JPanel();
         chartPanelWindow = new javax.swing.JPanel();
         p3Option = new javax.swing.JComboBox<>();
-        p3Option1 = new javax.swing.JComboBox<>();
         logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -355,23 +354,6 @@ public class Panel3 extends javax.swing.JFrame {
             }
         });
 
-        p3Option.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-
-        p3Option.setMaximumRowCount(7);
-        p3Option1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        p3Option1.setMaximumRowCount(7);
-        p3Option1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All Vehicles", "Pedal Cycles", "Motorcycles", "Cars and Taxis", "Buses and Coaches", "Large Goods Vehicles", "Heavy Goods Vehicles" }));
-        p3Option1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                p3Option1ItemStateChanged(evt);
-            }
-        });
-        p3Option1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                p3Option1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout pan1Layout = new javax.swing.GroupLayout(pan1);
         pan1.setLayout(pan1Layout);
         pan1Layout.setHorizontalGroup(
@@ -380,9 +362,7 @@ public class Panel3 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(chartPanelWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
-                .addGroup(pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(p3Option, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(p3Option1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(p3Option, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(94, 94, 94))
         );
         pan1Layout.setVerticalGroup(
@@ -394,9 +374,7 @@ public class Panel3 extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(p3Option, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74)
-                .addComponent(p3Option1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(218, 218, 218))
+                .addGap(340, 340, 340))
         );
 
         javax.swing.GroupLayout MainLayout = new javax.swing.GroupLayout(Main);
@@ -527,26 +505,6 @@ public class Panel3 extends javax.swing.JFrame {
         chartPanelWindow.updateUI();
     }//GEN-LAST:event_p3OptionItemStateChanged
 
-    private void p3Option1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_p3Option1ItemStateChanged
-        PieDataset dataset = createDataset();
-
-        JFreeChart chart = ChartFactory.createPieChart("Pie Chart", dataset, true, true, true);
-        PiePlot p = (PiePlot)chart.getPlot();
-        
-        
-        
-        
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setSize(835, 435);
-        chartPanelWindow.removeAll();
-        chartPanelWindow.add(chartPanel);
-        chartPanelWindow.updateUI();
-    }//GEN-LAST:event_p3Option1ItemStateChanged
-
-    private void p3Option1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p3Option1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_p3Option1ActionPerformed
-
     
     private PieDataset createDataset(){
     
@@ -554,33 +512,6 @@ public class Panel3 extends javax.swing.JFrame {
             String sqlQuery = "";
             String vehicleType = "";
             String option1Chosen = (String) p3Option.getSelectedItem();
-            String option2Chosen = (String) p3Option1.getSelectedItem();
-            
-            
-           switch(option2Chosen){
-            
-                case "All Vehicles":
-                    vehicleType = "pedal_cycles + all_motor_vehicles";
-                    break;
-                case "Pedal Cycles":
-                    vehicleType = "pedal_cycles";
-                    break;
-                case "Motorcycles":
-                    vehicleType = "two_wheeled_motor_vehicles";
-                    break;
-                case "Cars and Taxis":
-                    vehicleType = "cars_and_taxis";
-                    break;
-                case "Buses and Coaches":
-                    vehicleType = "buses_and_coaches";
-                    break;
-                case "Large Goods Vehicles":
-                    vehicleType = "lgvs";
-                    break;
-                case "Heavy Goods Vehicles":
-                    vehicleType = "all_hgvs";
-                    break;                  
-            }
            
             if(option1Chosen == "All Years"){
                 sqlQuery = "SELECT direction_of_travel, SUM(" + vehicleType + ") FROM CountEntry  GROUP BY direction_of_travel";
@@ -654,7 +585,6 @@ public class Panel3 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel logo;
     private javax.swing.JComboBox<String> p3Option;
-    private javax.swing.JComboBox<String> p3Option1;
     private javax.swing.JPanel pan1;
     private javax.swing.JPanel settings;
     // End of variables declaration//GEN-END:variables
