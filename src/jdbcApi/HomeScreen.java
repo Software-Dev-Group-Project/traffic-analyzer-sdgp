@@ -36,6 +36,7 @@ public class HomeScreen extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         panel3bttn = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
         panel4bttn = new javax.swing.JPanel();
         panel1bttn = new javax.swing.JPanel();
         panel2bttn = new javax.swing.JPanel();
@@ -76,7 +77,7 @@ public class HomeScreen extends javax.swing.JFrame {
         });
 
         panel3bttn.setBackground(new java.awt.Color(255, 255, 255));
-        panel3bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "PANEL 3 NAME", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 51))); // NOI18N
+        panel3bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Vehicles Per Year", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(51, 51, 51))); // NOI18N
         panel3bttn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel3bttn.setMinimumSize(new java.awt.Dimension(210, 150));
         panel3bttn.setPreferredSize(new java.awt.Dimension(230, 150));
@@ -86,19 +87,24 @@ public class HomeScreen extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jdbcApi/Webp.net-compress-image.jpg"))); // NOI18N
+        jLabel12.setText("jLabel12");
+
         javax.swing.GroupLayout panel3bttnLayout = new javax.swing.GroupLayout(panel3bttn);
         panel3bttn.setLayout(panel3bttnLayout);
         panel3bttnLayout.setHorizontalGroup(
             panel3bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel3bttnLayout.createSequentialGroup()
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panel3bttnLayout.setVerticalGroup(
             panel3bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         panel4bttn.setBackground(new java.awt.Color(255, 255, 255));
-        panel4bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "PANEL 4 NAME", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 51))); // NOI18N
+        panel4bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "PANEL 4 NAME", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(51, 51, 51))); // NOI18N
         panel4bttn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel4bttn.setMinimumSize(new java.awt.Dimension(210, 150));
         panel4bttn.setPreferredSize(new java.awt.Dimension(230, 150));
@@ -120,7 +126,7 @@ public class HomeScreen extends javax.swing.JFrame {
         );
 
         panel1bttn.setBackground(new java.awt.Color(255, 255, 255));
-        panel1bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "PANEL 1 NAME", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 51))); // NOI18N
+        panel1bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "PANEL 1 NAME", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(51, 51, 51))); // NOI18N
         panel1bttn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel1bttn.setMinimumSize(new java.awt.Dimension(210, 150));
         panel1bttn.setPreferredSize(new java.awt.Dimension(230, 150));
@@ -138,11 +144,11 @@ public class HomeScreen extends javax.swing.JFrame {
         );
         panel1bttnLayout.setVerticalGroup(
             panel1bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 129, Short.MAX_VALUE)
+            .addGap(0, 123, Short.MAX_VALUE)
         );
 
         panel2bttn.setBackground(new java.awt.Color(255, 255, 255));
-        panel2bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "PANEL 2 NAME", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 51))); // NOI18N
+        panel2bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "PANEL 2 NAME", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(51, 51, 51))); // NOI18N
         panel2bttn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel2bttn.setMinimumSize(new java.awt.Dimension(210, 150));
         panel2bttn.setPreferredSize(new java.awt.Dimension(230, 150));
@@ -160,7 +166,7 @@ public class HomeScreen extends javax.swing.JFrame {
         );
         panel2bttnLayout.setVerticalGroup(
             panel2bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 129, Short.MAX_VALUE)
+            .addGap(0, 123, Short.MAX_VALUE)
         );
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -174,7 +180,7 @@ public class HomeScreen extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(389, Short.MAX_VALUE)
                         .addComponent(jButton6))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,7 +196,7 @@ public class HomeScreen extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(panel4bttn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(panel2bttn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 13, Short.MAX_VALUE)))
+                        .addGap(0, 3, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -350,7 +356,7 @@ public class HomeScreen extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 625, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -457,6 +463,7 @@ public class HomeScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
