@@ -490,28 +490,59 @@ public class Panel3 extends javax.swing.JFrame {
     }//GEN-LAST:event_p3OptionActionPerformed
 
     private void p3OptionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_p3OptionItemStateChanged
-        PieDataset dataset = createDataset();
-
-        JFreeChart chart = ChartFactory.createPieChart("Pie Chart", dataset, true, true, true);
-        PiePlot p = (PiePlot)chart.getPlot();
+        String sqlQuery = "";
+        String vehicleType = "";
+        String option1Chosen = (String) p3Option.getSelectedItem();
+        
+        //option if all years chosen
+        if(option1Chosen=="All Years"){
+        String sql = "Select entry_year, SUM(all_motor_vehicles) AS Motor_Vehicles, SUM(pedal_cycles) AS Pedal_Cycles, SUM(lgvs) AS LGVS, SUM(two_wheeled_motor_vehicles) AS Two_Wheel_Motor, SUM(cars_and_taxis) AS Cars_And_Taxis, SUM(buses_and_coaches) AS Buses_And_Coaches, SUM(all_hgvs) AS HGVS  FROM CountEntry WHERE entry_year==2005";
         
         
+        try(Connection conn = this.connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)){
+            
+            while(rs.next()){
+                int motor_vehicles = rs.getInt("Motor_Vehicles");
+                int pedal_cycles = rs.getInt("Pedal_Cycles");
+                int lgvs = rs.getInt("LGVS");
+                int twmv = rs.getInt("Two_Wheel_Motor");
+                int car_taxi = rs.getInt("Cars_And_Taxis");
+                int bus_coach = rs.getInt("Buses_And_Coaches");
+                int hgvs = rs.getInt("HGVS");
+                System.out.println(motor_vehicles);
+                DefaultPieDataset dataset = new DefaultPieDataset();
+                
+                dataset.setValue("Buses and Coaches", bus_coach);
+                dataset.setValue("Heavy Goods Vehicles", hgvs);
+                dataset.setValue("Pedal Cycles", pedal_cycles);
+                dataset.setValue("Cars and Taxis", car_taxi);
+                dataset.setValue("Large Goods Vehicles", lgvs);
+                dataset.setValue("Two Wheeled Motor Vehicles", twmv);
+                
+                JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                PiePlot p = (PiePlot)chart.getPlot();
+                
+                ChartPanel chartPanel = new ChartPanel(chart);
+                chartPanel.setSize(835, 435);
+                 chartPanelWindow.removeAll();
+                chartPanelWindow.add(chartPanel);
+                chartPanelWindow.updateUI();
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+      }
         
-        
-        ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setSize(835, 435);
-        chartPanelWindow.removeAll();
-        chartPanelWindow.add(chartPanel);
-        chartPanelWindow.updateUI();
+      
     }//GEN-LAST:event_p3OptionItemStateChanged
 
     
-    private PieDataset createDataset(){
+    /*private PieDataset createDataset(){
     
         try {
-            String sqlQuery = "";
-            String vehicleType = "";
-            String option1Chosen = (String) p3Option.getSelectedItem();
+            
            
             if(option1Chosen == "All Years"){
                 sqlQuery = "SELECT direction_of_travel, SUM(" + vehicleType + ") FROM CountEntry  GROUP BY direction_of_travel";
@@ -528,7 +559,7 @@ public class Panel3 extends javax.swing.JFrame {
         return null;
         
     
-    } 
+    } */
     /**
      * @param args the command line arguments
      */
