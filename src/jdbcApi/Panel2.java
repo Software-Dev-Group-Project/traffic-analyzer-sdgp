@@ -5,6 +5,7 @@
  */
 package jdbcApi;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JOptionPane;
@@ -19,6 +20,7 @@ import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.category.CategoryDataset;
@@ -41,53 +43,49 @@ public class Panel2 extends javax.swing.JFrame {
     public Panel2() {
 
         initComponents();
-        //  ChartFactory.setChartTheme(StandardChartTheme.createLegacyTheme());
         ChartFactory.setChartTheme(StandardChartTheme.createJFreeTheme());
-        BarRenderer.getDefaultBarPainter();
+  //      BarRenderer.getDefaultBarPainter();
 
         CategoryDataset dataset = openDataset();
 
         Font font = new Font("Dialog", Font.CENTER_BASELINE, 15);
-        //     Font font2 = new Font("Dialog", Font.TRUETYPE_FONT, 12);
-        //    Font font3 = new Font("Dialog", Font.TRUETYPE_FONT, 14);
-        JFreeChart panel2Chart = ChartFactory.createBarChart3D("Vehicle count by the hour (2000 - 2019)", "Hour", "Number of Vehicles", dataset, PlotOrientation.HORIZONTAL, true, true, false);
+        JFreeChart panel2Chart = ChartFactory.createLineChart("Vehicle count by the hour (2000 - 2019)", "Hour", "Number of Vehicles", dataset, PlotOrientation.VERTICAL,true, true, false);
+        LineAndShapeRenderer renderer = (LineAndShapeRenderer) panel2Chart.getCategoryPlot().getRenderer();
+        renderer.setAutoPopulateSeriesStroke(false);
+        renderer.setBaseStroke(new BasicStroke(6.0f));
 
-        //   BarRenderer renderer =null; 
-        //    CategoryPlot plot= null;
+         
+       //    CategoryPlot plot= null;
         //    renderer = new BarRenderer();
         //   ChartFrame frame = new ChartFrame("Query Chart",panel2Chart);
         // frame.setVisible(true);
         // frame.setSize(800,527);
         //      JFreeChart panel4Chart = ChartFactory.createBarChart("Vehicle count by the hour (2000 - 2019)", "Hour", "Number of Vehicles", dataset, PlotOrientation.HORIZONTAL, true, true, false);
         panel2Chart.setBackgroundPaint(new Color(255, 255, 102));
-
-        // panel2Chart.removeLegend();
+        
+     
+        
         CategoryPlot plot = panel2Chart.getCategoryPlot();
         plot.setRangeGridlinePaint(Color.black);
         plot.setBackgroundPaint(new Color(11, 58, 83));
-        plot.getDomainAxis().setLabelFont(font);
-        plot.getRangeAxis().setLabelFont(font);
+        plot.getDomainAxis().setLabelFont(new Font("Dialog", Font.BOLD, 15));
+        plot.getRangeAxis().setLabelFont(new Font("Dialog", Font.BOLD, 15));
         CategoryAxis xAxis = plot.getDomainAxis();
         ValueAxis yAxis = plot.getRangeAxis();
-        xAxis.setTickLabelFont(font);
-        yAxis.setTickLabelFont(font);
+        xAxis.setTickLabelFont(new Font("Dialog", Font.ROMAN_BASELINE, 15));
+        yAxis.setTickLabelFont(new Font("Dialog", Font.ROMAN_BASELINE, 15));
 
         chartPanel = new ChartPanel(panel2Chart);
         chartPanel.setSize(800, 527);
         dataDisplayPanel.removeAll();
         dataDisplayPanel.add(chartPanel);
         dataDisplayPanel.updateUI();
-
-//        BarRenderer p2bar = new BarRenderer();
-//        p2bar.setSeriesPaint(0,new Color(0,25,255));
-//        p2bar.setShadowVisible(false);
-//        plot.setRenderer(p2bar);
     }
 
     private CategoryDataset openDataset() {
 
         try {
-
+           
             String sqlQuery = "SELECT entry_hour, SUM(all_motor_vehicles) FROM CountEntry GROUP BY entry_hour";
 
             JDBCCategoryDataset jdbc = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
@@ -580,38 +578,44 @@ public class Panel2 extends javax.swing.JFrame {
     private void P2VehicleListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_P2VehicleListItemStateChanged
         CategoryDataset dataset = updateChart();
 
-        Font font = new Font("Dialog", Font.CENTER_BASELINE, 15);
-        //     Font font2 = new Font("Dialog", Font.TRUETYPE_FONT, 12);
-        //    Font font3 = new Font("Dialog", Font.TRUETYPE_FONT, 14);
-        JFreeChart panel2Chart = ChartFactory.createBarChart3D("Vehicle count by the hour (2000 - 2019)", "Hour", "Number of Vehicles", dataset, PlotOrientation.HORIZONTAL, true, true, false);
+      //  Font font = new Font("Dialog", Font.CENTER_BASELINE, 15);
+        
+
+       JFreeChart panel2Chart = ChartFactory.createLineChart("Vehicle count by the hour (2000 - 2019)", "Hour", "Number of Vehicles", dataset, PlotOrientation.VERTICAL,true, true, false);
+        LineAndShapeRenderer renderer = (LineAndShapeRenderer) panel2Chart.getCategoryPlot().getRenderer();
+        renderer.setAutoPopulateSeriesStroke(false);
+        renderer.setBaseStroke(new BasicStroke(6.0f));
 
         panel2Chart.setBackgroundPaint(new Color(255, 255, 102));
 
-        // panel2Chart.removeLegend();
-        CategoryPlot plot = panel2Chart.getCategoryPlot();
+       CategoryPlot plot = panel2Chart.getCategoryPlot();
         plot.setRangeGridlinePaint(Color.black);
         plot.setBackgroundPaint(new Color(11, 58, 83));
-        plot.getDomainAxis().setLabelFont(font);
-        plot.getRangeAxis().setLabelFont(font);
+        plot.getDomainAxis().setLabelFont(new Font("Dialog", Font.BOLD, 15));
+        plot.getRangeAxis().setLabelFont(new Font("Dialog", Font.BOLD, 15));
         CategoryAxis xAxis = plot.getDomainAxis();
         ValueAxis yAxis = plot.getRangeAxis();
-        xAxis.setTickLabelFont(font);
-        yAxis.setTickLabelFont(font);
+        xAxis.setTickLabelFont(new Font("Dialog", Font.ROMAN_BASELINE, 15));
+        yAxis.setTickLabelFont(new Font("Dialog", Font.ROMAN_BASELINE, 15));
 
         chartPanel = new ChartPanel(panel2Chart);
         chartPanel.setSize(800, 527);
         dataDisplayPanel.removeAll();
         dataDisplayPanel.add(chartPanel);
         dataDisplayPanel.updateUI();
-
     }//GEN-LAST:event_P2VehicleListItemStateChanged
 
     private void P2YearListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_P2YearListItemStateChanged
         CategoryDataset dataset = updateChart();
 
-        Font font = new Font("Dialog", Font.CENTER_BASELINE, 15);
+       // Font font = new Font("Dialog", Font.CENTER_BASELINE, 15);
 
-        JFreeChart panel2Chart = ChartFactory.createBarChart3D("Vehicle count by the year (2000 - 2019)", "Hour", "Number of Vehicles", dataset, PlotOrientation.HORIZONTAL, true, true, false);
+    //    JFreeChart panel2Chart = ChartFactory.createBarChart3D("Vehicle count by the year (2000 - 2019)", "Hour", "Number of Vehicles", dataset, PlotOrientation.HORIZONTAL, true, true, false);
+
+     JFreeChart panel2Chart = ChartFactory.createLineChart("Vehicle count by the hour (2000 - 2019)", "Hour", "Number of Vehicles", dataset, PlotOrientation.VERTICAL,true, true, false);
+     LineAndShapeRenderer renderer = (LineAndShapeRenderer) panel2Chart.getCategoryPlot().getRenderer();
+     renderer.setAutoPopulateSeriesStroke(false);
+     renderer.setBaseStroke(new BasicStroke(6.0f));
 
         panel2Chart.setBackgroundPaint(new Color(255, 255, 102));
 
@@ -619,12 +623,12 @@ public class Panel2 extends javax.swing.JFrame {
         CategoryPlot plot = panel2Chart.getCategoryPlot();
         plot.setRangeGridlinePaint(Color.black);
         plot.setBackgroundPaint(new Color(11, 58, 83));
-        plot.getDomainAxis().setLabelFont(font);
-        plot.getRangeAxis().setLabelFont(font);
+        plot.getDomainAxis().setLabelFont(new Font("Dialog", Font.BOLD, 15));
+        plot.getRangeAxis().setLabelFont(new Font("Dialog", Font.BOLD, 15));
         CategoryAxis xAxis = plot.getDomainAxis();
         ValueAxis yAxis = plot.getRangeAxis();
-        xAxis.setTickLabelFont(font);
-        yAxis.setTickLabelFont(font);
+        xAxis.setTickLabelFont(new Font("Dialog", Font.ROMAN_BASELINE, 15));
+        yAxis.setTickLabelFont(new Font("Dialog", Font.ROMAN_BASELINE, 15));
 
         chartPanel = new ChartPanel(panel2Chart);
         chartPanel.setSize(800, 527);
