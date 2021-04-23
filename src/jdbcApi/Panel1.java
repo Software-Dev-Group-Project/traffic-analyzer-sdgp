@@ -31,7 +31,7 @@ import org.jfree.data.jdbc.JDBCCategoryDataset;
 public class Panel1 extends javax.swing.JFrame {
     
     /**
-     * DATA SET CHARACTERISTICS
+     * DATASET CHARACTERISTICS
      */
     
     // Declare datasets for each direction of travel
@@ -50,6 +50,29 @@ public class Panel1 extends javax.swing.JFrame {
     private final int maxYear = 2019;
     private final String[] vehicleTypes = {"All Vehicles","All Motor Vehicles","Bicycles","Motor Bikes","Cars and Taxis","Buses and Coaches","LGVs","HGVs"};
 
+    
+    
+     /**
+     * PANEL1 CONSTRUCTOR
+     */
+    public Panel1() {
+        // Generate the Panel components
+        initComponents();   
+        // Set up content JPanel layout
+        setContentLayout(content);
+        // Create default chart upon the Panel creation
+        datasetNorth = createDataset(dbConnectionMethod, defaultQueryN);
+        datasetSouth = createDataset(dbConnectionMethod, defaultQueryS);
+        datasetWest = createDataset(dbConnectionMethod, defaultQueryW);
+        datasetEast = createDataset(dbConnectionMethod, defaultQueryE);
+        chart = createChart();
+        chartPanel = new ChartPanel(chart);
+        content.add(chartPanel);
+        content.validate();
+    }
+    
+    
+    
     /**
      * SQL QUERIES
      */
@@ -85,7 +108,7 @@ public class Panel1 extends javax.swing.JFrame {
     private final String defaultQueryE = defaultQuery("E", "East");
     
     
-    // Build Query upon user's options selection
+    // Build Query upon user's selected options
     private String modifiedQuery(String letter, String direction) {
         String sqlQuery = "SELECT r.road_name, SUM(";
         
@@ -145,10 +168,10 @@ public class Panel1 extends javax.swing.JFrame {
     }
     
     
+    
     /**
      * CHART RELATED METHODS
      */
-    
     // Create dataset from SQL response
     private CategoryDataset createDataset(Connection dbConnectionMethod, String sqlQuery) {
         // Try to connect to DB and execute SQL query
@@ -178,7 +201,7 @@ public class Panel1 extends javax.swing.JFrame {
                 datasetEast.getRowKey(0), datasetEast.getColumnKey(i));
         }
         // Log into console dataset columns and series
-        // FOR TESTING PURPOSES - DELETE LATER
+        // FOR TESTING PURPOSES - CONSOLE LOGS:
         List columns = dcd.getColumnKeys();
         System.out.println("Roads: " + columns.toString());
         List series = dcd.getRowKeys();
@@ -196,24 +219,7 @@ public class Panel1 extends javax.swing.JFrame {
         return chart;
     }
     
-    /**
-     * PANEL1 CONSTRUCTOR
-     */
-    public Panel1() {
-        // Generate the Panel components
-        initComponents();   
-        // Set up content JPanel layout
-        setContentLayout(content);
-        // Create default chart upon the Panel creation
-        datasetNorth = createDataset(dbConnectionMethod, defaultQueryN);
-        datasetSouth = createDataset(dbConnectionMethod, defaultQueryS);
-        datasetWest = createDataset(dbConnectionMethod, defaultQueryW);
-        datasetEast = createDataset(dbConnectionMethod, defaultQueryE);
-        chart = createChart();
-        chartPanel = new ChartPanel(chart);
-        content.add(chartPanel);
-        content.validate();
-    }
+    
     
     /**
      * CONTENT LAYOUT AND DESIGN SETUP METHODS
@@ -405,7 +411,7 @@ public class Panel1 extends javax.swing.JFrame {
             }
         });
         
-        // Clear Button - Add Action Listener
+        // Clear Button - Action Listener
         btnClear.addActionListener((ActionEvent event) -> {
             checkboxList.forEach(item -> { 
                 item.setState(false);
@@ -413,7 +419,7 @@ public class Panel1 extends javax.swing.JFrame {
             selectedVehicles.clear();
         });
         
-        // Update Button - Add Action Listener
+        // Update Button - Action Listener
         btnUpdate.addActionListener((ActionEvent event) -> {
             selectedVehicles.clear();
                 checkboxList.forEach(item -> {
@@ -444,7 +450,7 @@ public class Panel1 extends javax.swing.JFrame {
         return panel;
     }
     
-    // Panel as margin
+    // Additional Panel as margin
     JPanel marginPanel(Color bgColour) {
         JPanel panel = new JPanel();
         panel.setBackground(bgColour);
@@ -453,6 +459,7 @@ public class Panel1 extends javax.swing.JFrame {
     }
     
     // Console log selected checkbox
+    // FOR TESTING PURPOSES - CONSOLE LOGS
     void printSelectedVeh() {
         System.out.print("Selected Vehicle Types: ");
         selectedVehicles.forEach(name -> {
