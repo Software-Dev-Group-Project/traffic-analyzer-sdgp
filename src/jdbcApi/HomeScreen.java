@@ -63,7 +63,7 @@ public class HomeScreen extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
+        btnSignOut = new javax.swing.JButton();
         panel3bttn = new javax.swing.JPanel();
         panel4bttn = new javax.swing.JPanel();
         panel1bttn = new javax.swing.JPanel();
@@ -96,11 +96,11 @@ public class HomeScreen extends javax.swing.JFrame {
         jPanel2.setForeground(new java.awt.Color(14, 56, 84));
         jPanel2.setPreferredSize(new java.awt.Dimension(820, 570));
 
-        jButton6.setBackground(new java.awt.Color(255, 0, 51));
-        jButton6.setText("SIGN OUT");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnSignOut.setBackground(new java.awt.Color(255, 0, 51));
+        btnSignOut.setText("SIGN OUT");
+        btnSignOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnSignOutActionPerformed(evt);
             }
         });
 
@@ -220,7 +220,7 @@ public class HomeScreen extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton6))
+                        .addComponent(btnSignOut))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -243,7 +243,7 @@ public class HomeScreen extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSignOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(76, 76, 76)
                 .addComponent(jLabel3)
@@ -415,7 +415,7 @@ public class HomeScreen extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignOutActionPerformed
         //Takes user to sign out form
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -423,7 +423,7 @@ public class HomeScreen extends javax.swing.JFrame {
                 setVisible(false);
             }
         });
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnSignOutActionPerformed
 
     private void adminButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminButtonMouseClicked
 
@@ -529,7 +529,7 @@ public class HomeScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton adminButton;
     public javax.swing.JButton btnAccount;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton btnSignOut;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

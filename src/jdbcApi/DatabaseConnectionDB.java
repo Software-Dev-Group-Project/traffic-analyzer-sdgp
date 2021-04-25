@@ -1,12 +1,12 @@
 package jdbcApi;
 
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
-import java.util.logging.Logger;
 
-/*
- * @author gervais
+/**
+ * Authorship information 
+ * @author Gervais Boadi Appiah, w1735205
+ * Information: This is a java file which is used to create the connection between the application and the database 
  */
 public class DatabaseConnectionDB {
 
@@ -29,47 +29,5 @@ public class DatabaseConnectionDB {
         }
     }
 
-    /*    
-    public static void main(String[] args) {
-        new Connect();
-    }
-}
-
-class Connect {
-
-    private String urlSQLite;
-    private Driver driverSQLite;
-    private Connection conSQLite;
-
-    public Connect() {
-        //Used to locate the database
-        urlSQLite = "jdbc:sqlite:LATALoginAccountDB.db";
-
-        try {
-            driverSQLite = new org.sqlite.JDBC();
-            DriverManager.registerDriver(driverSQLite);
-            System.out.println("Driver for SQLite downloaded.");
-        } catch (Exception e) {
-            System.out.println("Problem with download driver for SQLite: " + e.getMessage());
-        }
-
-        try {
-            conSQLite = DriverManager.getConnection(urlSQLite);
-            System.out.println("Connection to SQLite is done.");
-        } catch (Exception e) {
-            //If connection has failed the following message will occur
-            System.out.println("Problem with connection to SQLite: " + e.getMessage());
-        }
-
-        try {
-            if (!conSQLite.isClosed()) {
-                conSQLite.close();
-                System.out.println("Connection to SQLite closed.");
-            }
-        } catch (Exception e) {
-            System.out.println("Problem with close connection of SQLite");
-        }
-
-    }
-     */
+    
 }

@@ -57,12 +57,12 @@ public class UserActivity extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
+        btnSignOut = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         UserActivityTable1 = new javax.swing.JTable();
         UserActivityTable = new javax.swing.JTable();
-        jButton5 = new javax.swing.JButton();
+        btnHomeScreen = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -91,11 +91,11 @@ public class UserActivity extends javax.swing.JFrame {
         jPanel2.setForeground(new java.awt.Color(14, 56, 84));
         jPanel2.setPreferredSize(new java.awt.Dimension(820, 570));
 
-        jButton6.setBackground(new java.awt.Color(255, 0, 51));
-        jButton6.setText("SIGN OUT");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnSignOut.setBackground(new java.awt.Color(255, 0, 51));
+        btnSignOut.setText("SIGN OUT");
+        btnSignOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnSignOutActionPerformed(evt);
             }
         });
 
@@ -141,12 +141,12 @@ public class UserActivity extends javax.swing.JFrame {
             UserActivityTable.getColumnModel().getColumn(8).setPreferredWidth(40);
         }
 
-        jButton5.setBackground(new java.awt.Color(237, 238, 217));
-        jButton5.setText("HOMESCREEN");
-        jButton5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnHomeScreen.setBackground(new java.awt.Color(237, 238, 217));
+        btnHomeScreen.setText("HOMESCREEN");
+        btnHomeScreen.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnHomeScreen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnHomeScreenActionPerformed(evt);
             }
         });
 
@@ -158,9 +158,9 @@ public class UserActivity extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnHomeScreen, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton6))
+                        .addComponent(btnSignOut))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,8 +172,8 @@ public class UserActivity extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSignOut, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHomeScreen, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -194,6 +194,7 @@ public class UserActivity extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("+ Update user information or admin status");
 
+        deleteUserBTN.setBackground(new java.awt.Color(237, 238, 217));
         deleteUserBTN.setText("DELETE");
         deleteUserBTN.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         deleteUserBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -202,6 +203,7 @@ public class UserActivity extends javax.swing.JFrame {
             }
         });
 
+        updateUserBTN.setBackground(new java.awt.Color(237, 238, 217));
         updateUserBTN.setText("UPDATE");
         updateUserBTN.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         updateUserBTN.addActionListener(new java.awt.event.ActionListener() {
@@ -262,6 +264,7 @@ public class UserActivity extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Update admin status to 'YES' / 'NO'");
 
+        btnClear.setBackground(new java.awt.Color(237, 238, 217));
         btnClear.setText("CLEAR");
         btnClear.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnClear.addActionListener(new java.awt.event.ActionListener() {
@@ -270,6 +273,7 @@ public class UserActivity extends javax.swing.JFrame {
             }
         });
 
+        btnRefresh.setBackground(new java.awt.Color(237, 238, 217));
         btnRefresh.setText("REFRESH");
         btnRefresh.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
@@ -398,7 +402,7 @@ public class UserActivity extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignOutActionPerformed
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -406,16 +410,16 @@ public class UserActivity extends javax.swing.JFrame {
                 setVisible(false);
             }
         });
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnSignOutActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnHomeScreenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeScreenActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new HomeScreen().setVisible(true);
                 setVisible(false);
             }
         });
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnHomeScreenActionPerformed
 
     private void txtSearchRecordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchRecordKeyReleased
         //This is used for the search feature to find data within the database
@@ -609,10 +613,10 @@ public class UserActivity extends javax.swing.JFrame {
     private javax.swing.JTable UserActivityTable;
     private javax.swing.JTable UserActivityTable1;
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnHomeScreen;
     private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnSignOut;
     private javax.swing.JButton deleteUserBTN;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
