@@ -5,6 +5,7 @@
  */
 package jdbcApi;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,8 +20,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 /**
- *
- * @author gerva
+ * Authorship information 
+ * @author Gervais Boadi Appiah, w1735205
+ * Information: This is a form that severs as admin panel which displays user information
  */
 public class UserActivity extends javax.swing.JFrame {
 
@@ -34,11 +36,11 @@ public class UserActivity extends javax.swing.JFrame {
     Connection con = null;
 
     public UserActivity() {
-        Login CurrentUsername = new Login();
-        int lastUser = CurrentUsername.UserArray.size() - 1;
-        User = CurrentUsername.UserArray.get(lastUser);
+        //getting the current user of the application
+        int lastUser = Login.UserArray.size() - 1;
+        User = Login.UserArray.get(lastUser);
         System.out.println("Current user: " + User);
-
+        // After the components have been set then the showTableData() is called.
         initComponents();
         showTableData();
 
@@ -58,7 +60,7 @@ public class UserActivity extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        UserActivityTable = new javax.swing.JTable();
+        UserActivityTable1 = new javax.swing.JTable();
         UserActivityTable = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -77,6 +79,8 @@ public class UserActivity extends javax.swing.JFrame {
         txtSearchRecord = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        btnClear = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,7 +105,7 @@ public class UserActivity extends javax.swing.JFrame {
         jLabel6.setText("WELCOME "+User+" TO THE USER ACTIVITY SCREEN");
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        UserActivityTable.setModel(new javax.swing.table.DefaultTableModel(
+        UserActivityTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -109,14 +113,14 @@ public class UserActivity extends javax.swing.JFrame {
                 "Username", "Firstname", "Lastname", "Email", "Sign In Date", "Sign In Time", "Sign Out Date", "Sign Out Time", "Admin"
             }
         ));
-        UserActivityTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        UserActivityTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 UserActivityTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(UserActivityTable);
-        if (UserActivityTable.getColumnModel().getColumnCount() > 0) {
-            UserActivityTable.getColumnModel().getColumn(8).setPreferredWidth(40);
+        jScrollPane1.setViewportView(UserActivityTable1);
+        if (UserActivityTable1.getColumnModel().getColumnCount() > 0) {
+            UserActivityTable1.getColumnModel().getColumn(8).setPreferredWidth(40);
         }
 
         UserActivityTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -133,9 +137,6 @@ public class UserActivity extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(UserActivityTable);
-        if (UserActivityTable.getColumnModel().getColumnCount() > 0) {
-            UserActivityTable.getColumnModel().getColumn(8).setPreferredWidth(40);
-        }
         if (UserActivityTable.getColumnModel().getColumnCount() > 0) {
             UserActivityTable.getColumnModel().getColumn(8).setPreferredWidth(40);
         }
@@ -261,30 +262,46 @@ public class UserActivity extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Update admin status to 'YES' / 'NO'");
 
+        btnClear.setText("CLEAR");
+        btnClear.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        btnRefresh.setText("REFRESH");
+        btnRefresh.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSearchRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(122, 122, 122))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel9))
-                                .addGap(0, 2, Short.MAX_VALUE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(deleteUserBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(updateUserBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(updateUserBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5)
@@ -293,14 +310,18 @@ public class UserActivity extends javax.swing.JFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtLastname)
                                     .addComponent(txtFirstname)
-                                    .addComponent(txtAdminStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtAdminStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel9))
+                                .addGap(0, 2, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(deleteUserBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(27, 27, 27))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSearchRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(122, 122, 122))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,11 +351,15 @@ public class UserActivity extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtAdminStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteUserBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(updateUserBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteUserBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(270, 270, 270))
+                    .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(256, 256, 256))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -393,7 +418,7 @@ public class UserActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void txtSearchRecordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchRecordKeyReleased
-
+        //This is used for the search feature to find data within the database
         DefaultTableModel table = (DefaultTableModel) UserActivityTable.getModel();
         String search = txtSearchRecord.getText();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<>(table);
@@ -427,6 +452,7 @@ public class UserActivity extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteUserBTNActionPerformed
 
     private void UserActivityTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UserActivityTableMouseClicked
+        //when the admin selects a user the data is shown in the txt fields
         DefaultTableModel RecordTable = (DefaultTableModel) UserActivityTable.getModel();
         int SelectedRows = UserActivityTable.getSelectedRow();
 
@@ -435,6 +461,16 @@ public class UserActivity extends javax.swing.JFrame {
         txtAdminStatus.setText(RecordTable.getValueAt(SelectedRows, 8).toString());
 
     }//GEN-LAST:event_UserActivityTableMouseClicked
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        resetField();
+        JOptionPane.showMessageDialog(null, "Text Fields have been refreshed!");
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        resetTable();
+        JOptionPane.showMessageDialog(null, "Table has been refreshed!");
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     /**
      * @param args the command line arguments
@@ -488,13 +524,12 @@ public class UserActivity extends javax.swing.JFrame {
     public void showTableData() {
         try {
             con = DriverManager.getConnection("jdbc:sqlite:LATAAccountDB.db");
-
+            //getting data from user database
             Statement st = con.createStatement();
             String sql = "SELECT * FROM Accounts";
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                //String ID = String.valueOf(rs.getInt("ID"));
                 String Username = String.valueOf(rs.getString("Username"));
                 String Firstname = String.valueOf(rs.getString("FirstName"));
                 String Lastname = String.valueOf(rs.getString("LastName"));
@@ -505,26 +540,24 @@ public class UserActivity extends javax.swing.JFrame {
                 String LoggedOutTime = String.valueOf(rs.getString("LoggedOutTime"));
                 String Admin = String.valueOf(rs.getString("Admin"));
 
-                String tbDATA[] = {Username, Firstname, Lastname, Email, LoggedInDate, LoggedInTime, LoggedOutDate, LoggedOutTime, Admin};
-
+                String[] userRecordData = {Username, Firstname, Lastname, Email, LoggedInDate, LoggedInTime, LoggedOutDate, LoggedOutTime, Admin};
                 DefaultTableModel tblModel = (DefaultTableModel) UserActivityTable.getModel();
-
-                tblModel.addRow(tbDATA);
+                //adding data from databse to defaul table model
+                tblModel.addRow(userRecordData);
 
             }
-
-        } catch (Exception e) {
-
-            System.out.println("Error: "+e);
+        } catch (SQLException e) {
+            System.out.println("Error: " + e);
         }
-
     }
 
     public void deleteUser() {
+        //Check if txt fields are empty
         if ("".equals(txtFirstname.getText()) || "".equals(txtLastname.getText()) || "".equals(txtAdminStatus.getText())) {
             JOptionPane.showMessageDialog(null, "Select a user to delete");
         } else {
             try {
+                //removes the user shown in the table and deletes them from the database
                 con = DriverManager.getConnection("jdbc:sqlite:LATAAccountDB.db");
                 Statement st = con.createStatement();
                 int row = UserActivityTable.getSelectedRow();
@@ -533,21 +566,24 @@ public class UserActivity extends javax.swing.JFrame {
                 String sql = "DELETE FROM Accounts WHERE Username = '" + selectedUser + "'";
                 st.executeUpdate(sql);
                 System.out.println("User: " + selectedUser + " has been deleted!");
-
+                JOptionPane.showMessageDialog(null, "User: " + selectedUser + " has been deleted!");
+                //resets table and fields
                 resetTable();
                 resetField();
 
-            } catch (Exception e) {
+            } catch (HeadlessException | SQLException e) {
                 System.out.println("Deletion NOT Complete! ");
             }
         }
     }
 
-    private void updateUser() {
+    public void updateUser() {
+        //Check if txt fields are empty
         if ("".equals(txtFirstname.getText()) || "".equals(txtLastname.getText()) || "".equals(txtAdminStatus.getText())) {
             JOptionPane.showMessageDialog(null, "Select a user to update");
         } else {
             try {
+                //Updates record of selected user
                 int rowSelected = UserActivityTable.getSelectedRow();
                 String selectedUser = UserActivityTable.getModel().getValueAt(rowSelected, 0).toString();
                 System.out.println(selectedUser);
@@ -555,7 +591,8 @@ public class UserActivity extends javax.swing.JFrame {
 
                 ps = con.prepareStatement(sql);
                 ps.executeUpdate();
-
+                JOptionPane.showMessageDialog(null, "User: " + selectedUser + " has been updated!");
+                
                 //Reset table
                 resetTable();
                 resetField();
@@ -570,6 +607,9 @@ public class UserActivity extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable UserActivityTable;
+    private javax.swing.JTable UserActivityTable1;
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton deleteUserBTN;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;

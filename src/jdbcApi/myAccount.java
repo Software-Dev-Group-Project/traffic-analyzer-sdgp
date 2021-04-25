@@ -375,7 +375,7 @@ public class myAccount extends javax.swing.JFrame {
     public void showUserData() {
         try {
             con = DriverManager.getConnection("jdbc:sqlite:LATAAccountDB.db");
-
+            //getting data from user database
             Statement st = con.createStatement();
             String sql = "SELECT * FROM Accounts WHERE Username = '" + User + "'";
             ResultSet rs = st.executeQuery(sql);
@@ -384,7 +384,7 @@ public class myAccount extends javax.swing.JFrame {
                 String Firstname = String.valueOf(rs.getString("FirstName"));
                 String Lastname = String.valueOf(rs.getString("LastName"));
                 String Email = String.valueOf(rs.getString("Email"));
-
+                //adding data from database to text fields
                 txtFirstname.setText(Firstname);
                 txtLastname.setText(Lastname);
                 txtEmail.setText(Email);
@@ -399,11 +399,12 @@ public class myAccount extends javax.swing.JFrame {
     }
 
     private void updateUser() {
+        //Check if txt fields are empty
         if ("".equals(txtFirstname.getText()) || "".equals(txtLastname.getText()) || "".equals(txtEmail.getText())) {
             JOptionPane.showMessageDialog(null, "Select a user to update");
         } else {
             try {
-
+                //Updates record of selected user
                 System.out.println(User);
                 String sql = "UPDATE Accounts SET Firstname = '" + txtFirstname.getText() + "', Lastname = '" + txtLastname.getText() + "', Email = '" + txtEmail.getText() + "' WHERE Username = '" + User + "'";
 

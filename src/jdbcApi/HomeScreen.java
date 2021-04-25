@@ -17,42 +17,37 @@ public class HomeScreen extends javax.swing.JFrame {
 
     private static String User;
 
-
-    
-
     /**
      * Creates new form HomeScreen
      */
-    
     //Used for SQL
     Connection con = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
 
     public HomeScreen() {
-       
-        Login CurrentUsername = new Login();
-        int lastUser = CurrentUsername.UserArray.size()-1;
-        User = CurrentUsername.UserArray.get(lastUser);
-        System.out.println("Current user: "+User);
-        
+        //If the user is an admin then you store the name of the user to display it
+        //then we display the components on the form 
+        int lastUser = Login.UserArray.size() - 1;
+        User = Login.UserArray.get(lastUser);
+        System.out.println("Current user: " + User);
+
         initComponents();
     }
-    
+
     public HomeScreen(Boolean a) {
-        Login CurrentUsername = new Login();
-        int lastUser = CurrentUsername.UserArray.size()-1;
-        User = CurrentUsername.UserArray.get(lastUser);
-        System.out.println("Current user: "+User);
-        
+        //If the user is not an admin then you store the name of the user to display it
+        //then we display the components on the form 
+        int lastUser = Login.UserArray.size() - 1;
+        User = Login.UserArray.get(lastUser);
+        System.out.println("Current user: " + User);
+
         initComponents();
-        if(a){
+        if (a) {
             System.out.println("Test 2");
             adminButtonVisibility();
         }
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -421,6 +416,7 @@ public class HomeScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        //Takes user to sign out form
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new SignOut().setVisible(true);
@@ -430,12 +426,11 @@ public class HomeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void adminButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminButtonMouseClicked
-    
+
     }//GEN-LAST:event_adminButtonMouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-//        new TermsAndConditions().setVisible(true);
-//        setVisible(false);
+        //Takes user to Terms And Conditions form
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TermsAndConditions().setVisible(true);
@@ -464,13 +459,14 @@ public class HomeScreen extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_panel4bttnMouseClicked
 
-    
+
     private void adminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminButtonActionPerformed
+        //Takes user to User Activity form
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new UserActivity().setVisible(true);
                 setVisible(false);
-        }
+            }
         });
     }//GEN-LAST:event_adminButtonActionPerformed
 
@@ -479,6 +475,7 @@ public class HomeScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAccountMouseClicked
 
     private void btnAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountActionPerformed
+        //Takes user to my Account form
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new myAccount().setVisible(true);
@@ -523,6 +520,12 @@ public class HomeScreen extends javax.swing.JFrame {
         });
     }
 
+    public void adminButtonVisibility() {
+        //Admin panel is hidden for normal users
+        System.out.println("Admin panel has been disable");
+        adminButton.setVisible(false);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton adminButton;
     public javax.swing.JButton btnAccount;
@@ -550,11 +553,4 @@ public class HomeScreen extends javax.swing.JFrame {
     private javax.swing.JPanel panel4bttn;
     // End of variables declaration//GEN-END:variables
 
-    void adminButtonVisibility() {
-        System.out.println("Admin panel has been disable");
-        adminButton.setVisible(false);
-    }
-    
-
-    
 }

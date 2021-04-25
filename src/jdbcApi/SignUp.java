@@ -5,7 +5,7 @@
  */
 package jdbcApi;
 
-import java.awt.Color;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,24 +15,24 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author gerva
+ * Authorship information 
+ * @author Gervais Boadi Appiah, w1735205
+ * Information: This is a form used to allow users to sign up the application 
  */
 public class SignUp extends javax.swing.JFrame {
 
     /**
      * Creates new form SignUp
      */
-    
     //Used for SQL
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-    
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
     public SignUp() {
         initComponents();
         //When the components of the login form are initialized, we establised the connection
-        
+
         //Calling method within the following class "create DB class"
         con = DatabaseConnectionDB.ConnectionDB();
     }
@@ -296,61 +296,85 @@ public class SignUp extends javax.swing.JFrame {
     private void txtFieldRePasswordSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldRePasswordSignUpActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFieldRePasswordSignUpActionPerformed
+    
+    public void checkUsername(){
+        String username = txtFieldUsernameSignUp.getText();
+        String sqlUserCheck = "SELECT * From Accounts WHERE Username = ?;";
+        try{
+            ps = con.prepareStatement(sqlUserCheck);
+            ps.setString(1, username);
+            rs = ps.executeQuery();
+            
+            if (!rs.next()) {
+                    //JOptionPane.showMessageDialog(null, "This username is avaliable!");
+                    addNewUser();
+                } else {
+                JOptionPane.showMessageDialog(null, "This username is NOT avaliable!");
+            }
+        }
+        catch(HeadlessException | SQLException e){
+            System.out.println("Error has been found: "+e);
+        }
+    }
+    
+    public void addNewUser() {
+        String username = txtFieldUsernameSignUp.getText();
+        //setting a new users admin status to no
+        String defaultAdminStatus = "NO";
+        try {
+            String sql = "INSERT INTO Accounts(Username, Hash, Salt, Firstname, Lastname, Email, Admin) Values(?,?,?,?,?,?,?)";
+            ps = con.prepareStatement(sql);
+            String newSalt = PasswordUtills.getSalt(30);
+            String securedPassword = PasswordUtills.generateSecurePassword(txtFieldPasswordSignUp.getText(), newSalt);
 
+            ps.setString(1, txtFieldUsernameSignUp.getText());
+            ps.setString(2, securedPassword);
+            ps.setString(3, newSalt);
+            ps.setString(4, txtFieldFirstnameSignUp.getText());
+            ps.setString(5, txtFieldLastnameSignUp.getText());
+            ps.setString(6, txtFieldEmailSignUp.getText());
+            ps.setString(7, defaultAdminStatus);
+            ps.execute();
+            
+            System.out.println("User: " + txtFieldUsernameSignUp.getText() + " has been registered successfully");
+            JOptionPane.showMessageDialog(null, " Username: " + username + " has been registered successfully! ");
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new Login().setVisible(true);
+                    setVisible(false);
+                }
+            });
+            rs.close();
+            ps.close();
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, " Username: " + username + " is not available! ");
+            System.out.println("Registration has failed: Username is not avaliable! ");
+        }
+    }
+    
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
         //The sign up button will attempt to add the new user to the user account database
         String password = txtFieldPasswordSignUp.getText();
-        String username = txtFieldUsernameSignUp.getText();
-        String defaultAdminStatus = "NO";
-        
-        if(txtFieldUsernameSignUp.getText().equals("")|txtFieldPasswordSignUp.getText().equals("")|txtFieldFirstnameSignUp.getText().equals("")|txtFieldLastnameSignUp.getText().equals("")|txtFieldEmailSignUp.getText().equals("")){
+
+        if (txtFieldUsernameSignUp.getText().equals("") | txtFieldPasswordSignUp.getText().equals("") | txtFieldFirstnameSignUp.getText().equals("") | txtFieldLastnameSignUp.getText().equals("") | txtFieldEmailSignUp.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please sign up correctly! ");
             System.out.println("Details have not been given, try again! ");
-            
-        }else{
-            if(txtFieldRePasswordSignUp.getText().equals(password)){
+
+        } else {
+            //Checking if the user password and the repeat password are the same
+            if (txtFieldRePasswordSignUp.getText().equals(password)) {
                 System.out.println("Password Validation Successful!");
-                
-                try {
-                    String sql = "INSERT INTO Accounts(Username, Hash, Salt, Firstname, Lastname, Email, Admin) Values(?,?,?,?,?,?,?)";
+                checkUsername();
 
-                    ps = con.prepareStatement(sql);
-                    String newSalt = PasswordUtills.getSalt(30);
-                    String securedPassword = PasswordUtills.generateSecurePassword(txtFieldPasswordSignUp.getText(), newSalt);
-
-                    ps.setString(1, txtFieldUsernameSignUp.getText());
-                    ps.setString(2, securedPassword);
-                    ps.setString(3, newSalt);
-                    ps.setString(4, txtFieldFirstnameSignUp.getText());
-                    ps.setString(5, txtFieldLastnameSignUp.getText());
-                    ps.setString(6, txtFieldEmailSignUp.getText());
-                    ps.setString(7, defaultAdminStatus);
-                    ps.execute();
-                    
-                    //Result
-                    System.out.println("User: "+ txtFieldUsernameSignUp.getText()+" has been registered successfully");
-                    JOptionPane.showMessageDialog(null, " Username: "+username+" has been registered successfully! ");
-
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                            new Login().setVisible(true);
-                            setVisible(false);
-                        }
-                    });
-                } catch (SQLException ex) {
-                    Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(null, " Username: "+username+" is not available! ");
-                    System.out.println("Registration has failed: Username is not avaliable! ");
-                }
-                
-            
-            }else{
+            } else {
                 System.out.println("Password Validation NOT Successful!, Try Again! ");
                 JOptionPane.showMessageDialog(null, " Password does not match, try again ");
             }
-            
+
         }
-        
+
     }//GEN-LAST:event_btnSignUpActionPerformed
 
     private void btnBackSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackSignUpActionPerformed

@@ -20,12 +20,13 @@ public class SignOut extends javax.swing.JFrame {
      * Creates new form SignOut
      */
     public SignOut() {
+        //Set components within the form and set a log out timestammp for the current user
         initComponents();
         Login MainUserArray = new Login();
         MainUserArray.setLogOutTimeStamp();
         System.out.println("");
     }
-    
+
     //Used for SQL
     Connection con = null;
     PreparedStatement ps = null;
@@ -194,7 +195,7 @@ public class SignOut extends javax.swing.JFrame {
         System.out.println("Application Closed.");
         System.exit(0);
     }//GEN-LAST:event_btnExitActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */

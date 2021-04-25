@@ -13,27 +13,23 @@ public class DatabaseConnectionDB {
     /*
      * @param args the command line arguments
      */
-    
     Connection con = null;
-    
-    public static Connection ConnectionDB(){
-        try{
+
+    public static Connection ConnectionDB() {
+        try {
             //Attempting to establish a connection to database
             Class.forName("org.sqlite.JDBC");
             Connection con = DriverManager.getConnection("jdbc:sqlite:LATAAccountDB.db");
             System.out.println("Connection has been successful");
             return con;
-        }catch(Exception e){
+        } catch (Exception e) {
             //If the attempt is not successful then the following message appears
             System.out.println("Connection has failed" + e);
             return null;
         }
     }
-    
-    
-    
-    
-/*    
+
+    /*    
     public static void main(String[] args) {
         new Connect();
     }
@@ -75,6 +71,5 @@ class Connect {
         }
 
     }
-*/
-
+     */
 }
