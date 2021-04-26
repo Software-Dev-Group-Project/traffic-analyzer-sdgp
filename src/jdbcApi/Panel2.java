@@ -323,7 +323,7 @@ public class Panel2 extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 102));
 
         jPanel2.setBackground(new java.awt.Color(11, 58, 83));
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         P2VehicleList.setBackground(new java.awt.Color(240, 240, 240));
         P2VehicleList.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -331,11 +331,6 @@ public class Panel2 extends javax.swing.JFrame {
         P2VehicleList.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 P2VehicleListItemStateChanged(evt);
-            }
-        });
-        P2VehicleList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                P2VehicleListActionPerformed(evt);
             }
         });
 
@@ -362,14 +357,10 @@ public class Panel2 extends javax.swing.JFrame {
         P2YearList.setBackground(new java.awt.Color(240, 240, 240));
         P2YearList.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         P2YearList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All Years", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019" }));
+        P2YearList.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         P2YearList.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 P2YearListItemStateChanged(evt);
-            }
-        });
-        P2YearList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                P2YearListActionPerformed(evt);
             }
         });
 
@@ -443,7 +434,7 @@ public class Panel2 extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                 .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -630,14 +621,6 @@ public class Panel2 extends javax.swing.JFrame {
         dataDisplayPanel.updateUI();
 
     }//GEN-LAST:event_P2YearListItemStateChanged
-
-    private void P2YearListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P2YearListActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_P2YearListActionPerformed
-
-    private void P2VehicleListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P2VehicleListActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_P2VehicleListActionPerformed
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
        int a=JOptionPane.showConfirmDialog(null, "Are you sure you want to close the application? ", "Select",JOptionPane.YES_NO_OPTION);
