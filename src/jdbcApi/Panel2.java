@@ -15,6 +15,7 @@ import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.jdbc.JDBCCategoryDataset;
 
@@ -27,17 +28,26 @@ public class Panel2 extends javax.swing.JFrame {
 
         CategoryDataset Panel2Dataset = openDataset();
 
-       //Used line chart and named the axises 
+        //Used line chart and named the axises 
         JFreeChart panel2Chart = ChartFactory.createLineChart("Vehicle count by the hour (2000 - 2019)", "Hour", "Number of Vehicles", Panel2Dataset, PlotOrientation.VERTICAL, true, true, false);
         LineAndShapeRenderer renderer = (LineAndShapeRenderer) panel2Chart.getCategoryPlot().getRenderer();
         
+
         //Made the line on the line chart thicker to make it more visible
         renderer.setAutoPopulateSeriesStroke(false);
         renderer.setBaseStroke(new BasicStroke(6.0f));
         panel2Chart.setBackgroundPaint(new Color(255, 255, 102));
 
         //Created an instence of category plot along with chaning some fonts, added gridline for a better visiblity
+        
         CategoryPlot P2Plot = panel2Chart.getCategoryPlot();
+        
+        LegendTitle legend = panel2Chart.getLegend();
+        Font labelFont = new Font("Dialog", Font.BOLD, 15);
+        legend.setItemFont(labelFont);
+        
+
+      
         P2Plot.setRangeGridlinePaint(Color.black);
         P2Plot.setBackgroundPaint(new Color(11, 58, 83));
         P2Plot.getDomainAxis().setLabelFont(new Font("Dialog", Font.BOLD, 15));
@@ -53,15 +63,16 @@ public class Panel2 extends javax.swing.JFrame {
         dataDisplayPanel.removeAll();
         dataDisplayPanel.add(Panel2Chart);
         dataDisplayPanel.updateUI();
-    }
-    
         
+        
+    }
+
 //default query which the program will will access once the panel opens. Using default open connection method to access the SQLite database
     private CategoryDataset openDataset() {
 
         try {
 
-            String sqlQuery = "SELECT entry_hour, SUM(all_motor_vehicles) FROM CountEntry GROUP BY entry_hour";
+            String sqlQuery = "SELECT entry_hour, SUM(all_motor_vehicles) AS 'All Motor Vehicles' FROM CountEntry GROUP BY entry_hour";
 
             JDBCCategoryDataset jdbc = new JDBCCategoryDataset(jdbcApi.trafficDataLogic.ConnectTrafficDB.getConnection(), sqlQuery);
             return jdbc;
@@ -583,6 +594,9 @@ public class Panel2 extends javax.swing.JFrame {
         panel2Chart.setBackgroundPaint(new Color(255, 255, 102));
 
         CategoryPlot P2Plot = panel2Chart.getCategoryPlot();
+        LegendTitle legend = panel2Chart.getLegend();
+        Font labelFont = new Font("Dialog", Font.BOLD, 15);
+        legend.setItemFont(labelFont);
         P2Plot.setRangeGridlinePaint(Color.black);
         P2Plot.setBackgroundPaint(new Color(11, 58, 83));
         P2Plot.getDomainAxis().setLabelFont(new Font("Dialog", Font.BOLD, 15));
@@ -598,7 +612,7 @@ public class Panel2 extends javax.swing.JFrame {
         dataDisplayPanel.add(Panel2Chart);
         dataDisplayPanel.updateUI();
     }//GEN-LAST:event_P2VehicleListItemStateChanged
- //added the same panel data to item state changeed for year drop down list so that it gets over written everytime drop down list changes
+    //added the same panel data to item state changeed for year drop down list so that it gets over written everytime drop down list changes
     private void P2YearListItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_P2YearListItemStateChanged
         CategoryDataset Panel2Dataset = updateChart();
 
@@ -609,8 +623,10 @@ public class Panel2 extends javax.swing.JFrame {
 
         panel2Chart.setBackgroundPaint(new Color(255, 255, 102));
 
-        
         CategoryPlot P2Plot = panel2Chart.getCategoryPlot();
+        LegendTitle legend = panel2Chart.getLegend();
+        Font labelFont = new Font("Dialog", Font.BOLD, 15);
+        legend.setItemFont(labelFont);
         P2Plot.setRangeGridlinePaint(Color.black);
         P2Plot.setBackgroundPaint(new Color(11, 58, 83));
         P2Plot.getDomainAxis().setLabelFont(new Font("Dialog", Font.BOLD, 15));
@@ -629,17 +645,18 @@ public class Panel2 extends javax.swing.JFrame {
     }//GEN-LAST:event_P2YearListItemStateChanged
 //exit button implementation
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-       int a=JOptionPane.showConfirmDialog(null, "Are you sure you want to close the application? ", "Select",JOptionPane.YES_NO_OPTION);
-       if(a==0){
-           System.exit(0);
-       }
+        int a = JOptionPane.showConfirmDialog(null, "Are you sure you want to close the application? ", "Select", JOptionPane.YES_NO_OPTION);
+        if (a == 0) {
+            System.exit(0);
+        }
     }//GEN-LAST:event_button1ActionPerformed
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
 
-        
+
     }//GEN-LAST:event_button1MouseClicked
 //query for updating the panel accordingly to the year and the vehicle type
+
     private CategoryDataset updateChart() {
 
         try {
@@ -648,36 +665,30 @@ public class Panel2 extends javax.swing.JFrame {
 
             String vehicleName = (String) P2VehicleList.getSelectedItem();
             String yearName = (String) P2YearList.getSelectedItem();
-            
-            if (vehicleName.equals("All Motor Vehicles")){
-                 vehicleName = "all_motor_vehicles";                  
-            }
-            else if(vehicleName.equals("Cycles")){
+
+            if (vehicleName.equals("All Motor Vehicles")) {
+                vehicleName = "all_motor_vehicles";
+            } else if (vehicleName.equals("Cycles")) {
                 vehicleName = "pedal_cycles";
-            }
-            else if(vehicleName.equals("Motorcycles")){
+            } else if (vehicleName.equals("Motorcycles")) {
                 vehicleName = "two_wheeled_motor_vehicles";
-            }
-            else if(vehicleName.equals("Cars and Taxis")){
+            } else if (vehicleName.equals("Cars and Taxis")) {
                 vehicleName = "cars_and_taxis";
-            }
-             else if(vehicleName.equals("Buses and Coaches")){
+            } else if (vehicleName.equals("Buses and Coaches")) {
                 vehicleName = "buses_and_coaches";
-            }
-             else if(vehicleName.equals("Large Goods Vehicles")){
+            } else if (vehicleName.equals("Large Goods Vehicles")) {
                 vehicleName = "lgvs";
-            }else{
-                 vehicleName = "all_hgvs";
-             }
-            
+            } else {
+                vehicleName = "all_hgvs";
+            }
 
             if (vehicleName.equals("All Motor Vehicles") && yearName.equals("All Years")) {
 
-                sqlQuery = "SELECT entry_hour, SUM(all_motor_vehicles) FROM CountEntry GROUP BY entry_hour";
+                sqlQuery = "SELECT entry_hour, SUM(all_motor_vehicles) AS 'Motor Vehicles' FROM CountEntry GROUP BY entry_hour";
 
             } else if (vehicleName.equals("All Motor Vehicles") && !yearName.equals("All Years")) {
 
-                sqlQuery = "SELECT entry_hour, SUM(all_motor_vehicles) FROM CountEntry WHERE entry_year = " + yearName + " GROUP BY entry_hour";
+                sqlQuery = "SELECT entry_hour, SUM(all_motor_vehicles) AS 'Motor Vehicles' FROM CountEntry WHERE entry_year = " + yearName + " GROUP BY entry_hour";
 
             } else if (!vehicleName.equals("All Motor Vehicles") && yearName.equals("All Years")) {
 
