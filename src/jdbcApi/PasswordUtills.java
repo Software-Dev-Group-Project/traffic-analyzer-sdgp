@@ -9,8 +9,9 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 /**
- *
- * @author gerva
+ * Authorship information 
+ * @author Gervais Boadi Appiah, w1735205
+ * Information: This is a java file that is used for password encryption and verification 
  */
  
 public class PasswordUtills {
@@ -43,27 +44,28 @@ public class PasswordUtills {
         }
     }
     
-    //method that generates the secure password
+    //This method generates the secure password
     public static String generateSecurePassword(String password, String salt) {
-        String returnValue = null;
+        String generatedSP;
 
         byte[] securePassword = hash(password.toCharArray(), salt.getBytes());
  
-        returnValue = Base64.getEncoder().encodeToString(securePassword);
- 
-        return returnValue;
+        generatedSP = Base64.getEncoder().encodeToString(securePassword);
+        System.out.println("Secure Password has been generated! \n");
+        return generatedSP;
     }
     
+    //This method verifies a users password
     public static boolean verifyUserPassword(String providedPassword, String securedPassword, String salt)
     {
-        boolean returnValue = false;
+        boolean outcome;
         
-        // Generate New secure password with the same salt
+        // Generate New secure password using the same salt
         String newSecurePassword = generateSecurePassword(providedPassword, salt);
         
-        // Check if two passwords are equal are the same
-        returnValue = newSecurePassword.equalsIgnoreCase(securedPassword);
-        
-        return returnValue;
+        // Verfies if two passwords are equal
+        outcome = newSecurePassword.equalsIgnoreCase(securedPassword);
+        System.out.println("Password verification has returned: "+ outcome);
+        return outcome;
     }
 }
