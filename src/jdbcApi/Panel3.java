@@ -74,7 +74,7 @@ public class Panel3 extends javax.swing.JFrame {
                 dataset.setValue("Large Goods Vehicles", lgvs);
                 dataset.setValue("Two Wheeled Motor Vehicles", twmv);
                 
-                JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                 PiePlot p = (PiePlot)chart.getPlot();
                 
                 ChartPanel chartPanel = new ChartPanel(chart);
@@ -302,15 +302,15 @@ public class Panel3 extends javax.swing.JFrame {
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HeaderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(b1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addComponent(b1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(b2, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .addComponent(b2, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(b3, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addComponent(b3, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(b4, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addComponent(b4, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(settings, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                .addComponent(settings, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                 .addGap(17, 17, 17))
         );
         HeaderLayout.setVerticalGroup(
@@ -363,16 +363,16 @@ public class Panel3 extends javax.swing.JFrame {
         label1.setText("Choose a year:");
 
         label3.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        label3.setForeground(new java.awt.Color(255, 102, 102));
-        label3.setText("*Hover over sections");
+        label3.setForeground(new java.awt.Color(0, 0, 204));
+        label3.setText("The PieChart shows the ");
 
         label4.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        label4.setForeground(new java.awt.Color(255, 102, 102));
-        label4.setText("to view percentage");
+        label4.setForeground(new java.awt.Color(0, 0, 204));
+        label4.setText("Traffic Volume in");
 
         label5.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        label5.setForeground(new java.awt.Color(255, 102, 102));
-        label5.setText("of vehicles");
+        label5.setForeground(new java.awt.Color(0, 0, 204));
+        label5.setText("Bracknell Forest by Year");
 
         javax.swing.GroupLayout pan1Layout = new javax.swing.GroupLayout(pan1);
         pan1.setLayout(pan1Layout);
@@ -381,23 +381,21 @@ public class Panel3 extends javax.swing.JFrame {
             .addGroup(pan1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(chartPanelWindow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addGroup(pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pan1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan1Layout.createSequentialGroup()
-                            .addGroup(pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(p3Option, 0, 158, Short.MAX_VALUE)
-                                .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(94, 94, 94))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan1Layout.createSequentialGroup()
-                            .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(56, 56, 56))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan1Layout.createSequentialGroup()
+                        .addGroup(pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(p3Option, 0, 158, Short.MAX_VALUE)
+                            .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(94, 94, 94))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan1Layout.createSequentialGroup()
+                        .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(97, 97, 97))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan1Layout.createSequentialGroup()
+                        .addGroup(pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(105, 105, 105)))))
+                            .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(56, 56, 56))))
         );
         pan1Layout.setVerticalGroup(
             pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -419,8 +417,7 @@ public class Panel3 extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        label4.getAccessibleContext().setAccessibleName("to view percentage");
-        label5.getAccessibleContext().setAccessibleName("of vehicles");
+        label4.getAccessibleContext().setAccessibleName("Traffic Volume in");
 
         javax.swing.GroupLayout MainLayout = new javax.swing.GroupLayout(Main);
         Main.setLayout(MainLayout);
@@ -565,7 +562,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -605,7 +602,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -645,7 +642,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -685,7 +682,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -725,7 +722,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -765,7 +762,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -805,7 +802,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -845,7 +842,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -885,7 +882,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -925,7 +922,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -965,7 +962,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -1005,7 +1002,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -1045,7 +1042,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -1085,7 +1082,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -1125,7 +1122,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -1165,7 +1162,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -1205,7 +1202,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -1245,7 +1242,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -1285,7 +1282,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -1325,7 +1322,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
@@ -1365,7 +1362,7 @@ public class Panel3 extends javax.swing.JFrame {
                     dataset.setValue("Large Goods Vehicles", lgvs);
                     dataset.setValue("Two Wheeled Motor Vehicles", twmv);
 
-                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year", dataset, true, true, true);
+                    JFreeChart chart = ChartFactory.createPieChart("Type of Vehicles by Year\r\n(*Hover over sections to view percentage of vehicles)", dataset, true, true, true);
                     PiePlot p = (PiePlot)chart.getPlot();
 
                     ChartPanel chartPanel = new ChartPanel(chart);
