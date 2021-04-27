@@ -375,15 +375,17 @@ public class Panel1 extends javax.swing.JFrame {
         btnsPanel.setBackground(bgColour);
         JButton btnClear = new JButton("Clear");
         JButton btnUpdate = new JButton("Update");
-        btnsPanel.add(btnClear);
         btnsPanel.add(btnUpdate);
+        btnsPanel.add(btnClear);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1;
         gbc.weighty = 1;
         panel.add(btnsPanel, gbc);
+        
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0,10,0,0);
+        
         
         // Create Checkbox logic
         int rowCounter = 1;
@@ -395,6 +397,11 @@ public class Panel1 extends javax.swing.JFrame {
             checkboxList.add(item);
             rowCounter++;
         }
+        gbc.gridy = rowCounter;
+        JLabel infoLabel = new JLabel("* Click Update to refresh chart!");
+        infoLabel.setForeground(Color.RED);
+        panel.add(infoLabel, gbc);
+        
         checkboxList.get(1).setState(false);
         checkboxList.forEach(item -> {
             if (item.getState()) {
