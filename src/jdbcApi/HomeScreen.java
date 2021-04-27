@@ -5,7 +5,9 @@
  */
 package jdbcApi;
 
-import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
@@ -13,11 +15,38 @@ import java.awt.Color;
  */
 public class HomeScreen extends javax.swing.JFrame {
 
+    private static String User;
+
     /**
      * Creates new form HomeScreen
      */
+    //Used for SQL
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+
     public HomeScreen() {
+        //If the user is an admin then you store the name of the user to display it
+        //then we display the components on the form 
+        int lastUser = Login.UserArray.size() - 1;
+        User = Login.UserArray.get(lastUser);
+        System.out.println("Current user: " + User);
+
         initComponents();
+    }
+
+    public HomeScreen(Boolean a) {
+        //If the user is not an admin then you store the name of the user to display it
+        //then we display the components on the form 
+        int lastUser = Login.UserArray.size() - 1;
+        User = Login.UserArray.get(lastUser);
+        System.out.println("Current user: " + User);
+
+        initComponents();
+        if (a) {
+            System.out.println("Test 2");
+            adminButtonVisibility();
+        }
     }
 
     /**
@@ -34,12 +63,15 @@ public class HomeScreen extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
+        btnSignOut = new javax.swing.JButton();
         panel3bttn = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
         panel4bttn = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
         panel1bttn = new javax.swing.JPanel();
         panel2bttn = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        btnAccount = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         adminButton = new javax.swing.JButton();
@@ -56,7 +88,6 @@ public class HomeScreen extends javax.swing.JFrame {
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(890, 640));
         setResizable(false);
         setSize(new java.awt.Dimension(890, 640));
 
@@ -67,16 +98,16 @@ public class HomeScreen extends javax.swing.JFrame {
         jPanel2.setForeground(new java.awt.Color(14, 56, 84));
         jPanel2.setPreferredSize(new java.awt.Dimension(820, 570));
 
-        jButton6.setBackground(new java.awt.Color(255, 0, 51));
-        jButton6.setText("SIGN OUT");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnSignOut.setBackground(new java.awt.Color(255, 0, 51));
+        btnSignOut.setText("SIGN OUT");
+        btnSignOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnSignOutActionPerformed(evt);
             }
         });
 
         panel3bttn.setBackground(new java.awt.Color(255, 255, 255));
-        panel3bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "PANEL 3 NAME", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 51))); // NOI18N
+        panel3bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Vehicles Per Year", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(51, 51, 51))); // NOI18N
         panel3bttn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel3bttn.setMinimumSize(new java.awt.Dimension(210, 150));
         panel3bttn.setPreferredSize(new java.awt.Dimension(230, 150));
@@ -86,19 +117,24 @@ public class HomeScreen extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jdbcApi/Webp.net-compress-image.jpg"))); // NOI18N
+        jLabel12.setText("jLabel12");
+
         javax.swing.GroupLayout panel3bttnLayout = new javax.swing.GroupLayout(panel3bttn);
         panel3bttn.setLayout(panel3bttnLayout);
         panel3bttnLayout.setHorizontalGroup(
             panel3bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel3bttnLayout.createSequentialGroup()
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panel3bttnLayout.setVerticalGroup(
             panel3bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        panel4bttn.setBackground(new java.awt.Color(255, 255, 255));
-        panel4bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "PANEL 4 NAME", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 51))); // NOI18N
+        panel4bttn.setBackground(new java.awt.Color(242, 235, 225));
+        panel4bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Vehicles Per Direction", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(51, 51, 51))); // NOI18N
         panel4bttn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel4bttn.setMinimumSize(new java.awt.Dimension(210, 150));
         panel4bttn.setPreferredSize(new java.awt.Dimension(230, 150));
@@ -108,19 +144,23 @@ public class HomeScreen extends javax.swing.JFrame {
             }
         });
 
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jdbcApi/Panel4min.png"))); // NOI18N
+
         javax.swing.GroupLayout panel4bttnLayout = new javax.swing.GroupLayout(panel4bttn);
         panel4bttn.setLayout(panel4bttnLayout);
         panel4bttnLayout.setHorizontalGroup(
             panel4bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
         );
         panel4bttnLayout.setVerticalGroup(
             panel4bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panel4bttnLayout.createSequentialGroup()
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         panel1bttn.setBackground(new java.awt.Color(255, 255, 255));
-        panel1bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "PANEL 1 NAME", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 51))); // NOI18N
+        panel1bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "PANEL 1 NAME", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(51, 51, 51))); // NOI18N
         panel1bttn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel1bttn.setMinimumSize(new java.awt.Dimension(210, 150));
         panel1bttn.setPreferredSize(new java.awt.Dimension(230, 150));
@@ -138,11 +178,11 @@ public class HomeScreen extends javax.swing.JFrame {
         );
         panel1bttnLayout.setVerticalGroup(
             panel1bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 129, Short.MAX_VALUE)
+            .addGap(0, 127, Short.MAX_VALUE)
         );
 
         panel2bttn.setBackground(new java.awt.Color(255, 255, 255));
-        panel2bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "PANEL 2 NAME", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(51, 51, 51))); // NOI18N
+        panel2bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "PANEL 2 NAME", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Lucida Grande", 0, 13), new java.awt.Color(51, 51, 51))); // NOI18N
         panel2bttn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel2bttn.setMinimumSize(new java.awt.Dimension(210, 150));
         panel2bttn.setPreferredSize(new java.awt.Dimension(230, 150));
@@ -160,12 +200,26 @@ public class HomeScreen extends javax.swing.JFrame {
         );
         panel2bttnLayout.setVerticalGroup(
             panel2bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 129, Short.MAX_VALUE)
+            .addGap(0, 127, Short.MAX_VALUE)
         );
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(240, 240, 240));
         jLabel3.setText("Simply click on the desired Panel to display Windows with Statistics");
+
+        btnAccount.setBackground(new java.awt.Color(237, 238, 217));
+        btnAccount.setText("ACCOUNT");
+        btnAccount.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAccount.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAccountMouseClicked(evt);
+            }
+        });
+        btnAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAccountActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -175,7 +229,9 @@ public class HomeScreen extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton6))
+                        .addComponent(btnAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSignOut))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -190,14 +246,16 @@ public class HomeScreen extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(panel4bttn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(panel2bttn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 13, Short.MAX_VALUE)))
+                        .addGap(0, 21, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton6)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnSignOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(76, 76, 76)
                 .addComponent(jLabel3)
                 .addGap(29, 29, 29)
@@ -206,8 +264,8 @@ public class HomeScreen extends javax.swing.JFrame {
                     .addComponent(panel1bttn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(74, 74, 74)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel3bttn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel4bttn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panel3bttn, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addComponent(panel4bttn, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
                 .addGap(100, 100, 100))
         );
 
@@ -233,7 +291,7 @@ public class HomeScreen extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Welcome to LATA! ");
+        jLabel2.setText("Welcome "+User+" to LATA! ");
 
         jLabel5.setBackground(new java.awt.Color(11, 58, 83));
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -350,7 +408,7 @@ public class HomeScreen extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -368,23 +426,28 @@ public class HomeScreen extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnSignOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignOutActionPerformed
+        //Takes user to sign out form
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new SignOut().setVisible(true);
                 setVisible(false);
             }
         });
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnSignOutActionPerformed
 
     private void adminButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_adminButtonMouseClicked
-        //new UserActivity().setVisible(true);
-        //this.setVisible(false);
+
     }//GEN-LAST:event_adminButtonMouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        new TermsAndConditions().setVisible(true);
-        this.setVisible(false);
+        //Takes user to Terms And Conditions form
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new TermsAndConditions().setVisible(true);
+                setVisible(false);
+            }
+        });
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void panel1bttnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panel1bttnMouseClicked
@@ -407,15 +470,31 @@ public class HomeScreen extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_panel4bttnMouseClicked
 
+
     private void adminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminButtonActionPerformed
+        //Takes user to User Activity form
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminVerification().setVisible(true);
+                new UserActivity().setVisible(true);
                 setVisible(false);
             }
         });
     }//GEN-LAST:event_adminButtonActionPerformed
-//WHATEVER BRO 
+
+    private void btnAccountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAccountMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAccountMouseClicked
+
+    private void btnAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccountActionPerformed
+        //Takes user to my Account form
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new myAccount().setVisible(true);
+                setVisible(false);
+            }
+        });
+    }//GEN-LAST:event_btnAccountActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -447,17 +526,27 @@ public class HomeScreen extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new HomeScreen().setVisible(true);
+
             }
         });
     }
 
+    public void adminButtonVisibility() {
+        //Admin panel is hidden for normal users
+        System.out.println("Admin panel has been disable");
+        adminButton.setVisible(false);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton adminButton;
-    private javax.swing.JButton jButton6;
+    public javax.swing.JButton adminButton;
+    public javax.swing.JButton btnAccount;
+    private javax.swing.JButton btnSignOut;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private static javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -476,4 +565,5 @@ public class HomeScreen extends javax.swing.JFrame {
     private javax.swing.JPanel panel3bttn;
     private javax.swing.JPanel panel4bttn;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -10,6 +10,7 @@ package jdbcApi;
  * @author gerva
  */
 public class MainApplication {
+
     public static void main(String args[]) {
 
         //Calling run method to start application
@@ -20,5 +21,3 @@ public class MainApplication {
         });
     }
 }
-
-

@@ -6,20 +6,22 @@
 package jdbcApi;
 
 import java.awt.Color;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
 import java.sql.Connection;
+import javax.swing.border.Border;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author gerva
+ * Authorship information 
+ * @author Gervais Boadi Appiah, w1735205
+ * Information: This is a form that severs as a log in panel for the application
  */
 public class Login extends javax.swing.JFrame {
 
@@ -31,10 +33,14 @@ public class Login extends javax.swing.JFrame {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
+    public String CurrentUser;
+    public static ArrayList<String> UserArray = new ArrayList<>();
+    public static Boolean Admin;
+
     public Login() {
         initComponents();
         //When the components of the login form are initialized, we establised the connection
-
+        
         //Calling method within the following class "create DB class"
         con = DatabaseConnectionDB.ConnectionDB();
     }
@@ -57,9 +63,10 @@ public class Login extends javax.swing.JFrame {
         btnExit = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
         btnSignUp = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        txtHeading = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        cbShowPassword = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -137,14 +144,21 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel3.setText("SIGN IN");
+        txtHeading.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        txtHeading.setText("SIGN IN");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("New to LATA? ");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setText("Sign up below.");
+
+        cbShowPassword.setText("Show Password");
+        cbShowPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbShowPasswordActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -158,12 +172,13 @@ public class Login extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(45, 45, 45)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
                                 .addGap(27, 27, 27)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbShowPassword, javax.swing.GroupLayout.Alignment.TRAILING)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(4, 4, 4)
@@ -176,7 +191,7 @@ public class Login extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
+                                .addComponent(txtHeading)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(28, 28, 28))))
@@ -187,7 +202,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(txtHeading))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -196,7 +211,9 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(48, 48, 48)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbShowPassword)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel4))
@@ -229,7 +246,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -253,9 +270,11 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String username = txtFieldUsername.getText();
-
+        //SQL statement to find user
         String sql = "SELECT * From Accounts WHERE Username = ?;";
+        //SQL statement to find user that is an admin
 
+        //Check if fields are empty
         if (txtFieldUsername.getText().equals("") | txtFieldPassword.getText().equals("")) {
 
             JOptionPane.showMessageDialog(null, "One or more fields are empty, try again!");
@@ -264,28 +283,37 @@ public class Login extends javax.swing.JFrame {
 
             // Source: https://stackoverflow.com/questions/8292256/get-number-of-rows-returned-by-resultset-in-java
             try {
+                //Preparing statement to find user in database
                 ps = con.prepareStatement(sql);
                 ps.setString(1, txtFieldUsername.getText());
                 rs = ps.executeQuery();
 
                 if (!rs.next()) {
                     JOptionPane.showMessageDialog(null, "Account has not been found \nor password is not correct, Try again!");
+
                 } else {
+                    //If the result from the query is true then the following will proceed
                     do {
                         String Salt = rs.getString("Salt");
                         String Hash = rs.getString("Hash");
-
+                        //Checking if password is correct
                         if (PasswordUtills.verifyUserPassword(txtFieldPassword.getText(), Hash, Salt)) {
-                            JOptionPane.showMessageDialog(null, "Username: "+username+ ", Login has been successful!");
-                            System.out.println("Username: "+ username + " has loged in");
-
-                            java.awt.EventQueue.invokeLater(() -> {
-                                new HomeScreen().setVisible(true);
-                                setVisible(false);
-                            });
+                            JOptionPane.showMessageDialog(null, "Username: " + username + ", Login has been successful!");
+                            System.out.println("Username: " + username + " has loged in");
+                            //Store current user to array
+                            CurrentUser = username;
+                            UserArray.add(username);
+                            //Verify the users to see if they are an admin
+                            AdminVerification();
+                            setTimeStamp();
+                            //Closing result statement, prepared statement and connection
+                            rs.close();
+                            ps.close();
+                            con.close();
                         } else {
-                            JOptionPane.showMessageDialog(null, "Username: "+username+ ", has not been found \nor password is not correct, please sign up!");
-                            System.out.println("Username: "+ username + " has not been found, Sign up! ");
+                            //If admin is not found within the database, the following will be shown
+                            JOptionPane.showMessageDialog(null, "Username: " + username + ", has not been found \nor password is not correct, please sign up!");
+                            System.out.println("Username: " + username + " has not been found, Sign up! ");
                         }
                     } while (rs.next());
                 }
@@ -295,44 +323,103 @@ public class Login extends javax.swing.JFrame {
             }
         }
 
-// TODO add your handling code here:
-        /*
-        String username = txtFieldUsername.getText();
-        //String empty = " ";
-        //System.out.println("Username: "+username);
-        if(txtFieldUsername.getText().equals("")|txtFieldPassword.getText().equals("")){
-        
-            JOptionPane.showMessageDialog(null, "Please sign in correctly! ");
-            System.out.println("Details have not been given, try again! ");
-        }else{
-            String sql = "SELECT * from Accounts WHERE Username LIKE ? AND Password LIKE ?; ";
-            try{
-                ps = con.prepareStatement(sql);
-                //Getting user input for GUI
-                ps.setString(1, txtFieldUsername.getText());
-                ps.setString(2, txtFieldPassword.getText());
-                //Executing the two statements
-                rs = ps.executeQuery();
-                
 
-                if(rs.next()){
-                    JOptionPane.showMessageDialog(null, "Username: "+username+ ", Login has been successful!");
-                    System.out.println("Username: "+ username + " has loged in");
-                    setVisible(false);
-                    new HomeScreen().setVisible(true);
-                }else{
-                    JOptionPane.showMessageDialog(null, "Username: "+username+ ", has not been found \nor password is not correct, please sign up!");
-                    System.out.println("Username: "+ username + " has not been found, Sign up! ");
-                }
-            }
-            catch(Exception e){
-                System.out.println("User was not found");
-            }
-        
-        }*/
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    public void AdminVerification() {
+        int lastUser = UserArray.size() - 1;
+        System.out.println("Array size: " + UserArray.size());
+        String CurrentUser = UserArray.get(lastUser);
+        System.out.println("User in array: " + UserArray);
+        String sqlAdmin = "SELECT * From Accounts WHERE Username = ? AND Admin = 'YES';";
+
+        try {
+            //Preparing statement to check if user is an admin
+            ps = con.prepareStatement(sqlAdmin);
+            System.out.println("The current user is " + CurrentUser);
+            ps.setString(1, CurrentUser);
+            rs = ps.executeQuery();
+
+            if (!rs.next()) {
+                //If user is NOT admin the admin button will not appear on screen
+                System.out.println("Stage 1: User is not an admin");
+                Admin = false;
+                java.awt.EventQueue.invokeLater(() -> {
+                    new HomeScreen(true).setVisible(true);
+                    setVisible(false);
+                });
+            } else {
+                //If user is admin the admin button will appear on screen
+                System.out.println("Stage 1: User is an admin");
+                Admin = true;
+                java.awt.EventQueue.invokeLater(() -> {
+                    new HomeScreen().setVisible(true);
+                    setVisible(false);
+                });
+            }
+        } catch (SQLException ex) {
+            System.out.println("An Error has been found");
+        }
+    }
+
+    public void setTimeStamp() {
+        //Getting the last/current user within the database
+        int lastUser = UserArray.size() - 1;
+        String username = UserArray.get(lastUser);
+        //Create a timestamp to store log in time
+        long millis = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(millis);
+        System.out.println(timestamp);
+        String currentTime;
+        currentTime = timestamp.toString();
+
+        String[] dateAndTime = currentTime.split(" ");
+        String date = dateAndTime[0];
+        String time = dateAndTime[1];
+        //Update the users account within the datebase and set the login in date and time
+        String sqlTimeStamp = "UPDATE Accounts SET LoggedInDate = '" + date + "', LoggedInTime = '" + time + "' WHERE Username = '" + username + "';";
+
+        System.out.println("User: " + username + " Date: " + date + " at: " + time);
+
+        try {
+
+            ps = con.prepareStatement(sqlTimeStamp);
+            ps.executeUpdate();
+            System.out.println("Time has been set for " + txtFieldUsername.getText() + "\n");
+        } catch (SQLException e) {
+            System.out.println("Time was NOT been set for " + txtFieldUsername.getText() + "\n");
+        }
+    }
+
+    public void setLogOutTimeStamp() {
+        int lastUser = UserArray.size() - 1;
+        String username = UserArray.get(lastUser);
+        //Create a timestamp to store log in time
+        long millis = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(millis);
+        System.out.println(timestamp);
+        String currentTime;
+        currentTime = timestamp.toString();
+
+        String[] dateAndTime = currentTime.split(" ");
+        String date = dateAndTime[0];
+        String time = dateAndTime[1];
+        //Update the users account within the datebase and set the login out date and time
+        String sqlTimeStamp = "UPDATE Accounts SET LoggedOutDate = '" + date + "', LoggedOutTime = '" + time + "' WHERE Username = '" + username + "';";
+
+        System.out.println("User: " + username + " Date: " + date + " at: " + time);
+
+        try {
+            ps = con.prepareStatement(sqlTimeStamp);
+            ps.executeUpdate();
+            System.out.println("Time has been set for " + username);
+        } catch (SQLException e) {
+            System.out.println("Time was NOT been set for " + username + e);
+        }
+    }
+
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        //Exit button that closes application
         System.out.println("Attempting to close the application...");
         JOptionPane.showMessageDialog(null, "Thank you for using LATA! ");
         System.out.println("Application Closed.");
@@ -367,6 +454,14 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtFieldPasswordKeyPressed
 
+    private void cbShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbShowPasswordActionPerformed
+        if(cbShowPassword.isSelected()){
+            txtFieldPassword.setEchoChar((char)0);
+        }else{
+            txtFieldPassword.setEchoChar('•');
+        }
+    }//GEN-LAST:event_cbShowPasswordActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -394,21 +489,15 @@ public class Login extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
- /*java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnSignUp;
+    private javax.swing.JCheckBox cbShowPassword;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -416,5 +505,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPasswordField txtFieldPassword;
     private javax.swing.JTextField txtFieldUsername;
+    private javax.swing.JLabel txtHeading;
     // End of variables declaration//GEN-END:variables
 }

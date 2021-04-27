@@ -5,11 +5,15 @@
  */
 package jdbcApi;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author gerva
+ * Authorship information 
+ * @author Gervais Boadi Appiah, w1735205
+ * Information: This is a form that is displayed when a user signs out
  */
 public class SignOut extends javax.swing.JFrame {
 
@@ -17,8 +21,17 @@ public class SignOut extends javax.swing.JFrame {
      * Creates new form SignOut
      */
     public SignOut() {
+        //Set components within the form and set a log out timestammp for the current user
         initComponents();
+        Login MainUserArray = new Login();
+        MainUserArray.setLogOutTimeStamp();
+        System.out.println("");
     }
+
+    //Used for SQL
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,7 +45,7 @@ public class SignOut extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnSignBackIn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnExit = new javax.swing.JButton();
@@ -55,16 +68,16 @@ public class SignOut extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("SIGNED OUT");
 
-        jButton1.setBackground(new java.awt.Color(51, 204, 0));
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("SIGN BACK IN");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.setFocusPainted(false);
-        jButton1.setRequestFocusEnabled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSignBackIn.setBackground(new java.awt.Color(51, 204, 0));
+        btnSignBackIn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnSignBackIn.setForeground(new java.awt.Color(255, 255, 255));
+        btnSignBackIn.setText("SIGN BACK IN");
+        btnSignBackIn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnSignBackIn.setFocusPainted(false);
+        btnSignBackIn.setRequestFocusEnabled(false);
+        btnSignBackIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSignBackInActionPerformed(evt);
             }
         });
 
@@ -96,7 +109,7 @@ public class SignOut extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSignBackIn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnExit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(89, 89, 89)
@@ -122,7 +135,7 @@ public class SignOut extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSignBackIn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -167,7 +180,7 @@ public class SignOut extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSignBackInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignBackInActionPerformed
         // TODO add your handling code here:
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -175,10 +188,10 @@ public class SignOut extends javax.swing.JFrame {
                 setVisible(false);
             }
         });
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSignBackInActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        System.out.println("Attempting to close the application...");
+        System.out.println("\nAttempting to close the application...");
         JOptionPane.showMessageDialog(null, "Thank you for using LATA! ");
         System.out.println("Application Closed.");
         System.exit(0);
@@ -221,7 +234,7 @@ public class SignOut extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSignBackIn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
