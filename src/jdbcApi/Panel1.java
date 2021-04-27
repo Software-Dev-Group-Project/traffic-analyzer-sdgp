@@ -128,7 +128,7 @@ public class Panel1 extends javax.swing.JFrame {
             if (selectedVehicles.contains("Motor Bikes")) {
                 sqlQuery = sqlQuery + " + ce.two_wheeled_motor_vehicles";
             }
-            if (selectedVehicles.contains("Cars and Taxi")) {
+            if (selectedVehicles.contains("Cars and Taxis")) {
                 sqlQuery = sqlQuery + "+ ce.cars_and_taxis";
             }
             if (selectedVehicles.contains("Buses and Coaches")) {
