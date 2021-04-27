@@ -333,21 +333,26 @@ public class Panel1 extends javax.swing.JFrame {
             AbstractButton button = buttons.nextElement();
             button.addItemListener((ItemEvent event) -> {
                 if (event.getStateChange() == ItemEvent.SELECTED) {
-                    String road = button.getText();
-                    System.out.println("Road selected: " + road);
-                    // Update option and datasets
-                    roadChoice = road;
-                    datasetNorth = createDataset(dbConnectionMethod, modifiedQuery("N", "North"));
-                    datasetSouth = createDataset(dbConnectionMethod, modifiedQuery("S", "South"));
-                    datasetWest = createDataset(dbConnectionMethod, modifiedQuery("W", "West"));
-                    datasetEast = createDataset(dbConnectionMethod, modifiedQuery("E", "East"));
-                    // Replace chart and repaint panel
-                    content.remove(chartPanel);
-                    chart = createChart();
-                    chartPanel = new ChartPanel(chart);
-                    content.add(chartPanel);
-                    content.revalidate();
-                    content.repaint();
+                    // Validate if at least one checkbox is selected
+                    if (selectedVehicles.isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Warning!\n\nSelect at least one Vehicle Type.");
+                    } else {
+                        String road = button.getText();
+                        System.out.println("Road selected: " + road);
+                        // Update option and datasets
+                        roadChoice = road;
+                        datasetNorth = createDataset(dbConnectionMethod, modifiedQuery("N", "North"));
+                        datasetSouth = createDataset(dbConnectionMethod, modifiedQuery("S", "South"));
+                        datasetWest = createDataset(dbConnectionMethod, modifiedQuery("W", "West"));
+                        datasetEast = createDataset(dbConnectionMethod, modifiedQuery("E", "East"));
+                        // Replace chart and repaint panel
+                        content.remove(chartPanel);
+                        chart = createChart();
+                        chartPanel = new ChartPanel(chart);
+                        content.add(chartPanel);
+                        content.revalidate();
+                        content.repaint();
+                    }
                 }
             });
         }
