@@ -382,12 +382,10 @@ public class Panel1 extends javax.swing.JFrame {
         gbc.weightx = 1;
         gbc.weighty = 1;
         panel.add(btnsPanel, gbc);
-        
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0,10,0,0);
         
-        
-        // Create Checkbox logic
+        // Create and add Checkbox options
         int rowCounter = 1;
         ArrayList<Checkbox> checkboxList = new ArrayList<>();
         for (String vehicleType : vehicleTypes) {
@@ -427,6 +425,19 @@ public class Panel1 extends javax.swing.JFrame {
                 }
             }
         });
+        checkboxList.get(2).addItemListener((ItemEvent event) -> {
+            if (event.getStateChange() == 2) {
+                checkboxList.get(0).setState(false);
+            }
+        });
+        for (int i = 3; i <= 7; i++) {
+            checkboxList.get(i).addItemListener((ItemEvent event) -> {
+                if (event.getStateChange() == 2) {
+                    checkboxList.get(0).setState(false);
+                    checkboxList.get(1).setState(false);
+                }
+            });
+        }
         
         // Clear Button - Action Listener
         btnClear.addActionListener((ActionEvent event) -> {
