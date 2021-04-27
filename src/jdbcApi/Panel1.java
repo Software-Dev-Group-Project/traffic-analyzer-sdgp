@@ -866,8 +866,18 @@ public class Panel1 extends javax.swing.JFrame {
 
     private void bl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bl5MouseClicked
         closeConnection();
-        new HomeScreen().setVisible(true);
-        this.setVisible(false);
+        Boolean AdminValidation = Login.Admin;
+        if(AdminValidation){
+            java.awt.EventQueue.invokeLater(() -> {
+                    new HomeScreen().setVisible(true);
+                    setVisible(false);
+                });
+        }else{
+            java.awt.EventQueue.invokeLater(() -> {
+                    new HomeScreen(true).setVisible(true);
+                    setVisible(false);
+                });
+        }
     }//GEN-LAST:event_bl5MouseClicked
 
     private void bl2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bl2MouseEntered

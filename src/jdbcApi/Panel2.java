@@ -578,8 +578,18 @@ public class Panel2 extends javax.swing.JFrame {
     }//GEN-LAST:event_bl5MouseExited
 
     private void bl5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bl5MouseClicked
-        new HomeScreen().setVisible(true);
-        this.setVisible(false);
+        Boolean AdminValidation = Login.Admin;
+        if(AdminValidation){
+            java.awt.EventQueue.invokeLater(() -> {
+                    new HomeScreen().setVisible(true);
+                    setVisible(false);
+                });
+        }else{
+            java.awt.EventQueue.invokeLater(() -> {
+                    new HomeScreen(true).setVisible(true);
+                    setVisible(false);
+                });
+        }
     }//GEN-LAST:event_bl5MouseClicked
 
     //added the same panel data to item state changeed for vehicle  drop down list so that it gets over written everytime drop down list changes

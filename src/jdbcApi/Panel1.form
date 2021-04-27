@@ -93,15 +93,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="b1" pref="244" max="32767" attributes="0"/>
+                      <Component id="b1" pref="246" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="b2" pref="244" max="32767" attributes="0"/>
+                      <Component id="b2" pref="246" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="b3" pref="244" max="32767" attributes="0"/>
+                      <Component id="b3" pref="246" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="b4" pref="244" max="32767" attributes="0"/>
+                      <Component id="b4" pref="246" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="settings" pref="244" max="32767" attributes="0"/>
+                      <Component id="settings" pref="248" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -379,9 +379,6 @@
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="de" green="de" red="de" type="rgb"/>
-                </Property>
-                <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[1233, 549]"/>
                 </Property>
               </Properties>
 

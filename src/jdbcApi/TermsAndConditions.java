@@ -153,8 +153,8 @@ public class TermsAndConditions extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6MouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        Login validate = new Login();
-        Boolean AdminValidation = validate.Admin;
+        
+        Boolean AdminValidation = Login.Admin;
         if(AdminValidation){
             java.awt.EventQueue.invokeLater(() -> {
                     new HomeScreen().setVisible(true);
