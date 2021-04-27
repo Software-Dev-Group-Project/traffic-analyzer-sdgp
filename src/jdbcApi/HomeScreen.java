@@ -67,10 +67,11 @@ public class HomeScreen extends javax.swing.JFrame {
         panel3bttn = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         panel4bttn = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         panel1bttn = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         panel2bttn = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnAccount = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -108,7 +109,7 @@ public class HomeScreen extends javax.swing.JFrame {
         });
 
         panel3bttn.setBackground(new java.awt.Color(255, 255, 255));
-        panel3bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Vehicles Per Year", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(51, 51, 51))); // NOI18N
+        panel3bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Traffic By Year", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(51, 51, 51))); // NOI18N
         panel3bttn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel3bttn.setMinimumSize(new java.awt.Dimension(210, 150));
         panel3bttn.setPreferredSize(new java.awt.Dimension(230, 150));
@@ -134,8 +135,8 @@ public class HomeScreen extends javax.swing.JFrame {
             .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
-        panel4bttn.setBackground(new java.awt.Color(242, 235, 225));
-        panel4bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Vehicles Per Direction", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(51, 51, 51))); // NOI18N
+        panel4bttn.setBackground(new java.awt.Color(255, 255, 255));
+        panel4bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Traffic By Direction", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(51, 51, 51))); // NOI18N
         panel4bttn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel4bttn.setMinimumSize(new java.awt.Dimension(210, 150));
         panel4bttn.setPreferredSize(new java.awt.Dimension(230, 150));
@@ -145,22 +146,18 @@ public class HomeScreen extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jdbcApi/Panel4min.png"))); // NOI18N
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jdbcApi/panel4min.png"))); // NOI18N
+        jLabel16.setText("jLabel16");
 
         javax.swing.GroupLayout panel4bttnLayout = new javax.swing.GroupLayout(panel4bttn);
         panel4bttn.setLayout(panel4bttnLayout);
         panel4bttnLayout.setHorizontalGroup(
             panel4bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel4bttnLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         panel4bttnLayout.setVerticalGroup(
             panel4bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel4bttnLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         panel1bttn.setBackground(new java.awt.Color(255, 255, 255));
@@ -192,7 +189,7 @@ public class HomeScreen extends javax.swing.JFrame {
         );
 
         panel2bttn.setBackground(new java.awt.Color(255, 255, 255));
-        panel2bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "PANEL 2 NAME", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(51, 51, 51))); // NOI18N
+        panel2bttn.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)), "Traffic By Hour", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(51, 51, 51))); // NOI18N
         panel2bttn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         panel2bttn.setMinimumSize(new java.awt.Dimension(210, 150));
         panel2bttn.setPreferredSize(new java.awt.Dimension(230, 150));
@@ -202,15 +199,22 @@ public class HomeScreen extends javax.swing.JFrame {
             }
         });
 
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jdbcApi/panel2min.png"))); // NOI18N
+        jLabel15.setText("jLabel15");
+
         javax.swing.GroupLayout panel2bttnLayout = new javax.swing.GroupLayout(panel2bttn);
         panel2bttn.setLayout(panel2bttnLayout);
         panel2bttnLayout.setHorizontalGroup(
             panel2bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
+            .addGroup(panel2bttnLayout.createSequentialGroup()
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         panel2bttnLayout.setVerticalGroup(
             panel2bttnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 123, Short.MAX_VALUE)
+            .addGroup(panel2bttnLayout.createSequentialGroup()
+                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 119, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -409,7 +413,7 @@ public class HomeScreen extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -555,8 +559,9 @@ public class HomeScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     public static javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
