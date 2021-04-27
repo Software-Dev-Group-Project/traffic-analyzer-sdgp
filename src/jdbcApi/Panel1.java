@@ -284,21 +284,26 @@ public class Panel1 extends javax.swing.JFrame {
         // Set Action Listener
         year.addItemListener((ItemEvent event) -> {
             if (event.getStateChange() == ItemEvent.SELECTED) {
-                String year1 = event.getItem().toString();
-                System.out.println("Year selected: " + year1);
-                // Update option and datasets
-                yearChoice = year1;
-                datasetNorth = createDataset(dbConnectionMethod, modifiedQuery("N", "North"));
-                datasetSouth = createDataset(dbConnectionMethod, modifiedQuery("S", "South"));
-                datasetWest = createDataset(dbConnectionMethod, modifiedQuery("W", "West"));
-                datasetEast = createDataset(dbConnectionMethod, modifiedQuery("E", "East"));
-                // Replace chart and repaint panel
-                content.remove(chartPanel);
-                chart = createChart();
-                chartPanel = new ChartPanel(chart);
-                content.add(chartPanel);
-                content.revalidate();
-                content.repaint();
+                // Validate if at least one checkbox is selected
+                if (selectedVehicles.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Warning!\n\nSelect at least one Vehicle Type.");
+                } else {
+                    String year1 = event.getItem().toString();
+                    System.out.println("Year selected: " + year1);
+                    // Update option and datasets
+                    yearChoice = year1;
+                    datasetNorth = createDataset(dbConnectionMethod, modifiedQuery("N", "North"));
+                    datasetSouth = createDataset(dbConnectionMethod, modifiedQuery("S", "South"));
+                    datasetWest = createDataset(dbConnectionMethod, modifiedQuery("W", "West"));
+                    datasetEast = createDataset(dbConnectionMethod, modifiedQuery("E", "East"));
+                    // Replace chart and repaint panel
+                    content.remove(chartPanel);
+                    chart = createChart();
+                    chartPanel = new ChartPanel(chart);
+                    content.add(chartPanel);
+                    content.revalidate();
+                    content.repaint(); 
+                }
             }
         });       
         panel.add(yearLabel);
