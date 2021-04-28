@@ -464,10 +464,6 @@
                                   <EmptySpace min="-2" pref="184" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="button1" min="-2" pref="107" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="jPanel5" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="jPanel2" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -489,9 +485,7 @@
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="145" max="32767" attributes="0"/>
-                          <Component id="button1" min="-2" pref="40" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace pref="195" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -654,22 +648,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Year"/>
                   </Properties>
-                </Component>
-                <Component class="java.awt.Button" name="button1">
-                  <Properties>
-                    <Property name="actionCommand" type="java.lang.String" value="exitButton"/>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Calibri" size="18" style="1"/>
-                    </Property>
-                    <Property name="label" type="java.lang.String" value="Exit"/>
-                  </Properties>
-                  <AccessibilityProperties>
-                    <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="exitButton"/>
-                  </AccessibilityProperties>
-                  <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button1MouseClicked"/>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button1ActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>

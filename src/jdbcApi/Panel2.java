@@ -109,7 +109,6 @@ public class Panel2 extends javax.swing.JFrame {
         P2YearList = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        button1 = new java.awt.Button();
         logo = new javax.swing.JLabel();
         label1 = new java.awt.Label();
 
@@ -402,20 +401,6 @@ public class Panel2 extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel2.setText("Year");
 
-        button1.setActionCommand("exitButton");
-        button1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        button1.setLabel("Exit");
-        button1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                button1MouseClicked(evt);
-            }
-        });
-        button1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -429,9 +414,6 @@ public class Panel2 extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(184, 184, 184))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -449,12 +431,8 @@ public class Panel2 extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(195, Short.MAX_VALUE))
         );
-
-        button1.getAccessibleContext().setAccessibleName("exitButton");
 
         javax.swing.GroupLayout MainLayout = new javax.swing.GroupLayout(Main);
         Main.setLayout(MainLayout);
@@ -653,18 +631,7 @@ public class Panel2 extends javax.swing.JFrame {
         dataDisplayPanel.updateUI();
 
     }//GEN-LAST:event_P2YearListItemStateChanged
-//exit button implementation
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-        int a = JOptionPane.showConfirmDialog(null, "Are you sure you want to close the application? ", "Select", JOptionPane.YES_NO_OPTION);
-        if (a == 0) {
-            System.exit(0);
-        }
-    }//GEN-LAST:event_button1ActionPerformed
 
-    private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
-
-
-    }//GEN-LAST:event_button1MouseClicked
 //query for updating the panel accordingly to the year and the vehicle type
 
     private CategoryDataset updateChart() {
@@ -761,7 +728,6 @@ public class Panel2 extends javax.swing.JFrame {
     private javax.swing.JLabel bl3;
     private javax.swing.JLabel bl4;
     private javax.swing.JLabel bl5;
-    private java.awt.Button button1;
     private javax.swing.JPanel dataDisplayPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
