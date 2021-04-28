@@ -67,7 +67,7 @@
                           <Component id="label1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="19" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -110,7 +110,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="b2" pref="247" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="b3" pref="247" max="32767" attributes="0"/>
+                      <Component id="b3" pref="251" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="b4" pref="249" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -170,7 +170,7 @@
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="PANEL 1"/>
+                    <Property name="text" type="java.lang.String" value="BY ROAD"/>
                     <Property name="toolTipText" type="java.lang.String" value="Panel 1"/>
                   </Properties>
                   <Events>
@@ -220,7 +220,7 @@
                       <Color blue="f0" green="f0" red="f0" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="PANEL 2"/>
+                    <Property name="text" type="java.lang.String" value="BY HOUR"/>
                     <Property name="toolTipText" type="java.lang.String" value="Panel 2"/>
                   </Properties>
                 </Component>
@@ -259,7 +259,7 @@
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="PANEL 3"/>
+                    <Property name="text" type="java.lang.String" value="BY VEHICLE TYPE"/>
                     <Property name="toolTipText" type="java.lang.String" value="Panel 3"/>
                   </Properties>
                   <Events>
@@ -303,7 +303,7 @@
                       <Font name="Tahoma" size="14" style="0"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="PANEL 4"/>
+                    <Property name="text" type="java.lang.String" value="BY DIRECTION"/>
                     <Property name="toolTipText" type="java.lang.String" value="Panel 4"/>
                   </Properties>
                   <Events>

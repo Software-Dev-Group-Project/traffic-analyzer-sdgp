@@ -575,7 +575,7 @@ public class Panel1 extends javax.swing.JFrame {
         bl1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bl1.setForeground(new java.awt.Color(240, 240, 240));
         bl1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bl1.setText("PANEL 1");
+        bl1.setText("BY ROAD");
         bl1.setToolTipText("Panel 1");
 
         javax.swing.GroupLayout b1Layout = new javax.swing.GroupLayout(b1);
@@ -596,7 +596,7 @@ public class Panel1 extends javax.swing.JFrame {
 
         bl2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bl2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bl2.setText("PANEL 2");
+        bl2.setText("BY HOUR");
         bl2.setToolTipText("Panel 2");
         bl2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -628,7 +628,7 @@ public class Panel1 extends javax.swing.JFrame {
 
         bl3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bl3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bl3.setText("PANEL 3");
+        bl3.setText("BY VEHICLE TYPE");
         bl3.setToolTipText("Panel 3");
         bl3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -660,7 +660,7 @@ public class Panel1 extends javax.swing.JFrame {
 
         bl4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bl4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bl4.setText("PANEL 4");
+        bl4.setText("BY DIRECTION");
         bl4.setToolTipText("Panel 4");
         bl4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -723,15 +723,15 @@ public class Panel1 extends javax.swing.JFrame {
             HeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(HeaderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(b1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(b1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(b2, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(b2, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(b3, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(b3, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(b4, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(b4, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(settings, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                .addComponent(settings, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                 .addGap(17, 17, 17))
         );
         HeaderLayout.setVerticalGroup(
@@ -750,7 +750,6 @@ public class Panel1 extends javax.swing.JFrame {
         Main.setBackground(new java.awt.Color(11, 58, 83));
 
         content.setBackground(new java.awt.Color(222, 222, 222));
-        content.setSize(new java.awt.Dimension(1233, 549));
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);

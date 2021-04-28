@@ -124,7 +124,7 @@ public class Panel4 extends javax.swing.JFrame {
 
         bl1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bl1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bl1.setText("PANEL 1");
+        bl1.setText("BY ROAD");
         bl1.setToolTipText("Panel 1");
         bl1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -156,7 +156,7 @@ public class Panel4 extends javax.swing.JFrame {
 
         bl2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bl2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bl2.setText("PANEL 2");
+        bl2.setText("BY HOUR");
         bl2.setToolTipText("Panel 2");
         bl2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -188,7 +188,7 @@ public class Panel4 extends javax.swing.JFrame {
 
         bl3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bl3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bl3.setText("PANEL 3");
+        bl3.setText("BY VEHICLE TYPE");
         bl3.setToolTipText("Panel 3");
         bl3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -222,7 +222,7 @@ public class Panel4 extends javax.swing.JFrame {
         bl4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bl4.setForeground(new java.awt.Color(240, 240, 240));
         bl4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bl4.setText("PANEL 4");
+        bl4.setText("BY DIRECTION");
         bl4.setToolTipText("Panel 4");
 
         javax.swing.GroupLayout b4Layout = new javax.swing.GroupLayout(b4);

@@ -152,7 +152,7 @@ public class Panel3 extends javax.swing.JFrame {
 
         bl1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bl1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bl1.setText("PANEL 1");
+        bl1.setText("BY ROAD");
         bl1.setToolTipText("Panel 1");
         bl1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -184,7 +184,7 @@ public class Panel3 extends javax.swing.JFrame {
 
         bl2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bl2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bl2.setText("PANEL 2");
+        bl2.setText("BY HOUR");
         bl2.setToolTipText("Panel 2");
         bl2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -218,7 +218,7 @@ public class Panel3 extends javax.swing.JFrame {
         bl3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bl3.setForeground(new java.awt.Color(240, 240, 240));
         bl3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bl3.setText("PANEL 3");
+        bl3.setText("BY VEHICLE TYPE");
         bl3.setToolTipText("Panel 3");
 
         javax.swing.GroupLayout b3Layout = new javax.swing.GroupLayout(b3);
@@ -239,7 +239,7 @@ public class Panel3 extends javax.swing.JFrame {
 
         bl4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         bl4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        bl4.setText("PANEL 4");
+        bl4.setText("BY DIRECTION");
         bl4.setToolTipText("Panel 4");
         bl4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -385,7 +385,7 @@ public class Panel3 extends javax.swing.JFrame {
                 .addGroup(pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan1Layout.createSequentialGroup()
                         .addGroup(pan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(p3Option, 0, 158, Short.MAX_VALUE)
+                            .addComponent(p3Option, 0, 161, Short.MAX_VALUE)
                             .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(94, 94, 94))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pan1Layout.createSequentialGroup()
@@ -416,8 +416,6 @@ public class Panel3 extends javax.swing.JFrame {
                 .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        label4.getAccessibleContext().setAccessibleName("Traffic Volume in");
 
         javax.swing.GroupLayout MainLayout = new javax.swing.GroupLayout(Main);
         Main.setLayout(MainLayout);
